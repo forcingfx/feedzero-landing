@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedZero — Privacy-first RSS Reader</title>
+    <meta name="description" content="Zero distractions. Zero friction. Zero tracking. A privacy-first RSS reader that runs entirely in your browser.">
+    <meta property="og:title" content="FeedZero">
+    <meta property="og:description" content="Zero distractions. Zero friction. Zero tracking.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://feedzero.app">
+    <meta name="theme-color" content="#0f172a">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+                "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background: #fafafa;
+            color: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero {
+            max-width: 720px;
+            padding: 80px 24px 40px;
+            text-align: center;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #92400e;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 10px;
+            border-radius: 999px;
+            margin-bottom: 24px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+
+        .tagline {
+            font-size: 20px;
+            color: #64748b;
+            margin-bottom: 40px;
+            line-height: 1.5;
+        }
+
+        .tagline strong {
+            color: #0f172a;
+        }
+
+        .cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #0f172a;
+            color: #f8fafc;
+            font-size: 16px;
+            font-weight: 500;
+            padding: 14px 28px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.15s;
+        }
+
+        .cta:hover { background: #1e293b; }
+
+        .cta-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #64748b;
+            font-size: 14px;
+            text-decoration: none;
+            margin-left: 16px;
+            transition: color 0.15s;
+        }
+
+        .cta-secondary:hover { color: #0f172a; }
+
+        .screenshot-wrapper {
+            max-width: 960px;
+            padding: 0 24px 40px;
+            width: 100%;
+        }
+
+        .screenshot {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1), 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        .features {
+            max-width: 720px;
+            padding: 40px 24px 80px;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        .feature h3 {
+            font-size: 15px;
+            font-weight: 600;
+            margin-bottom: 6px;
+        }
+
+        .feature p {
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.5;
+        }
+
+        .feature-icon {
+            width: 40px;
+            height: 40px;
+            background: #f1f5f9;
+            border-radius: 10px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+
+        footer {
+            padding: 24px;
+            text-align: center;
+            font-size: 13px;
+            color: #94a3b8;
+            border-top: 1px solid #e2e8f0;
+            width: 100%;
+        }
+
+        footer a { color: #64748b; text-decoration: none; }
+        footer a:hover { color: #0f172a; }
+
+        @media (max-width: 640px) {
+            h1 { font-size: 32px; }
+            .tagline { font-size: 17px; }
+            .features { grid-template-columns: 1fr; gap: 24px; }
+            .hero { padding: 48px 20px 32px; }
+            .cta-secondary { display: block; margin: 16px 0 0; }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero">
+        <div class="badge">Alpha</div>
+        <h1>FeedZero</h1>
+        <p class="tagline">
+            <strong>Zero distractions. Zero friction. Zero tracking.</strong><br>
+            A privacy-first RSS reader that runs entirely in your browser.
+            No accounts. No algorithms. Your reading habits stay yours.
+        </p>
+        <div>
+            <a href="https://my.feedzero.app" class="cta">
+                Open App →
+            </a>
+            <a href="https://gitlab.com/github.sudoku/feedzero" class="cta-secondary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                Source Code
+            </a>
+        </div>
+    </section>
+
+    <section class="screenshot-wrapper">
+        <img
+            class="screenshot"
+            src="screenshot.png"
+            alt="FeedZero showing a clean 3-panel RSS reader interface with feed list, article list, and reader"
+        >
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </div>
+            <h3>Encrypted at rest</h3>
+            <p>All data encrypted with AES-256-GCM in your browser. Keys never leave your device.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </div>
+            <h3>No tracking</h3>
+            <p>No analytics. No telemetry. No third-party scripts. Your reading habits are yours alone.</p>
+        </div>
+        <div class="feature">
+            <div class="feature-icon">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            </div>
+            <h3>Optional cloud sync</h3>
+            <p>Sync across devices with end-to-end encryption. Or stay local — your choice.</p>
+        </div>
+    </section>
+
+    <footer>
+        <a href="https://gitlab.com/github.sudoku/feedzero">Open Source</a>
+        &nbsp;·&nbsp;
+        <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">Security</a>
+        &nbsp;·&nbsp;
+        <a href="https://my.feedzero.app">Open App</a>
+    </footer>
+</body>
+</html>
