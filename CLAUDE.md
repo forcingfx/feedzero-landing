@@ -4,25 +4,40 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Landing page for **FeedZero** (feedzero.app), a privacy-first RSS reader. This is a static site — no build step, no framework, no dependencies.
+Landing page for **FeedZero** (feedzero.app), a privacy-first RSS reader. Static site — no framework, no runtime dependencies. One small Node build step for release notes (see below).
 
 - **Live site:** https://feedzero.app
 - **App:** https://my.feedzero.app
 - **Source (main app):** https://gitlab.com/github.sudoku/feedzero (GitLab, not GitHub)
+- **Release feed:** https://feedzero.app/releases.xml (Atom, consumed by the app)
 
 ## Architecture
 
-The entire site is a single `index.html` with inline CSS and no JS. Assets are `favicon.svg` and `screenshot.png`.
+The landing page is a single `index.html` with inline CSS + a tiny scroll-detection script. Assets: `favicon.svg`, `screenshot.png`.
 
-Deployed on **Vercel**. `vercel.json` configures security headers (HSTS, X-Frame-Options DENY, no-referrer, nosniff).
+**Release notes** live in `releases.mjs` (source of truth) and are compiled to two static files by `build-releases.mjs`:
+
+- `releases.xml` — Atom feed served at `/releases.xml` with CORS open so the app can fetch it cross-origin.
+- `releases/index.html` — standalone release-notes page linked from the topnav.
+
+The app (my.feedzero.app) subscribes to `https://feedzero.app/releases.xml` for its "What's new" feature. The feed's `<id>` (`feedzero:changelog`) and entry IDs (`feedzero:release:<version>`) must stay stable — changing them makes existing subscribers re-import every entry as "new".
+
+Deployed on **Vercel**. `vercel.json` configures security headers (HSTS, X-Frame-Options DENY, no-referrer, nosniff) plus `Content-Type: application/atom+xml`, `Cache-Control: public, max-age=3600`, and `Access-Control-Allow-Origin: *` for `/releases.xml`.
 
 ## Development
 
-No build, lint, or test commands — just open `index.html` in a browser. To preview locally:
+No lint or test commands. To preview locally:
 
 ```sh
 python3 -m http.server 8000
 ```
+
+**Cutting a new release:**
+
+1. Add a new entry at the top of the `releases` array in `releases.mjs`. Preserve old entries — they're the published history.
+2. Run `node build-releases.mjs` to regenerate `releases.xml` and `releases/index.html`.
+3. Commit all three files (`releases.mjs`, `releases.xml`, `releases/index.html`).
+4. Deploy. The app picks up the new entry on its next refresh.
 
 ## Screenshot
 
