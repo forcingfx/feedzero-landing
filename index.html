@@ -697,7 +697,7 @@
 
     <header id="top">
         <h1>FeedZero</h1>
-        <p>A fast, keyboard-driven feed reader with no accounts, no tracking, and free anonymous cloud sync.</p>
+        <p>A fast, keyboard-driven feed reader with no accounts, no third-party tracking, and free anonymous cloud sync.</p>
 
         <p class="nav">
             <a href="https://my.feedzero.app">Open the app</a> ·
@@ -712,10 +712,10 @@
     <section id="about">
         <h2>About</h2>
         <p>
-            Most apps decide what you see. FeedZero doesn't. You subscribe to websites and blogs directly, and new articles show up in one place — no algorithm ranking them, no account to create, and nothing tracking what you read. It runs in your browser. Your data stays on your device, encrypted, and never leaves unless you choose to sync it.
+            FeedZero is a feed reader that runs in your browser. There is no account to create — you open it and start reading. There are no third-party trackers, no ads, and no data sold to anyone. Everything is stored on your device, encrypted. If you want to read on multiple devices, cloud sync is free and anonymous: a short passphrase is all you need, and the server cannot see your data.
         </p>
         <p>
-            Free, open source (MIT license), currently in alpha (v0.4.0). Expect rough edges.
+            It is built to be fast. Feeds are cached in memory, keyboard shortcuts cover every action, and there are no loading screens between articles. Free, open source (MIT license), currently in alpha (v0.4.0).
         </p>
     </section>
 
@@ -751,8 +751,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
                     Keyboard
                 </span>
-                <h3 class="feat-title">Keyboard shortcuts for everything.</h3>
-                <p class="feat-desc">Navigate, read, and manage feeds without touching the mouse. Or just click — both work.</p>
+                <h3 class="feat-title">Fast. Keyboard-driven.</h3>
+                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Navigate everything with keyboard shortcuts, or just click — both work.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-keys">
@@ -796,8 +796,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Sync
                 </span>
-                <h3 class="feat-title">Sync between devices. Encrypted.</h3>
-                <p class="feat-desc">Optionally sync your feeds across devices using a short passphrase. Your data is encrypted before it leaves your browser — the server stores it but cannot read it.</p>
+                <h3 class="feat-title">Free, anonymous cloud sync.</h3>
+                <p class="feat-desc">Sync across devices with a four-word passphrase. No account, no email — just the passphrase. Your data is encrypted before it leaves your browser. The server cannot read it.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -902,8 +902,8 @@
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     Privacy
                 </span>
-                <h3>No tracking. Period.</h3>
-                <p>No analytics, no crash reporting, no third-party scripts. We have no idea what you read, and we want to keep it that way.</p>
+                <h3>No third-party tracking.</h3>
+                <p>No ads, no third-party scripts, no data sold to anyone. We collect anonymous usage statistics to improve the app, but we never track what you read or who you are.</p>
             </div>
         </div>
     </div>
@@ -915,7 +915,7 @@
             Your subscriptions and reading history are stored in your browser, not on a server. Everything is encrypted on your device. If you turn on sync to use FeedZero on multiple devices, your data is encrypted before it ever leaves — the server stores it but has no way to read it.
         </p>
         <p>
-            There is no tracking, no analytics, and no way for us to know what you read. The only thing our server sees is the web addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, you can run the whole thing yourself — it's open source.
+            There are no third-party trackers, no ads, and no data shared with anyone outside FeedZero. We collect anonymous usage statistics to improve the app, but we do not track what you read or identify you. The only thing our server sees is the web addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, you can run the whole thing yourself — it's open source.
         </p>
         <p>
             For the technically inclined: local storage uses AES-GCM-256 with PBKDF2 key derivation (600,000 iterations). Sync uses end-to-end encryption with a four-word passphrase. Full threat model and known limitations in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
