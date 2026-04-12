@@ -493,6 +493,120 @@
             .mini:last-child { border-bottom: none; }
         }
 
+        /* ---- RELEASE NOTES ACCORDION ---- */
+        #releases .releases-intro {
+            color: #475569;
+            font-size: 0.92rem;
+            margin-bottom: 1rem;
+        }
+        .release-accordion {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fff;
+            overflow: hidden;
+        }
+        .release-accordion details {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .release-accordion details:last-child {
+            border-bottom: none;
+        }
+        .release-accordion summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.9rem 1.1rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.75rem;
+            transition: background-color 0.12s ease;
+        }
+        .release-accordion summary::-webkit-details-marker { display: none; }
+        .release-accordion summary:hover { background: #f9fafb; }
+        .release-accordion summary::before {
+            content: "›";
+            font-size: 1.05rem;
+            line-height: 1;
+            color: #94a3b8;
+            transition: transform 0.15s ease;
+            flex-shrink: 0;
+            display: inline-block;
+            align-self: center;
+        }
+        .release-accordion details[open] > summary::before {
+            transform: rotate(90deg);
+        }
+        .release-accordion .version {
+            font-weight: 700;
+            color: #0f172a;
+            font-variant-numeric: tabular-nums;
+            font-size: 0.92rem;
+            flex-shrink: 0;
+        }
+        .release-accordion .rel-title {
+            color: #334155;
+            font-size: 0.92rem;
+            flex: 1;
+            min-width: 0;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .release-accordion .rel-date {
+            color: #64748b;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+        .release-accordion .release-body {
+            padding: 0 1.1rem 1.25rem 2.25rem;
+        }
+        .release-accordion .release-sub {
+            color: #475569;
+            margin: 0 0 1rem;
+            font-size: 0.95rem;
+        }
+        .release-accordion .changes {
+            margin: 0.9rem 0 0;
+        }
+        .release-accordion .changes h3 {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #64748b;
+            margin: 0 0 0.35rem;
+        }
+        .release-accordion .changes ul {
+            margin: 0;
+            padding-left: 1.2rem;
+            color: #1f2937;
+            font-size: 0.92rem;
+        }
+        .release-accordion .changes li {
+            margin-bottom: 0.3rem;
+        }
+        .release-accordion .changes code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.85em;
+            background: #f4f4f5;
+            padding: 0.05em 0.3em;
+            border-radius: 3px;
+        }
+        @media (max-width: 520px) {
+            .release-accordion summary {
+                flex-wrap: wrap;
+                padding: 0.8rem 0.95rem;
+                gap: 0.5rem;
+            }
+            .release-accordion .rel-date {
+                flex-basis: 100%;
+                padding-left: 1.5rem;
+            }
+            .release-accordion .release-body {
+                padding: 0 0.95rem 1.1rem 1.95rem;
+            }
+        }
+
         /* ---- TOP NAV ---- */
         .topnav {
             position: fixed;
@@ -575,7 +689,7 @@
                 <a href="#features">Features</a>
                 <a href="#privacy">Privacy</a>
                 <a href="#source">Source</a>
-                <a href="/releases/">Releases</a>
+                <a href="#releases">Releases</a>
             </div>
             <a href="https://my.feedzero.app" class="cta">Open app &rarr;</a>
         </div>
@@ -598,10 +712,10 @@
     <section id="about">
         <h2>About</h2>
         <p>
-            FeedZero is a free and open source RSS reader. It runs entirely in your browser — there is nothing to install and no account to create. Your subscriptions are stored locally on your device.
+            FeedZero is a free, open source, MIT-licensed RSS reader. It runs entirely in your browser — nothing to install and no account to create. All feed and article data is encrypted (AES-GCM-256) before it is written to IndexedDB, so your reading history never exists unencrypted on disk.
         </p>
         <p>
-            It is currently in alpha (v0.2.0), so expect rough edges.
+            It is currently in alpha (v0.4.0), so expect rough edges.
         </p>
     </section>
 
@@ -638,16 +752,16 @@
                     Keyboard
                 </span>
                 <h3 class="feat-title">Everything on the keyboard.</h3>
-                <p class="feat-desc">Vim-style navigation throughout. Press <kbd>?</kbd> in the app for the full list.</p>
+                <p class="feat-desc">Vim-style shortcuts throughout. <kbd>j</kbd>/<kbd>k</kbd> for articles, <kbd>u</kbd>/<kbd>i</kbd> for feeds, <kbd>h</kbd> for full text, <kbd>o</kbd> to open the original.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-keys">
                     <kbd>j</kbd><span>next</span>
-                    <kbd>/</kbd><span>search</span>
+                    <kbd>u</kbd><span>next feed</span>
                     <kbd>k</kbd><span>prev</span>
+                    <kbd>h</kbd><span>full text</span>
                     <kbd>o</kbd><span>open</span>
                     <kbd>r</kbd><span>refresh</span>
-                    <kbd>?</kbd><span>help</span>
                 </div>
             </div>
         </li>
@@ -683,7 +797,7 @@
                     Sync
                 </span>
                 <h3 class="feat-title">Encrypted end-to-end. Optional.</h3>
-                <p class="feat-desc">AES-256-GCM on your device, with a four-word passphrase from the EFF wordlist — only you have the key.</p>
+                <p class="feat-desc">A four-word EFF-wordlist passphrase derives an AES-GCM-256 key via PBKDF2 (600,000 iterations). The server only ever sees opaque blobs and a derived vault ID — it cannot read your data or link it to you.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -711,8 +825,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     Discover
                 </span>
-                <h3 class="feat-title">Around 1,000 curated feeds.</h3>
-                <p class="feat-desc">The Explore tab organizes them by topic and country, so you have somewhere to start.</p>
+                <h3 class="feat-title">Around 1,300 curated feeds.</h3>
+                <p class="feat-desc">The Explore tab organizes them into 34 topics and 154 countries, so you have somewhere to start.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-favs">
@@ -723,8 +837,8 @@
                     <img src="https://www.google.com/s2/favicons?domain=reuters.com&sz=32" alt="" loading="lazy">
                     <img src="https://www.google.com/s2/favicons?domain=bbc.co.uk&sz=32" alt="" loading="lazy">
                 </div>
-                <span class="tile-num">1,000+</span>
-                <span class="tile-sub">topics &middot; countries</span>
+                <span class="tile-num">1,300+</span>
+                <span class="tile-sub">34 topics &middot; 154 countries</span>
             </div>
         </li>
         <li>
@@ -773,7 +887,7 @@
                     Hosting
                 </span>
                 <h3>Self-hostable.</h3>
-                <p>Run your own instance. Source is on GitLab under a permissive license.</p>
+                <p>Run your own instance with <code>npm run build:all &amp;&amp; npm run serve</code>. Source is on GitLab under the MIT license.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
@@ -788,8 +902,8 @@
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     Privacy
                 </span>
-                <h3>No trackers. No analytics.</h3>
-                <p>Your subscription list and read history stay on your device.</p>
+                <h3>No trackers, analytics, or crash reporting.</h3>
+                <p>No external scripts, no fingerprinting, no third-party network calls. Your reading stays on your device.</p>
             </div>
         </div>
     </div>
@@ -798,18 +912,204 @@
     <section id="privacy">
         <h2>Privacy</h2>
         <p>
-            There are no accounts, no tracking scripts, and no analytics. Your subscription list and read history live in your browser. If you turn on sync, your data is encrypted on your device before it is sent to the server, using a passphrase only you know.
+            No accounts, no tracking scripts, no analytics, no crash reporting. Your subscription list and read history live in your browser, encrypted at rest in IndexedDB. If you turn on sync, your data is encrypted on your device before it is sent to the server, using a key derived from a passphrase only you know — the server stores opaque blobs and cannot decrypt them or link them to you.
+        </p>
+        <p>
+            One honest trust point: feeds are fetched through a CORS proxy that has to know the feed URL to fetch it. A malicious or compromised proxy operator could log which feeds you subscribe to. If that matters to you, self-host the whole stack — it is one Hono server, MIT licensed.
+        </p>
+        <p>
+            Full threat model, cryptographic details, and known limitations in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
         </p>
     </section>
 
     <section id="source">
         <h2>Open source</h2>
         <p>
-            The source code lives on <a href="https://gitlab.com/github.sudoku/feedzero">GitLab</a>. You can read it, audit it, run it yourself, or send a patch. Security notes are in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
+            The source code lives on <a href="https://gitlab.com/github.sudoku/feedzero">GitLab</a> under the MIT license. Read it, audit it, run it yourself, or send a patch. Security details in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
         </p>
         <p>
             To try it, visit <a href="https://my.feedzero.app">my.feedzero.app</a>, paste a feed URL, and start reading. There is no sign-up step.
         </p>
+    </section>
+
+    <section id="releases">
+        <h2>Release notes</h2>
+        <p class="releases-intro">
+            What changed in each release, newest first. Also available as an <a href="/releases.xml">Atom feed</a>.
+        </p>
+
+        <div class="release-accordion">
+<!-- RELEASE_NOTES_START -->
+<!-- Content generated by build-releases.mjs from releases.mjs. Do not edit by hand. -->
+            <details id="v0.4.0" open>
+                <summary>
+                    <span class="version">v0.4.0</span>
+                    <span class="rel-title">Release notes feed</span>
+                    <time class="rel-date" datetime="2026-04-06T18:00:00Z">April 6, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">The release notes are now an Atom feed that any RSS reader can subscribe to.</p>
+                <section class="changes">
+                    <h3>Added</h3>
+                    <ul>
+                        <li>Published the release notes as an Atom feed at feedzero.app/releases.xml. New installs auto-subscribe on first launch; existing users can subscribe via Settings → What's new.</li>
+                        <li>Added a &quot;Clear cached articles&quot; action to the feed context menu. It deletes the feed's stored articles and re-fetches from source. Read/unread status is lost, and older articles may not reappear if the source no longer publishes them.</li>
+                    </ul>
+                </section>
+                <section class="changes">
+                    <h3>Changed</h3>
+                    <ul>
+                        <li>Article content now renders h1–h4 headings with appropriate sizing and spacing. Lists render with markers.</li>
+                        <li>Feeds in the sidebar sort alphabetically, with the release notes feed pinned to the top.</li>
+                        <li>Unread badges use a squircle shape with a subtle background.</li>
+                    </ul>
+                </section>
+                <section class="changes">
+                    <h3>Removed</h3>
+                    <ul>
+                        <li>Removed the in-app changelog dialog (~700 lines of custom UI). The Atom feed replaces it.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.3.1">
+                <summary>
+                    <span class="version">v0.3.1</span>
+                    <span class="rel-title">More vertical space</span>
+                    <time class="rel-date" datetime="2026-04-06T12:00:00Z">April 6, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">Removed the desktop header bar. Added per-feed unread counts and in-memory article preloading.</p>
+                <section class="changes">
+                    <h3>Added</h3>
+                    <ul>
+                        <li>Added per-feed unread count badges in the sidebar. The count is derived from the full article set, not just the current page.</li>
+                        <li>Added source attribution in the reader panel. Each article shows the feed's favicon and title under the headline.</li>
+                        <li>Added a &quot;Load more&quot; button for feeds with more than 25 articles.</li>
+                    </ul>
+                </section>
+                <section class="changes">
+                    <h3>Changed</h3>
+                    <ul>
+                        <li>Removed the 40-pixel desktop header bar. The sidebar toggle moved into the sidebar itself.</li>
+                        <li>Articles preload into memory at startup, so switching feeds no longer shows a loading state.</li>
+                        <li>Replaced the &quot;mark all read&quot; toolbar with a floating pill that appears at the bottom only when there are unread articles.</li>
+                        <li>Favicons now refresh on a 7-day cycle. Removed the manual &quot;Reload favicons&quot; menu item.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.3.0">
+                <summary>
+                    <span class="version">v0.3.0</span>
+                    <span class="rel-title">Tracker and link-param stripping</span>
+                    <time class="rel-date" datetime="2026-04-06T06:00:00Z">April 6, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">Tracking pixels and URL tracking parameters are removed from feed content before it reaches the browser.</p>
+                <section class="changes">
+                    <h3>Added</h3>
+                    <ul>
+                        <li>Added tracking-pixel stripping. 1×1 images loaded from known tracker domains (Facebook, Google Analytics, Quantserve, Feedburner, and others) are removed from article HTML before render.</li>
+                        <li>Added URL tracking-parameter stripping. <code>utm_*</code>, <code>fbclid</code>, <code>gclid</code>, and around 20 similar parameters are removed from links inside article content.</li>
+                        <li>Added an anonymous feed catalog on the server. It records which feeds exist and how often they are fetched. No user-identifying information is stored.</li>
+                    </ul>
+                </section>
+                <section class="changes">
+                    <h3>Changed</h3>
+                    <ul>
+                        <li>The changelog dialog supports arrow-key navigation between releases.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.2.2">
+                <summary>
+                    <span class="version">v0.2.2</span>
+                    <span class="rel-title">Bug fixes</span>
+                    <time class="rel-date" datetime="2026-03-29T00:00:00Z">March 29, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">Fixes for favicon loading, feed refresh, and error messages.</p>
+                <section class="changes">
+                    <h3>Fixed</h3>
+                    <ul>
+                        <li>Fixed favicon loading for sites that serve icons at non-standard paths.</li>
+                        <li>Improved feed refresh reliability.</li>
+                        <li>Improved error messages when adding an invalid feed URL.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.2.1">
+                <summary>
+                    <span class="version">v0.2.1</span>
+                    <span class="rel-title">Visual polish</span>
+                    <time class="rel-date" datetime="2026-03-28T00:00:00Z">March 28, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">Palette, transition, and typography adjustments.</p>
+                <section class="changes">
+                    <h3>Changed</h3>
+                    <ul>
+                        <li>Warmed the background tint. Accent color is now blue-indigo.</li>
+                        <li>Added CSS transitions for hover, selection, and sidebar open/close.</li>
+                        <li>Reworked blockquotes, inline images, and editorial typography in article content.</li>
+                        <li>Unread and read article states are now distinguished by bold titles and an accent bar.</li>
+                        <li>Focus rings are softer, and the <code>prefers-reduced-motion</code> media query is honored.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.2.0">
+                <summary>
+                    <span class="version">v0.2.0</span>
+                    <span class="rel-title">Explore, keyboard nav, sync, and OPML</span>
+                    <time class="rel-date" datetime="2026-03-28T00:00:00Z">March 28, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">A catalog of around 1,000 feeds, vim-style keyboard shortcuts, end-to-end encrypted sync, and OPML import/export.</p>
+                <section class="changes">
+                    <h3>Added</h3>
+                    <ul>
+                        <li>Added an Explore tab with around 1,000 feeds organized by topic and country. The search box accepts a URL, which is added directly as a feed.</li>
+                        <li>Added vim-style keyboard navigation: <code>j</code>/<code>k</code> for next/previous article, <code>Enter</code> to add a feed, <code>Space</code> to scroll, <code>h</code> for full text view, <code>o</code> to open the original.</li>
+                        <li>Added unread dots and a &quot;mark all read&quot; action.</li>
+                        <li>Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data — by design.</li>
+                        <li>Added OPML import and export.</li>
+                    </ul>
+                </section>
+                <section class="changes">
+                    <h3>Changed</h3>
+                    <ul>
+                        <li>Feed switching now reads from an in-memory cache instead of IndexedDB.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+            <details id="v0.1.0">
+                <summary>
+                    <span class="version">v0.1.0</span>
+                    <span class="rel-title">First release</span>
+                    <time class="rel-date" datetime="2026-01-31T00:00:00Z">January 31, 2026</time>
+                </summary>
+                <div class="release-body">
+                    <p class="release-sub">The initial alpha.</p>
+                <section class="changes">
+                    <h3>Added</h3>
+                    <ul>
+                        <li>Added RSS 2.0, Atom 1.0, and JSON Feed parsers.</li>
+                        <li>Added AES-256 encryption of all stored data in IndexedDB.</li>
+                        <li>Added optional cloud sync using a passphrase-derived encryption key.</li>
+                        <li>Added full-text article extraction for feeds that publish only summaries.</li>
+                        <li>Added dark mode.</li>
+                        <li>Added vim-style keyboard navigation.</li>
+                    </ul>
+                </section>
+                </div>
+            </details>
+<!-- RELEASE_NOTES_END -->
+        </div>
     </section>
 
     </main>
