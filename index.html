@@ -697,7 +697,7 @@
 
     <header id="top">
         <h1>FeedZero</h1>
-        <p>A keyboard-driven, fast, and privacy-first RSS reader.</p>
+        <p>A feed reader that doesn't track what you read.</p>
 
         <p class="nav">
             <a href="https://my.feedzero.app">Open the app</a> ·
@@ -712,10 +712,10 @@
     <section id="about">
         <h2>About</h2>
         <p>
-            FeedZero is a free, open source, MIT-licensed RSS reader. It runs entirely in your browser — nothing to install and no account to create. All feed and article data is encrypted (AES-GCM-256) before it is written to IndexedDB, so your reading history never exists unencrypted on disk.
+            Most apps decide what you see. FeedZero doesn't. You subscribe to websites and blogs directly, and new articles show up in one place — no algorithm ranking them, no account to create, and nothing tracking what you read. It runs in your browser. Your data stays on your device, encrypted, and never leaves unless you choose to sync it.
         </p>
         <p>
-            It is currently in alpha (v0.4.0), so expect rough edges.
+            Free, open source (MIT license), currently in alpha (v0.4.0). Expect rough edges.
         </p>
     </section>
 
@@ -730,8 +730,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
                     Formats
                 </span>
-                <h3 class="feat-title">RSS, Atom, and JSON Feed.</h3>
-                <p class="feat-desc">Paste a URL and FeedZero figures out the rest.</p>
+                <h3 class="feat-title">Works with any site that publishes a feed.</h3>
+                <p class="feat-desc">Most news sites, blogs, and podcasts have one. Paste the address and FeedZero finds it.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-urlbar">
@@ -751,8 +751,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
                     Keyboard
                 </span>
-                <h3 class="feat-title">Everything on the keyboard.</h3>
-                <p class="feat-desc">Vim-style shortcuts throughout. <kbd>j</kbd>/<kbd>k</kbd> for articles, <kbd>u</kbd>/<kbd>i</kbd> for feeds, <kbd>h</kbd> for full text, <kbd>o</kbd> to open the original.</p>
+                <h3 class="feat-title">Keyboard shortcuts for everything.</h3>
+                <p class="feat-desc">Navigate, read, and manage feeds without touching the mouse. Or just click — both work.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-keys">
@@ -771,8 +771,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
                     Subscriptions
                 </span>
-                <h3 class="feat-title">Bring your feeds in. Take them out.</h3>
-                <p class="feat-desc">OPML import and export — move in from another reader, or leave without losing anything.</p>
+                <h3 class="feat-title">Bring your subscriptions. Take them with you.</h3>
+                <p class="feat-desc">Coming from another reader? Import your list. Leaving? Export it. Your subscriptions belong to you, not us.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-opml-top">
@@ -796,8 +796,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Sync
                 </span>
-                <h3 class="feat-title">Encrypted end-to-end. Optional.</h3>
-                <p class="feat-desc">A four-word EFF-wordlist passphrase derives an AES-GCM-256 key via PBKDF2 (600,000 iterations). The server only ever sees opaque blobs and a derived vault ID — it cannot read your data or link it to you.</p>
+                <h3 class="feat-title">Sync between devices. Encrypted.</h3>
+                <p class="feat-desc">Optionally sync your feeds across devices using a short passphrase. Your data is encrypted before it leaves your browser — the server stores it but cannot read it.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -825,8 +825,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                     Discover
                 </span>
-                <h3 class="feat-title">Around 1,300 curated feeds.</h3>
-                <p class="feat-desc">The Explore tab organizes them into 34 topics and 154 countries, so you have somewhere to start.</p>
+                <h3 class="feat-title">1,300+ feeds to browse.</h3>
+                <p class="feat-desc">Not sure where to start? Explore feeds organized by topic and country — tech, news, science, culture, and more.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-favs">
@@ -847,8 +847,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
                     Reader
                 </span>
-                <h3 class="feat-title">Full article text, even from summaries.</h3>
-                <p class="feat-desc">Extracts the readable body for feeds that only publish the first paragraph.</p>
+                <h3 class="feat-title">Read the full article, not just the headline.</h3>
+                <p class="feat-desc">Some feeds only include the first paragraph. FeedZero can pull the full text so you can read without leaving the app.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-para">
@@ -878,32 +878,32 @@
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
                     Offline
                 </span>
-                <h3>Works without a connection.</h3>
-                <p>Cached by a service worker. Read what you've already loaded.</p>
+                <h3>Works offline.</h3>
+                <p>Already loaded articles are available even without an internet connection.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
                     Hosting
                 </span>
-                <h3>Self-hostable.</h3>
-                <p>Run your own instance with <code>npm run build:all &amp;&amp; npm run serve</code>. Source is on GitLab under the MIT license.</p>
+                <h3>Run it yourself.</h3>
+                <p>The entire app is open source. You can run your own copy if you'd rather not depend on anyone else's server.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11" stroke-dasharray="2 2"/></svg>
                     Account
                 </span>
-                <h3>No sign-up.</h3>
-                <p>Open the app, paste a feed URL, and start reading. Nothing to create.</p>
+                <h3>No account needed.</h3>
+                <p>No email, no password, no "sign in with Google." Open the app and start reading.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
                     Privacy
                 </span>
-                <h3>No trackers, analytics, or crash reporting.</h3>
-                <p>No external scripts, no fingerprinting, no third-party network calls. Your reading stays on your device.</p>
+                <h3>No tracking. Period.</h3>
+                <p>No analytics, no crash reporting, no third-party scripts. We have no idea what you read, and we want to keep it that way.</p>
             </div>
         </div>
     </div>
@@ -912,23 +912,23 @@
     <section id="privacy">
         <h2>Privacy</h2>
         <p>
-            No accounts, no tracking scripts, no analytics, no crash reporting. Your subscription list and read history live in your browser, encrypted at rest in IndexedDB. If you turn on sync, your data is encrypted on your device before it is sent to the server, using a key derived from a passphrase only you know — the server stores opaque blobs and cannot decrypt them or link them to you.
+            Your subscriptions and reading history are stored in your browser, not on a server. Everything is encrypted on your device. If you turn on sync to use FeedZero on multiple devices, your data is encrypted before it ever leaves — the server stores it but has no way to read it.
         </p>
         <p>
-            One honest trust point: feeds are fetched through a CORS proxy that has to know the feed URL to fetch it. A malicious or compromised proxy operator could log which feeds you subscribe to. If that matters to you, self-host the whole stack — it is one Hono server, MIT licensed.
+            There is no tracking, no analytics, and no way for us to know what you read. The only thing our server sees is the web addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, you can run the whole thing yourself — it's open source.
         </p>
         <p>
-            Full threat model, cryptographic details, and known limitations in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
+            For the technically inclined: local storage uses AES-GCM-256 with PBKDF2 key derivation (600,000 iterations). Sync uses end-to-end encryption with a four-word passphrase. Full threat model and known limitations in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
         </p>
     </section>
 
     <section id="source">
         <h2>Open source</h2>
         <p>
-            The source code lives on <a href="https://gitlab.com/github.sudoku/feedzero">GitLab</a> under the MIT license. Read it, audit it, run it yourself, or send a patch. Security details in <a href="https://gitlab.com/github.sudoku/feedzero/-/blob/main/SECURITY.md">SECURITY.md</a>.
+            Every privacy claim on this page is verifiable. The source code is on <a href="https://gitlab.com/github.sudoku/feedzero">GitLab</a> under the MIT license — you can read it, audit it, run it yourself, or contribute. That's the point: you don't have to take our word for it.
         </p>
         <p>
-            To try it, visit <a href="https://my.feedzero.app">my.feedzero.app</a>, paste a feed URL, and start reading. There is no sign-up step.
+            To try it, visit <a href="https://my.feedzero.app">my.feedzero.app</a> and paste a website address. There is no sign-up step.
         </p>
     </section>
 
