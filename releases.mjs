@@ -28,6 +28,34 @@
  */
 export const releases = [
   {
+    version: "0.5.0",
+    date: "2026-04-19T12:00:00Z",
+    title: "Feed folders and mobile navigation",
+    subtitle: "Organize feeds into collapsible folders, read all items in a folder at once, and swipe between articles on mobile.",
+    added: [
+      "Added feed folders. Create folders from the sidebar, drag feeds between them, rename or delete folders from the context menu.",
+      "Added folder aggregated feeds. Clicking a folder header shows all articles from every feed in that folder, with per-feed title and favicon on each row.",
+      "Added swipe navigation on mobile. The article list and reader are side-by-side scroll-snap panels. Swipe left to read, swipe right to go back.",
+      "Added a floating back pill on the mobile reader view. Tapping it scrolls back to the article list.",
+      "Added safe-area inset support for iPhone Dynamic Island and notch. Content no longer renders under the notch in any orientation.",
+      "Added inline feed rename from the three-dot context menu.",
+      "Added Vercel Speed Insights for Core Web Vitals monitoring.",
+    ],
+    changed: [
+      "The app now defaults to the All Items view when feeds exist, instead of auto-selecting the first feed.",
+      "Unread counts are derived from a single source of truth (`articlesByFeedId`) instead of a separately stored counter. Badges update immediately after adding a feed from the Explore tab.",
+      "All articles in a feed render at once. Removed the 25-article display cap and the Load More button.",
+      "Sidebar action dots appear only on hover, not after clicking a feed. The fix uses `:focus-visible` so keyboard users still see the dots when tabbing.",
+      "Article selection no longer shifts text. The left accent bar reserves its 2px space at all times.",
+      "The sidebar was decomposed from a single 728-line component into focused sub-components (FeedItem, FolderItem, SidebarFeedList, confirmation dialogs).",
+    ],
+    fixed: [
+      "Fixed unread badge not updating after adding a feed from the Explore tab.",
+      "Fixed sidebar action dots and unread badge overlapping after clicking a feed.",
+      "Fixed article text shifting 2px when selected.",
+    ],
+  },
+  {
     version: "0.4.0",
     date: "2026-04-06T18:00:00Z",
     title: "Release notes feed",
