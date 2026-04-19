@@ -61,12 +61,10 @@ async function screenshotExplore(page, baseUrl) {
   await page.addInitScript(() => {
     localStorage.setItem("feedzero:onboarding-complete", "true");
     localStorage.setItem("feedzero:storage-mode", "local");
-    // Must match APP_VERSION exactly to dismiss the changelog dialog
-    localStorage.setItem("feedzero:last-seen-version", "0.2.0");
   });
 
   await page.goto(`${baseUrl}/explore`);
-  await page.getByText("Explore feeds").waitFor({ timeout: 15000 });
+  await page.getByRole("heading", { name: "Explore" }).waitFor({ timeout: 15000 });
   await page.waitForTimeout(2000);
   await page.screenshot({ path: OUTPUT });
 }
@@ -75,7 +73,6 @@ async function screenshotFeeds(page, baseUrl) {
   await page.addInitScript(() => {
     localStorage.setItem("feedzero:onboarding-complete", "true");
     localStorage.setItem("feedzero:storage-mode", "sync");
-    localStorage.setItem("feedzero:last-seen-version", "0.2.0");
   });
 
   // Start at Explore to add feeds
