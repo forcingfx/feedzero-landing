@@ -3,8 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FeedZero v0.5.0 — Feed folders and mobile navigation</title>
-  <meta name="description" content="Organize feeds into collapsible folders, swipe between articles on mobile, and more.">
+  <title>FeedZero v0.5.0</title>
   <link rel="icon" type="image/svg+xml" href="/favicon.svg">
   <style>
     html { -webkit-text-size-adjust: 100%; }
@@ -17,15 +16,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 1rem;
+      gap: 0.75rem;
     }
-    .hint {
-      font-size: 0.85rem;
-      color: #64748b;
-    }
+    .hint { font-size: 0.82rem; color: #64748b; }
     .hint a { color: #0645ad; }
 
-    /* ── Bento card — fixed landscape for screenshot ── */
+    /* ── Bento card — 1200x630 landscape ── */
     .bento {
       width: 1200px;
       height: 630px;
@@ -38,95 +34,206 @@
       grid-template-rows: auto 1fr 1fr auto;
     }
 
-    /* ── Header — spans full width ── */
+    /* ── Header ── */
     .bento-header {
       grid-column: 1 / -1;
-      padding: 1.5rem 2rem 1.25rem;
+      padding: 1.15rem 1.75rem;
       border-bottom: 1px solid #e5e7eb;
       display: flex;
       align-items: baseline;
-      gap: 1rem;
+      gap: 0.75rem;
     }
     .bento-header h1 {
-      font-size: 1.5rem;
+      font-size: 1.35rem;
       font-weight: 800;
       letter-spacing: -0.02em;
       margin: 0;
     }
-    .bento-header .tag {
-      font-size: 0.72rem;
-      font-weight: 600;
+    .bento-header .sep {
+      color: #cbd5e1;
+      font-weight: 300;
+    }
+    .bento-header .sub {
+      font-size: 0.88rem;
       color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
+      font-weight: 500;
     }
     .bento-header .url {
       margin-left: auto;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: #94a3b8;
-      font-weight: 500;
     }
 
     /* ── Cells ── */
     .cell {
-      padding: 1.25rem 1.5rem;
+      padding: 1rem 1.25rem;
       border-right: 1px solid #e5e7eb;
       border-bottom: 1px solid #e5e7eb;
       display: flex;
       flex-direction: column;
-      gap: 0.3rem;
+      gap: 0.6rem;
     }
-    .cell:nth-child(3n+1 of .cell) { } /* left col — default */
-    .cell:nth-child(3n of .cell) { border-right: none; } /* right col */
-    .cell .eyebrow {
-      font-size: 0.62rem;
+    .cell:nth-child(3n+1 of .cell) { }
+    .cell:nth-child(3n of .cell) { border-right: none; }
+    .eyebrow {
+      font-size: 0.6rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
       color: #94a3b8;
     }
     .cell h3 {
-      font-size: 1rem;
+      font-size: 0.95rem;
       font-weight: 600;
       color: #0f172a;
       margin: 0;
       line-height: 1.3;
     }
     .cell p {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
       color: #64748b;
       margin: 0;
       line-height: 1.45;
     }
-    code {
+
+    /* ── Mini illustration tiles (matches landing page feat-tile) ── */
+    .tile {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 1.3em;
+      padding: 0 0.45em;
       font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 0.85em;
-      background: #f4f4f4;
-      padding: 0.05em 0.25em;
+      font-size: 0.58rem;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
       border-radius: 3px;
     }
+    .tag.accent {
+      color: #1d4ed8;
+      background: #eff6ff;
+      border-color: #bfdbfe;
+    }
+    .tag.green {
+      color: #15803d;
+      background: #f0fdf4;
+      border-color: #bbf7d0;
+    }
+    .tag.amber {
+      color: #b45309;
+      background: #fffbeb;
+      border-color: #fde68a;
+    }
+    .tag.red {
+      color: #dc2626;
+      background: #fef2f2;
+      border-color: #fecaca;
+      text-decoration: line-through;
+    }
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.4em;
+      height: 1.4em;
+      padding: 0 0.3em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 3px;
+      line-height: 1;
+    }
+    .word {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.65rem;
+      color: #0f172a;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 0.15em 0.45em;
+    }
+    .tile-label {
+      font-size: 0.55rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .tile-arrow {
+      color: #cbd5e1;
+      font-size: 0.75rem;
+    }
+    .sidebar-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+    .sidebar-mock .row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.58rem;
+      color: #475569;
+      padding: 0.15rem 0;
+    }
+    .sidebar-mock .row.indent { padding-left: 0.75rem; }
+    .sidebar-mock .dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #94a3b8;
+      flex-shrink: 0;
+    }
+    .sidebar-mock .dot.blue { background: #3b82f6; }
+    .sidebar-mock .chevron {
+      font-size: 0.5rem;
+      color: #94a3b8;
+    }
+    .sidebar-mock .badge {
+      margin-left: auto;
+      font-size: 0.5rem;
+      font-weight: 600;
+      color: #3b82f6;
+      background: #eff6ff;
+      border-radius: 6px;
+      padding: 0 0.3em;
+    }
 
-    /* ── Stats footer — spans full width ── */
+    /* ── Stats footer ── */
     .bento-footer {
       grid-column: 1 / -1;
       display: grid;
       grid-template-columns: repeat(6, 1fr);
-      border-top: 1px solid #e5e7eb;
       background: #f8fafc;
     }
     .stat {
-      padding: 0.75rem 1rem;
+      padding: 0.65rem 0.75rem;
       text-align: center;
       border-right: 1px solid #e5e7eb;
     }
     .stat:last-child { border-right: none; }
     .stat-num {
-      font-size: 1.15rem;
+      font-size: 1.05rem;
       font-weight: 800;
       color: #0f172a;
     }
     .stat-label {
-      font-size: 0.62rem;
+      font-size: 0.55rem;
       color: #94a3b8;
       text-transform: uppercase;
       letter-spacing: 0.06em;
@@ -136,49 +243,95 @@
 </head>
 <body>
 
-<p class="hint">Screenshot the card below (1200 &times; 630). <a href="/">Back to feedzero.app</a></p>
+<p class="hint">Screenshot the card below (1200 &times; 630). <a href="/">feedzero.app</a></p>
 
 <div class="bento">
 
-  <!-- Header -->
   <div class="bento-header">
     <h1>FeedZero v0.5.0</h1>
-    <span class="tag">Everything shipped since v0.2.0</span>
+    <span class="sep">|</span>
+    <span class="sub">Feed folders and mobile navigation</span>
     <span class="url">my.feedzero.app</span>
   </div>
 
   <!-- Row 1 -->
   <div class="cell">
     <div class="eyebrow">New</div>
-    <h3>Feed folders</h3>
-    <p>Create folders, drag feeds between them. Click a folder to read all its articles at once with per-feed logos.</p>
+    <h3>Feed folders with drag-and-drop.</h3>
+    <p>Collapsible folders in the sidebar. Drag feeds between them. Click a folder header to read all its articles at once.</p>
+    <div class="tile">
+      <div class="sidebar-mock">
+        <div class="row"><span class="chevron">&#9660;</span> Tech <span class="badge">12</span></div>
+        <div class="row indent"><span class="dot blue"></span> Ars Technica <span class="badge">5</span></div>
+        <div class="row indent"><span class="dot blue"></span> The Verge <span class="badge">7</span></div>
+        <div class="row"><span class="chevron">&#9654;</span> News</div>
+        <div class="row"><span class="dot"></span> kottke.org <span class="badge">3</span></div>
+      </div>
+    </div>
   </div>
+
   <div class="cell">
     <div class="eyebrow">New</div>
-    <h3>Swipe navigation</h3>
-    <p>Article list and reader are scroll-snap panels on mobile. Swipe to read, swipe back. Pure CSS.</p>
+    <h3>Swipe navigation on mobile.</h3>
+    <p>Article list and reader are side-by-side scroll-snap panels. Swipe left to read, swipe right to go back. Pure CSS.</p>
+    <div class="tile">
+      <span class="tag accent">scroll-snap</span>
+      <span class="tile-arrow">&larr;</span>
+      <span class="tile-label">list</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tile-label">reader</span>
+      <span class="tile-arrow">&larr;</span>
+      <span class="tag green">back pill</span>
+    </div>
   </div>
+
   <div class="cell">
-    <div class="eyebrow">0.3.0</div>
-    <h3>Tracker stripping</h3>
-    <p>Tracking pixels and <code>utm_*</code> params removed from feed content before render.</p>
+    <div class="eyebrow">Since 0.3.0</div>
+    <h3>Tracking pixels and URL params stripped.</h3>
+    <p>Facebook, Google Analytics, Feedburner pixels removed. <code style="font-size:0.72rem">utm_*</code>, <code style="font-size:0.72rem">fbclid</code>, <code style="font-size:0.72rem">gclid</code> parameters cleaned from links.</p>
+    <div class="tile">
+      <span class="tag red">utm_source</span>
+      <span class="tag red">fbclid</span>
+      <span class="tag red">1&times;1 px</span>
+      <span class="tag green">clean</span>
+    </div>
   </div>
 
   <!-- Row 2 -->
   <div class="cell">
-    <div class="eyebrow">0.3.1</div>
-    <h3>Live unread badges</h3>
-    <p>Per-feed counts derived from a single source of truth. Update the instant a feed is added.</p>
+    <div class="eyebrow">Since 0.3.1</div>
+    <h3>Live unread badges from a single source of truth.</h3>
+    <p>Per-feed counts in the sidebar. Derived from <code style="font-size:0.72rem">articlesByFeedId</code> — no stored counter, no drift. Badges update the instant a feed is added.</p>
+    <div class="tile">
+      <span class="tag">store</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tag accent">derive</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tag green">badge</span>
+    </div>
   </div>
+
   <div class="cell">
-    <div class="eyebrow">0.2.0</div>
-    <h3>E2E encrypted sync</h3>
-    <p>AES-256 with a four-word passphrase. Feeds sync across devices. The server can't read them.</p>
+    <div class="eyebrow">Since 0.2.0</div>
+    <h3>End-to-end encrypted sync.</h3>
+    <p>AES-256 with a four-word passphrase from the EFF wordlist. Feeds sync across devices. The server cannot read them.</p>
+    <div class="tile">
+      <span class="word">oak</span>
+      <span class="word">sun</span>
+      <span class="word">fox</span>
+      <span class="word">bell</span>
+    </div>
   </div>
+
   <div class="cell">
     <div class="eyebrow">New</div>
-    <h3>iPhone Dynamic Island</h3>
-    <p>Safe-area insets for the notch. Content never renders under hardware cutouts.</p>
+    <h3>iPhone Dynamic Island. Safe-area insets.</h3>
+    <p>Content never renders under the notch or Dynamic Island. <code style="font-size:0.72rem">viewport-fit=cover</code> with <code style="font-size:0.72rem">env(safe-area-inset-*)</code> on the body.</p>
+    <div class="tile">
+      <span class="tag accent">viewport-fit</span>
+      <span class="tag accent">safe-area</span>
+      <span class="tag green">100dvh</span>
+    </div>
   </div>
 
   <!-- Stats footer -->
@@ -210,8 +363,6 @@
   </div>
 
 </div>
-
-<p class="hint">Privacy-first RSS reader. Zero tracking, zero compromise.</p>
 
 </body>
 </html>
