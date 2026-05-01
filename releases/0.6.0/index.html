@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeedZero v0.6.0</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hint { font-size: 0.82rem; color: #64748b; }
+    .hint a { color: #0645ad; }
+
+    /* ── Bento card — 1200x630 landscape ── */
+    .bento {
+      width: 1200px;
+      height: 630px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr auto;
+    }
+
+    /* ── Header ── */
+    .bento-header {
+      grid-column: 1 / -1;
+      padding: 1.15rem 1.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .bento-header h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .bento-header .sep { color: #cbd5e1; font-weight: 300; }
+    .bento-header .sub { font-size: 0.88rem; color: #64748b; font-weight: 500; }
+    .bento-header .url { margin-left: auto; font-size: 0.82rem; color: #94a3b8; }
+
+    /* ── Cells ── */
+    .cell {
+      padding: 1rem 1.25rem;
+      border-right: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .cell:nth-child(3n of .cell) { border-right: none; }
+    .eyebrow {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+    .cell h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .cell p {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* ── Mini illustration tiles ── */
+    .tile {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 1.3em;
+      padding: 0 0.45em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.58rem;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+    }
+    .tag.accent { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
+    .tag.green  { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .tag.amber  { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+    .tag.red    { color: #dc2626; background: #fef2f2; border-color: #fecaca; text-decoration: line-through; }
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.4em;
+      height: 1.4em;
+      padding: 0 0.3em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 3px;
+      line-height: 1;
+    }
+    .word {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.65rem;
+      color: #0f172a;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 0.15em 0.45em;
+    }
+    .tile-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .tile-arrow { color: #cbd5e1; font-size: 0.75rem; }
+
+    /* ── Panel layout mock ── */
+    .panel-mock {
+      display: flex;
+      width: 100%;
+      gap: 0;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      overflow: hidden;
+      height: 60px;
+      margin-top: auto;
+      font-size: 0.5rem;
+    }
+    .panel-col {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 0.5rem;
+      border-right: 2px solid #e5e7eb;
+      background: #f8fafc;
+      color: #64748b;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      gap: 3px;
+      position: relative;
+    }
+    .panel-col:last-child { border-right: none; background: #fff; }
+    .panel-col.sidebar { flex: 0 0 22%; }
+    .panel-col.list    { flex: 0 0 33%; }
+    .panel-col.reader  { flex: 1; }
+    .panel-col .handle {
+      position: absolute;
+      right: -1px;
+      top: 10%;
+      height: 80%;
+      width: 4px;
+      background: #bfdbfe;
+      border-radius: 2px;
+    }
+    .panel-row {
+      font-size: 0.48rem;
+      color: #94a3b8;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    /* ── Sidebar mock ── */
+    .sidebar-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+    .sidebar-mock .row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.58rem;
+      color: #475569;
+      padding: 0.15rem 0;
+    }
+    .sidebar-mock .row.indent { padding-left: 0.75rem; }
+    .sidebar-mock .dot { width: 5px; height: 5px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+    .sidebar-mock .chevron { font-size: 0.5rem; color: #94a3b8; }
+    .sidebar-mock .badge { margin-left: auto; font-size: 0.5rem; font-weight: 600; color: #3b82f6; background: #eff6ff; border-radius: 6px; padding: 0 0.3em; }
+    .color-swatch {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    /* ── Nav pill mock ── */
+    .nav-pill-mock {
+      display: flex;
+      gap: 0.4rem;
+      width: 100%;
+      margin-top: auto;
+    }
+    .nav-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.5rem;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      font-size: 0.5rem;
+      color: #475569;
+      backdrop-filter: blur(4px);
+    }
+    .nav-pill.right { justify-content: flex-end; }
+    .nav-pill .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+
+    /* ── Pull gesture mock ── */
+    .pull-mock {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      height: 56px;
+      background: #f8fafc;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0.35rem 0.5rem;
+      margin-top: auto;
+      box-sizing: border-box;
+    }
+    .pull-zone {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-size: 0.5rem;
+      color: #94a3b8;
+    }
+    .pull-arrow { font-size: 0.65rem; color: #94a3b8; }
+    .article-body-stub {
+      width: 100%;
+      height: 6px;
+      background: #e5e7eb;
+      border-radius: 3px;
+    }
+
+    /* ── Stats footer ── */
+    .bento-footer {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      background: #f8fafc;
+    }
+    .stat {
+      padding: 0.65rem 0.75rem;
+      text-align: center;
+      border-right: 1px solid #e5e7eb;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+    .stat-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<p class="hint">Screenshot the card below (1200 &times; 630). <a href="/">feedzero.app</a></p>
+
+<div class="bento">
+
+  <div class="bento-header">
+    <h1>FeedZero v0.6.0</h1>
+    <span class="sep">|</span>
+    <span class="sub">Resizable panels, navigation pills, and auto-organize</span>
+    <span class="url">my.feedzero.app</span>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="cell">
+    <div class="eyebrow">New</div>
+    <h3>Three-panel resizable desktop layout.</h3>
+    <p>Sidebar, article list, and reader are independently draggable columns. Resize to your workflow — small sidebar, wide reader, or anything in between.</p>
+    <div class="tile">
+      <div class="panel-mock">
+        <div class="panel-col sidebar">
+          <span>Sidebar</span>
+          <span class="panel-row">feeds</span>
+          <div class="handle"></div>
+        </div>
+        <div class="panel-col list">
+          <span>Articles</span>
+          <span class="panel-row">list</span>
+          <div class="handle"></div>
+        </div>
+        <div class="panel-col reader">
+          <span>Reader</span>
+          <span class="panel-row">content</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">New</div>
+    <h3>Navigation pills always visible at the bottom.</h3>
+    <p>Prev/next pills are pinned below the article, never scroll away. Keyboard shortcuts <kbd>k</kbd> / <kbd>j</kbd> work from any scroll position.</p>
+    <div class="tile">
+      <div class="nav-pill-mock">
+        <div class="nav-pill">
+          <span>&#8249;</span>
+          <kbd>k</kbd>
+          <span class="title">Previous article title…</span>
+        </div>
+        <div class="nav-pill right">
+          <span class="title">Next article title…</span>
+          <kbd>j</kbd>
+          <span>&#8250;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">New · mobile</div>
+    <h3>Pull to advance between articles.</h3>
+    <p>Scroll past the end of an article to go to the next. Pull down from the top to go back. No buttons needed.</p>
+    <div class="tile">
+      <div class="pull-mock">
+        <div class="pull-zone"><span class="pull-arrow">&#8595;</span> <span>pull to advance</span></div>
+        <div class="article-body-stub"></div>
+        <div class="pull-zone"><span class="pull-arrow">&#8593;</span> <span>pull to go back</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="cell">
+    <div class="eyebrow">New</div>
+    <h3>Folder colors and auto-organize.</h3>
+    <p>Tint sidebar folders with an eight-color swatch. Auto-organize groups your feeds into topic folders using a built-in keyword ruleset.</p>
+    <div class="tile">
+      <div class="sidebar-mock">
+        <div class="row">
+          <span class="color-swatch" style="background:#3b82f6"></span>
+          <span>Tech</span>
+          <span class="badge">42</span>
+        </div>
+        <div class="row indent"><span class="dot" style="background:#3b82f6"></span> The Verge</div>
+        <div class="row indent"><span class="dot" style="background:#3b82f6"></span> Ars Technica</div>
+        <div class="row">
+          <span class="color-swatch" style="background:#10b981"></span>
+          <span>Science</span>
+          <span class="badge">18</span>
+        </div>
+        <div class="row indent"><span class="dot" style="background:#10b981"></span> Nature</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Changed</div>
+    <h3>Feed sort modes and compact reader controls.</h3>
+    <p>Sort feeds by name, unread count, or custom order. The Feed / Full text toggle is now a compact inline pill. Open Original shows <kbd>o</kbd> on hover.</p>
+    <div class="tile">
+      <span class="tag accent">by count</span>
+      <span class="tag">by name</span>
+      <span class="tag">custom</span>
+      <span style="flex-basis:100%; height:0"></span>
+      <span class="tag green">Feed</span>
+      <span class="tag">Full text</span>
+      <span class="tag accent">&#8599; <kbd>o</kbd></span>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Fixed</div>
+    <h3>Article text no longer clips in the reader.</h3>
+    <p>Radix ScrollArea's internal <code style="font-size:0.72rem">display:table</code> wrapper broke text wrapping. Replaced with a native scroller so long lines wrap correctly.</p>
+    <div class="tile">
+      <span class="tag red">display:table</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tag green">overflow-y-auto</span>
+      <span style="flex-basis:100%; height:0"></span>
+      <span class="tile-label">text wraps correctly now</span>
+    </div>
+  </div>
+
+  <!-- Stats footer -->
+  <div class="bento-footer">
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">tracking scripts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,000+</div>
+      <div class="stat-label">feeds in catalog</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,300+</div>
+      <div class="stat-label">automated tests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AES-256</div>
+      <div class="stat-label">encryption</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">vim</div>
+      <div class="stat-label">keyboard nav</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">OPML</div>
+      <div class="stat-label">import / export</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

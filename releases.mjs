@@ -28,6 +28,31 @@
  */
 export const releases = [
   {
+    version: "0.6.0",
+    date: "2026-05-01T12:00:00Z",
+    title: "Resizable panels, navigation pills, and auto-organize",
+    subtitle: "Three-panel resizable desktop layout, always-visible prev/next navigation, pull-to-advance on mobile, folder colors, and keyword-based auto-organize.",
+    added: [
+      "Added a three-panel resizable desktop layout. The sidebar, article list, and reader are now independently draggable columns.",
+      "Added prev/next navigation pills pinned to the bottom of the reader panel. The pills are always visible regardless of scroll position and show <kbd>k</kbd>/<kbd>j</kbd> keyboard hints.",
+      "Added pull-to-advance gesture on mobile. Scrolling past the end of an article advances to the next; pulling down from the top goes back.",
+      "Added folder color customization. An eight-color swatch picker in the folder context menu tints the sidebar label and applies a colored background to folder items.",
+      "Added auto-organize. The wand button near New Folder groups existing feeds into topic folders using a built-in keyword ruleset.",
+      "Added feed sort mode. Feeds in the sidebar can now be sorted by name, unread count, or kept in the original custom order.",
+    ],
+    changed: [
+      "Article titles in the reader panel are now links to the original URL. The external-link icon in the meta line shows an <kbd>o</kbd> shortcut hint on hover.",
+      "The Feed/Full text mode selector is now a compact inline pill control, reducing vertical space. The <kbd>h</kbd> shortcut hint is in a hover tooltip.",
+      "The article list is now virtualized. Scrolling through All Items with hundreds of articles no longer causes layout jank.",
+      "The desktop breakpoint was lowered from 1024px to 768px so tablet-sized windows use the multi-panel layout.",
+      "Publisher boilerplate phrases (\"Read more at\", \"Continue reading\", etc.) are stripped from feed content before display.",
+    ],
+    fixed: [
+      "Fixed article text clipping at the right edge of the reader panel. Replaced Radix ScrollArea (which uses a `display:table` wrapper that breaks text wrapping) with a native `overflow-y-auto` container.",
+      "Fixed mobile landing on the reader view when selecting a feed. The app now defaults to the article list, not the reader.",
+    ],
+  },
+  {
     version: "0.5.0",
     date: "2026-04-19T12:00:00Z",
     title: "Feed folders and mobile navigation",
