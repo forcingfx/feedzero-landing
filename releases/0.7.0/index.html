@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeedZero v0.7.0</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hint { font-size: 0.82rem; color: #64748b; }
+    .hint a { color: #0645ad; }
+
+    /* ── Bento card — 1200x630 landscape ── */
+    .bento {
+      width: 1200px;
+      height: 630px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr auto;
+    }
+
+    /* ── Header ── */
+    .bento-header {
+      grid-column: 1 / -1;
+      padding: 1.15rem 1.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .bento-header h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .bento-header .sep { color: #cbd5e1; font-weight: 300; }
+    .bento-header .sub { font-size: 0.88rem; color: #64748b; font-weight: 500; }
+    .bento-header .url { margin-left: auto; font-size: 0.82rem; color: #94a3b8; }
+
+    /* ── Cells ── */
+    .cell {
+      padding: 1rem 1.25rem;
+      border-right: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .cell:nth-child(3n of .cell) { border-right: none; }
+    .eyebrow {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+    .cell h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .cell p {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* ── Mini illustration tiles ── */
+    .tile {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 1.3em;
+      padding: 0 0.45em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.58rem;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+    }
+    .tag.accent { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
+    .tag.green  { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .tag.amber  { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+    .tag.red    { color: #dc2626; background: #fef2f2; border-color: #fecaca; text-decoration: line-through; }
+    kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 1.4em;
+      height: 1.4em;
+      padding: 0 0.3em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.6rem;
+      font-weight: 500;
+      color: #1d4ed8;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 3px;
+      line-height: 1;
+    }
+    .tile-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .tile-arrow { color: #cbd5e1; font-size: 0.75rem; }
+
+    /* ── Sidebar mock ── */
+    .sidebar-mock {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      width: 100%;
+    }
+    .sidebar-mock .row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.58rem;
+      color: #475569;
+      padding: 0.15rem 0;
+    }
+    .sidebar-mock .row.indent { padding-left: 0.75rem; }
+    .sidebar-mock .dot { width: 5px; height: 5px; border-radius: 50%; background: #94a3b8; flex-shrink: 0; }
+    .sidebar-mock .badge { margin-left: auto; font-size: 0.5rem; font-weight: 600; color: #3b82f6; background: #eff6ff; border-radius: 6px; padding: 0 0.3em; }
+    .color-swatch {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      flex-shrink: 0;
+    }
+
+    /* ── Nav pill mock ── */
+    .nav-pill-mock {
+      display: flex;
+      gap: 0.4rem;
+      width: 100%;
+      margin-top: auto;
+    }
+    .nav-pill {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      padding: 0.3rem 0.5rem;
+      background: rgba(255,255,255,0.95);
+      border: 1px solid #e5e7eb;
+      border-radius: 999px;
+      font-size: 0.5rem;
+      color: #475569;
+      backdrop-filter: blur(4px);
+    }
+    .nav-pill.right { justify-content: flex-end; }
+    .nav-pill .title { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+    .nav-pill.icon-only { flex: 0 0 auto; padding: 0.3rem 0.5rem; }
+
+    /* ── Mobile drawer mock ── */
+    .phone-mock {
+      width: 100%;
+      max-width: 150px;
+      margin: 0 auto;
+      border: 1px solid #e5e7eb;
+      border-radius: 14px;
+      background: #fff;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      height: 110px;
+    }
+    .phone-screen {
+      flex: 1;
+      background: linear-gradient(#f8fafc, #fff);
+      padding: 0.4rem 0.55rem;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .phone-line {
+      height: 5px;
+      background: #e2e8f0;
+      border-radius: 2px;
+    }
+    .phone-line.short { width: 55%; }
+    .phone-line.medium { width: 80%; }
+    .phone-drawer {
+      border-top: 1px solid #e5e7eb;
+      background: #fff;
+      padding: 0.35rem 0.55rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.5rem;
+      color: #475569;
+      position: relative;
+    }
+    .phone-drawer::before {
+      content: "";
+      position: absolute;
+      top: 4px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 28px;
+      height: 3px;
+      background: #cbd5e1;
+      border-radius: 999px;
+    }
+    .phone-drawer-label {
+      flex: 1;
+      font-weight: 600;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      margin-top: 0.25rem;
+    }
+    .phone-drawer-chev { font-size: 0.6rem; color: #94a3b8; margin-top: 0.25rem; }
+
+    /* ── Stats panel mock ── */
+    .stats-mock {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .stats-row {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.55rem;
+      color: #475569;
+      padding: 0.2rem 0.4rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+    }
+    .stats-row .rank {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      color: #94a3b8;
+      width: 1rem;
+      text-align: right;
+    }
+    .stats-row .name { flex: 1; }
+    .stats-row .count {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      color: #94a3b8;
+      font-size: 0.5rem;
+    }
+
+    /* ── Cross-platform component mock ── */
+    .platforms {
+      display: flex;
+      gap: 0.5rem;
+      width: 100%;
+      align-items: stretch;
+      margin-top: auto;
+    }
+    .platform-card {
+      flex: 1;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      background: #fff;
+      padding: 0.35rem 0.4rem;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .platform-card .head {
+      font-size: 0.5rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 600;
+    }
+    .platform-card .item {
+      font-size: 0.55rem;
+      color: #475569;
+    }
+
+    /* ── Stats footer ── */
+    .bento-footer {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      background: #f8fafc;
+    }
+    .stat {
+      padding: 0.65rem 0.75rem;
+      text-align: center;
+      border-right: 1px solid #e5e7eb;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+    .stat-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<p class="hint">Screenshot the card below (1200 &times; 630). <a href="/">feedzero.app</a></p>
+
+<div class="bento">
+
+  <div class="bento-header">
+    <h1>FeedZero v0.7.0</h1>
+    <span class="sep">|</span>
+    <span class="sub">Mobile bottom drawer, pill navigation, and the stats page</span>
+    <span class="url">my.feedzero.app</span>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="cell">
+    <div class="eyebrow">New &middot; mobile</div>
+    <h3>Persistent bottom drawer for mobile.</h3>
+    <p>A swipeable drawer at the bottom of the screen replaces the offcanvas sidebar. Tap or swipe up to reach feeds, folders, All items, Explore, and Settings without losing the article view.</p>
+    <div class="tile">
+      <div class="phone-mock">
+        <div class="phone-screen">
+          <div class="phone-line medium"></div>
+          <div class="phone-line"></div>
+          <div class="phone-line short"></div>
+          <div class="phone-line"></div>
+          <div class="phone-line medium"></div>
+        </div>
+        <div class="phone-drawer">
+          <span class="phone-drawer-label">All items</span>
+          <span class="phone-drawer-chev">&#9650;</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Changed &middot; mobile</div>
+    <h3>Mobile pill nav replaces pull-to-advance.</h3>
+    <p>Explicit prev/next pills below the article work consistently on every mobile browser. Pull-to-advance was removed in favor of buttons that always work.</p>
+    <div class="tile">
+      <div class="nav-pill-mock">
+        <div class="nav-pill icon-only">
+          <span>&#8249;</span>
+        </div>
+        <div class="nav-pill right">
+          <span class="title">Next article title…</span>
+          <span>&#8250;</span>
+        </div>
+      </div>
+      <span style="flex-basis:100%; height:0"></span>
+      <span class="tag red">pull-to-advance</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tag green">pill nav</span>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">New</div>
+    <h3>Public stats page at <code style="font-size:0.78rem">/stats</code>.</h3>
+    <p>Total vaults, total feeds tracked, and the top 100 feeds by request volume. No accounts, no personal data, no login.</p>
+    <div class="tile">
+      <div class="stats-mock">
+        <div class="stats-row"><span class="rank">1</span><span class="name">Hacker News</span><span class="count">1,234</span></div>
+        <div class="stats-row"><span class="rank">2</span><span class="name">BBC News</span><span class="count">982</span></div>
+        <div class="stats-row"><span class="rank">3</span><span class="name">The Verge</span><span class="count">741</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="cell">
+    <div class="eyebrow">New</div>
+    <h3>Auto color for new folders.</h3>
+    <p>Created folders get a distinct color from the eight-color palette without an extra picker step. Full settings menu now lives inline in the mobile bottom drawer.</p>
+    <div class="tile">
+      <div class="sidebar-mock">
+        <div class="row">
+          <span class="color-swatch" style="background:#3b82f6"></span>
+          <span>Tech</span>
+          <span class="badge">42</span>
+        </div>
+        <div class="row">
+          <span class="color-swatch" style="background:#10b981"></span>
+          <span>Science</span>
+          <span class="badge">18</span>
+        </div>
+        <div class="row">
+          <span class="color-swatch" style="background:#f59e0b"></span>
+          <span>Newsletters</span>
+          <span class="badge">7</span>
+        </div>
+        <div class="row">
+          <span class="color-swatch" style="background:#ec4899"></span>
+          <span>Hobbies</span>
+          <span class="badge">4</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Changed</div>
+    <h3>Single nav body across desktop and mobile.</h3>
+    <p>The desktop sidebar and the mobile bottom drawer now share one component. New top-level entries get added in one place.</p>
+    <div class="tile">
+      <div class="platforms">
+        <div class="platform-card">
+          <div class="head">Desktop</div>
+          <div class="item">Explore</div>
+          <div class="item">All items</div>
+          <div class="item">Tech</div>
+        </div>
+        <div class="platform-card">
+          <div class="head">Mobile</div>
+          <div class="item">Explore</div>
+          <div class="item">All items</div>
+          <div class="item">Tech</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Fixed</div>
+    <h3>Article list no longer jumps on click.</h3>
+    <p>Clicking an already-visible article no longer re-anchors the virtualized list. Keyboard <kbd>j</kbd> / <kbd>k</kbd> still keep the selected article in view as before.</p>
+    <div class="tile">
+      <span class="tag red">scroll re-anchor on click</span>
+      <span class="tile-arrow">&rarr;</span>
+      <span class="tag green">stable scroll</span>
+      <span style="flex-basis:100%; height:0"></span>
+      <kbd>j</kbd>
+      <kbd>k</kbd>
+      <span class="tile-label">still scroll into view</span>
+    </div>
+  </div>
+
+  <!-- Stats footer -->
+  <div class="bento-footer">
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">tracking scripts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,000+</div>
+      <div class="stat-label">feeds in catalog</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,300+</div>
+      <div class="stat-label">automated tests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AES-256</div>
+      <div class="stat-label">encryption</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">vim</div>
+      <div class="stat-label">keyboard nav</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">OPML</div>
+      <div class="stat-label">import / export</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

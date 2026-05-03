@@ -28,6 +28,31 @@
  */
 export const releases = [
   {
+    version: "0.7.0",
+    date: "2026-05-03T12:00:00Z",
+    title: "Mobile bottom drawer, pill navigation, and the stats page",
+    subtitle: "A persistent swipeable bottom drawer replaces the offcanvas mobile sidebar, navigation pills handle prev/next on every device, and a public /stats dashboard exposes anonymous usage numbers.",
+    added: [
+      "Added a persistent swipeable bottom drawer on mobile that replaces the offcanvas sidebar. The drawer handle is always visible at the bottom of the screen and shows the current feed name; tapping or swiping up reveals the full feed list, folders, All items, Explore, and Settings.",
+      "Added a bottom sheet feed switcher on mobile. The active feed name in the bottom drawer doubles as a switcher: a tap opens a sheet with all feeds and folders.",
+      "Added a public stats page at <code>/stats</code>. Shows total vaults, total feeds tracked, and the top 100 feeds by request volume. No accounts, no personal data, no login.",
+      "Added automatic color assignment for new folders. Created folders now get a distinct color from the eight-color palette without an extra picker step.",
+      "Added the full settings menu inline in the mobile bottom drawer. Cloud sync, Auto-organize, Keyboard shortcuts, Send feedback, and What's new are all reachable without opening a separate dropdown.",
+    ],
+    changed: [
+      "Replaced the pull-to-advance gesture on mobile with explicit prev/next nav pills. The pills are pinned to the bottom of the reader and remain accessible regardless of scroll position. Pull-to-advance was removed because behavior was inconsistent across mobile browsers.",
+      "The mobile nav pills are now icon-only for back navigation, show no keyboard hints, and stretch to fill the available width. Long article titles in the prev/next labels are truncated with ellipses instead of overflowing.",
+      "The desktop sidebar and the mobile bottom drawer now share a single navigation body component. Adding a new top-level entry (such as Explore) only needs to be done in one place.",
+    ],
+    fixed: [
+      "Fixed the article list jumping unexpectedly when clicking an already-visible article. The virtualizer no longer re-anchors on click-driven selection changes; keyboard <kbd>j</kbd>/<kbd>k</kbd> still scroll the selected article into view.",
+      "Fixed the mobile bottom drawer overflowing horizontally on viewports with safe-area insets. The drawer now respects the iOS Dynamic Island and notch in all orientations.",
+      "Fixed desktop reader navigation pills clipping long article titles. The pills now share the available width and grow to fit instead of letting text overflow.",
+      "Fixed the folder title toggle in the sidebar collapsing the folder when clicked. Selecting a feed inside a folder on mobile now snaps back to the article list as expected.",
+      "Fixed the mobile drawer settings rendering as a nested dropdown that introduced horizontal scroll. The settings entries are now inline within the drawer.",
+    ],
+  },
+  {
     version: "0.6.0",
     date: "2026-05-01T12:00:00Z",
     title: "Resizable panels, navigation pills, and auto-organize",
