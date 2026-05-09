@@ -1,0 +1,17 @@
+# Personal Claude Code config + permissions, not for the public repo.
+# Skills and hooks ARE tracked because they describe shared workflows
+# (e.g. /new-release) and contributor automation.
+.claude/*
+!.claude/skills/
+!.claude/hooks/
+
+# Build artefacts and tooling
+node_modules/
+.vercel
+.env
+.env.*
+.env*.local
+
+# Editor/OS
+.DS_Store
+*.swp
