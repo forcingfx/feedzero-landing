@@ -86,8 +86,24 @@ function codeify(text) {
   return text.replace(/`([^`]+)`/g, "<code>$1</code>");
 }
 
+/**
+ * Re-allow a small whitelist of inline tags in release-note text. Authors
+ * write release-note bullets as plain English with the occasional `<code>`
+ * or `<kbd>` for terminal commands or keyboard shortcuts; without this step
+ * those tags get HTML-escaped and rendered as literal "&lt;code&gt;".
+ */
+function unescapeInlineTags(text) {
+  const tags = ["code", "kbd"];
+  for (const tag of tags) {
+    text = text
+      .replace(new RegExp(`&lt;${tag}&gt;`, "g"), `<${tag}>`)
+      .replace(new RegExp(`&lt;/${tag}&gt;`, "g"), `</${tag}>`);
+  }
+  return text;
+}
+
 function renderItem(item, escape) {
-  return codeify(escape(item));
+  return unescapeInlineTags(codeify(escape(item)));
 }
 
 // ---------- XML (Atom feed) ----------
@@ -188,6 +204,16 @@ function buildAccordion() {
 
 // ---------- Index injection ----------
 
+/**
+ * Replace the contents of every <!-- LATEST_VERSION --> ... <!-- /LATEST_VERSION -->
+ * marker pair with the latest release version. Lets the landing page reference
+ * the current version (in JSON-LD, body copy, etc.) without manual updates.
+ */
+function applyVersionMarkers(html, version) {
+  const re = /<!--\s*LATEST_VERSION\s*-->[\s\S]*?<!--\s*\/LATEST_VERSION\s*-->/g;
+  return html.replace(re, `<!-- LATEST_VERSION -->${version}<!-- /LATEST_VERSION -->`);
+}
+
 async function injectIntoIndex(fragment) {
   const indexPath = join(__dirname, "index.html");
   const html = await readFile(indexPath, "utf8");
@@ -206,7 +232,8 @@ async function injectIntoIndex(fragment) {
 
   const before = html.slice(0, startIdx);
   const after = html.slice(endIdx + INDEX_END.length);
-  const next = before + fragment + after;
+  const stitched = before + fragment + after;
+  const next = applyVersionMarkers(stitched, releases[0].version);
 
   if (next === html) {
     console.log("index.html: no changes (release notes already up to date).");
