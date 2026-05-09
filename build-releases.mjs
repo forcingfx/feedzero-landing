@@ -205,13 +205,23 @@ function buildAccordion() {
 // ---------- Index injection ----------
 
 /**
- * Replace the contents of every <!-- LATEST_VERSION --> ... <!-- /LATEST_VERSION -->
- * marker pair with the latest release version. Lets the landing page reference
- * the current version (in JSON-LD, body copy, etc.) without manual updates.
+ * Update every place in the landing page that should reflect the current
+ * version. Two strategies:
+ *
+ * 1. HTML body copy: replace text between <!-- LATEST_VERSION --> ...
+ *    <!-- /LATEST_VERSION --> markers. Idempotent, lets authors put the
+ *    sentinel anywhere a version reference appears in prose.
+ *
+ * 2. JSON-LD softwareVersion: regex-replace the value of the
+ *    softwareVersion key. HTML comments aren't valid inside a JSON string
+ *    so the marker approach can't be used there.
  */
 function applyVersionMarkers(html, version) {
-  const re = /<!--\s*LATEST_VERSION\s*-->[\s\S]*?<!--\s*\/LATEST_VERSION\s*-->/g;
-  return html.replace(re, `<!-- LATEST_VERSION -->${version}<!-- /LATEST_VERSION -->`);
+  const markerRe = /<!--\s*LATEST_VERSION\s*-->[\s\S]*?<!--\s*\/LATEST_VERSION\s*-->/g;
+  const jsonLdRe = /("softwareVersion"\s*:\s*)"[^"]*"/g;
+  return html
+    .replace(markerRe, `<!-- LATEST_VERSION -->${version}<!-- /LATEST_VERSION -->`)
+    .replace(jsonLdRe, `$1"${version}"`);
 }
 
 async function injectIntoIndex(fragment) {
