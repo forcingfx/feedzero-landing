@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FeedZero v0.8.0</title>
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+  <style>
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: #f1f5f9;
+      color: #0f172a;
+      margin: 0;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .hint { font-size: 0.82rem; color: #64748b; }
+    .hint a { color: #0645ad; }
+
+    /* ── Bento card — 1200x630 landscape ── */
+    .bento {
+      width: 1200px;
+      height: 630px;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 16px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: auto 1fr 1fr auto;
+    }
+
+    /* ── Header ── */
+    .bento-header {
+      grid-column: 1 / -1;
+      padding: 1.15rem 1.75rem;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+    }
+    .bento-header h1 {
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0;
+    }
+    .bento-header .sep { color: #cbd5e1; font-weight: 300; }
+    .bento-header .sub { font-size: 0.88rem; color: #64748b; font-weight: 500; }
+    .bento-header .url { margin-left: auto; font-size: 0.82rem; color: #94a3b8; }
+
+    /* ── Cells ── */
+    .cell {
+      padding: 1rem 1.25rem;
+      border-right: 1px solid #e5e7eb;
+      border-bottom: 1px solid #e5e7eb;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+    .cell:nth-child(3n of .cell) { border-right: none; }
+    .eyebrow {
+      font-size: 0.6rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: #94a3b8;
+    }
+    .cell h3 {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #0f172a;
+      margin: 0;
+      line-height: 1.3;
+    }
+    .cell p {
+      font-size: 0.78rem;
+      color: #64748b;
+      margin: 0;
+      line-height: 1.45;
+    }
+
+    /* ── Mini illustration tiles ── */
+    .tile {
+      background: #fafafa;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 0.5rem 0.65rem;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.35rem;
+      margin-top: auto;
+    }
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      height: 1.3em;
+      padding: 0 0.45em;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.58rem;
+      color: #475569;
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 3px;
+    }
+    .tag.accent { color: #1d4ed8; background: #eff6ff; border-color: #bfdbfe; }
+    .tag.green  { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .tag.amber  { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+    .tag.red    { color: #dc2626; background: #fef2f2; border-color: #fecaca; }
+    .tile-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+    .tile-arrow { color: #cbd5e1; font-size: 0.75rem; }
+
+    /* ── Init flow chain mock ── */
+    .chain {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+    .chain-step {
+      flex: 1;
+      min-width: 0;
+      padding: 0.25rem 0.45rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      font-size: 0.55rem;
+      color: #475569;
+      text-align: center;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    .chain-step.fail { color: #b45309; background: #fffbeb; border-color: #fde68a; }
+    .chain-step.guard { color: #15803d; background: #f0fdf4; border-color: #bbf7d0; }
+    .chain-arrow { color: #cbd5e1; font-size: 0.7rem; flex: 0 0 auto; }
+
+    /* ── Code snippet ── */
+    .code {
+      background: #0f172a;
+      color: #e2e8f0;
+      border-radius: 6px;
+      padding: 0.55rem 0.7rem;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.58rem;
+      line-height: 1.55;
+      width: 100%;
+      box-sizing: border-box;
+      white-space: pre;
+      overflow: hidden;
+    }
+    .code .kw { color: #93c5fd; }
+    .code .fn { color: #c4b5fd; }
+    .code .str { color: #fcd34d; }
+    .code .com { color: #64748b; }
+    .code .add { color: #86efac; }
+    .code .del { color: #fca5a5; }
+
+    /* ── Browser tag mock ── */
+    .browsers {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      width: 100%;
+      margin-top: auto;
+    }
+    .browser-row {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.3rem 0.45rem;
+      background: #fff;
+      border: 1px solid #e5e7eb;
+      border-radius: 4px;
+      font-size: 0.6rem;
+      color: #475569;
+    }
+    .browser-row .name { flex: 1; font-weight: 500; }
+    .browser-row .status {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.52rem;
+      padding: 0 0.35em;
+      border-radius: 3px;
+    }
+    .browser-row .status.ok { color: #15803d; background: #f0fdf4; border: 1px solid #bbf7d0; }
+    .browser-row .status.bad { color: #dc2626; background: #fef2f2; border: 1px solid #fecaca; }
+
+    /* ── Test result mock ── */
+    .test-mock {
+      width: 100%;
+      margin-top: auto;
+      background: #0f172a;
+      border-radius: 6px;
+      padding: 0.5rem 0.7rem;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 0.55rem;
+      line-height: 1.6;
+      color: #e2e8f0;
+    }
+    .test-mock .pass { color: #86efac; }
+    .test-mock .fail { color: #fca5a5; }
+    .test-mock .dim { color: #64748b; }
+
+    /* ── Principle list ── */
+    .principle-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      width: 100%;
+      margin-top: auto;
+    }
+    .principle-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.62rem;
+      color: #475569;
+    }
+    .principle-item .check {
+      width: 0.85rem; height: 0.85rem;
+      flex: 0 0 auto;
+      display: inline-flex; align-items: center; justify-content: center;
+      background: #f0fdf4; color: #15803d;
+      border-radius: 50%;
+      border: 1px solid #bbf7d0;
+      font-size: 0.55rem;
+      font-weight: 700;
+    }
+
+    /* ── Stats footer ── */
+    .bento-footer {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      background: #f8fafc;
+    }
+    .stat {
+      padding: 0.65rem 0.75rem;
+      text-align: center;
+      border-right: 1px solid #e5e7eb;
+    }
+    .stat:last-child { border-right: none; }
+    .stat-num { font-size: 1.05rem; font-weight: 800; color: #0f172a; }
+    .stat-label { font-size: 0.55rem; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.06em; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<p class="hint">Screenshot the card below (1200 &times; 630). <a href="/">feedzero.app</a></p>
+
+<div class="bento">
+
+  <div class="bento-header">
+    <h1>FeedZero v0.8.0</h1>
+    <span class="sep">|</span>
+    <span class="sub">First-launch reliability fix</span>
+    <span class="url">my.feedzero.app</span>
+  </div>
+
+  <!-- Row 1 -->
+  <div class="cell">
+    <div class="eyebrow">Fixed</div>
+    <h3>First-launch error path no longer silently completes.</h3>
+    <p>If the browser couldn't initialize the encrypted database (Web Crypto unavailable), onboarding was being marked complete anyway. The user landed in a half-initialized state instead of seeing the error.</p>
+    <div class="tile">
+      <div class="chain">
+        <div class="chain-step">generatePassphrase()</div>
+        <span class="chain-arrow">&rarr;</span>
+        <div class="chain-step fail">initialize()&nbsp;✗</div>
+        <span class="chain-arrow">&rarr;</span>
+        <div class="chain-step guard">guard&nbsp;✓</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Affected</div>
+    <h3>Users on browsers without Web Crypto.</h3>
+    <p>The most common path was iOS Safari with Lockdown Mode enabled. Modern browsers were unaffected, which is why this slipped past notice for several releases.</p>
+    <div class="tile">
+      <div class="browsers">
+        <div class="browser-row">
+          <span class="name">iOS Lockdown Mode</span>
+          <span class="status bad">no SubtleCrypto</span>
+        </div>
+        <div class="browser-row">
+          <span class="name">Privacy-extreme browsers</span>
+          <span class="status bad">disabled</span>
+        </div>
+        <div class="browser-row">
+          <span class="name">Safari, Chrome, Firefox</span>
+          <span class="status ok">always worked</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">The fix</div>
+    <h3>One guard before completing onboarding.</h3>
+    <p>Asynchronous failures in the init store set <code>error</code> instead of throwing. The handler now checks for that error before promoting the user to a returning-user state.</p>
+    <div class="tile" style="background:transparent;border:none;padding:0">
+      <div class="code"><span class="com">// src/app.tsx</span>
+.then(() <span class="kw">=&gt;</span> {
+  <span class="add">if (!useAppStore.getState().error)</span>
+  <span class="add">  completeOnboarding();</span>
+})</div>
+    </div>
+  </div>
+
+  <!-- Row 2 -->
+  <div class="cell">
+    <div class="eyebrow">Caught by</div>
+    <h3>The test that had been failing all along.</h3>
+    <p>An app-init test for the error path was already in the suite. It had been failing across multiple releases without being investigated. This release makes it green and gives the path real coverage.</p>
+    <div class="test-mock">
+      <span class="pass">&#10003;</span> initializes for local-only returning users
+      <span class="dim">·</span> 370ms
+      <br>
+      <span class="pass">&#10003;</span> restores sync state for returning sync users
+      <br>
+      <span class="pass">&#10003;</span> shows error when new-user init fails
+      <span class="dim">·</span> <span class="pass">now green</span>
+      <br>
+      <span class="pass">&#10003;</span> auto-subscribes new users to release feed
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">Principle</div>
+    <h3>Errors must fail loud, not mark progress.</h3>
+    <p>If a step in an init chain fails, downstream steps should not run. The previous code treated &ldquo;promise resolved&rdquo; as &ldquo;step succeeded,&rdquo; even when the resolved value carried an error. Result types are only useful if every caller checks them.</p>
+    <div class="principle-list">
+      <div class="principle-item"><span class="check">&#10003;</span><span>Result types over thrown errors</span></div>
+      <div class="principle-item"><span class="check">&#10003;</span><span>Every chain checks for prior failure</span></div>
+      <div class="principle-item"><span class="check">&#10003;</span><span>Tests guard the unhappy path</span></div>
+    </div>
+  </div>
+
+  <div class="cell">
+    <div class="eyebrow">What stays solid</div>
+    <h3>The rest of the app, unchanged.</h3>
+    <p>This release is one targeted fix. No new features, no behavior changes for the 99.9% of users on browsers with Web Crypto. The mobile drawer, stats page, sync, and everything from 0.7.0 carry forward.</p>
+    <div class="tile">
+      <span class="tag green">AES-GCM-256 at rest</span>
+      <span class="tag green">zero telemetry</span>
+      <span class="tag green">OPML in/out</span>
+      <span style="flex-basis:100%; height:0"></span>
+      <span class="tag accent">vim keys</span>
+      <span class="tag accent">3-panel desktop</span>
+      <span class="tag accent">mobile drawer</span>
+    </div>
+  </div>
+
+  <!-- Stats footer -->
+  <div class="bento-footer">
+    <div class="stat">
+      <div class="stat-num">1</div>
+      <div class="stat-label">latent bug fixed</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,340</div>
+      <div class="stat-label">automated tests</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">tracking scripts</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">AES-256</div>
+      <div class="stat-label">encryption</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1,000+</div>
+      <div class="stat-label">feeds in catalog</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">OPML</div>
+      <div class="stat-label">import / export</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

@@ -28,6 +28,15 @@
  */
 export const releases = [
   {
+    version: "0.8.0",
+    date: "2026-05-09T12:00:00Z",
+    title: "First-launch reliability fix",
+    subtitle: "A latent bug in the new-user initialization path that could leave the app marked as onboarded after a failed first init is fixed.",
+    fixed: [
+      "Fixed first-launch initialization continuing to mark onboarding complete when the initial database setup failed (for example on browsers without Web Crypto, such as iOS Lockdown Mode). The error is now surfaced and onboarding is not marked complete, so the user is prompted to retry rather than landing in a half-initialized state.",
+    ],
+  },
+  {
     version: "0.7.0",
     date: "2026-05-03T12:00:00Z",
     title: "Mobile bottom drawer, pill navigation, and the stats page",
