@@ -8,7 +8,8 @@ Landing page for **FeedZero** (feedzero.app), a privacy-first RSS reader. Static
 
 - **Live site:** https://feedzero.app
 - **App:** https://my.feedzero.app
-- **Source (main app):** https://gitlab.com/github.sudoku/feedzero (GitLab, not GitHub)
+- **Source (main app):** https://github.com/forcingfx/feedzero
+- **Source (this landing site):** https://github.com/forcingfx/feedzero-landing
 - **Release feed:** https://feedzero.app/releases.xml (Atom, consumed by the app)
 
 ## Architecture
@@ -57,4 +58,4 @@ The version string in `localStorage` (`feedzero:last-seen-version`) must match `
 - Currently marked "Alpha v0.2.0"
 - Bento grid mirrors the changelog panel in the main app (`changelog-bento.tsx`) — same tile content, same visual patterns
 - All features listed on the page are verified against the app codebase — do not add unimplemented features
-- Source code links use the GitLab tanuki icon, not GitHub's octocat
+- Source code links use the GitHub octocat icon (project moved from GitLab to GitHub on 2026-05-09)
