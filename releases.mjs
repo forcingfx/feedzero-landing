@@ -28,6 +28,29 @@
  */
 export const releases = [
   {
+    version: "0.8.1",
+    date: "2026-05-14T13:00:00Z",
+    title: "Server reliability, observability, and rate limiting",
+    subtitle: "Three production bugs fixed across cloud sync, the public stats page, and mobile dialogs. Server-side storage consolidated onto a single backend. Every error response now carries a trace identifier for support.",
+    fixed: [
+      "Fixed cloud sync vault pulls returning the literal string <code>[object Object]</code> instead of the encrypted payload. The server was storing vaults correctly all along; only the read path was broken. Existing vaults are unaffected and now load correctly.",
+      "Fixed cloud sync pushes failing with a 500 error after a deployment-time configuration drift. Sync storage now self-detects the correct backend rather than relying on an exact environment-variable match.",
+      "Fixed the public stats page always showing zero feeds tracked. The feed catalog had no persistence layer and reset on every cold start; now backed by persistent storage so counts and the popular-feeds leaderboard populate correctly.",
+      "Fixed the mobile soft keyboard covering the bottom of every dialog, which made the cloud-sync passphrase entry unusable. The fix applies to every dialog in the app.",
+      "Fixed the mobile bottom navigation drawer being partially hidden behind iOS Safari's browser chrome. The drawer's bottom padding now grows dynamically with the toolbar height.",
+    ],
+    added: [
+      "Added per-client rate limiting on the feed and page proxies. Default 300 requests per minute per client; returns <code>429 Retry-After</code> per RFC 6585 when exceeded.",
+      "Added a trace identifier (<code>req_</code> followed by 8 hex characters) to every non-2xx response from the monetization endpoints. Quote it in a support report and the issue can be looked up in the runtime logs.",
+      "Added structured single-line JSON logs on every 5xx server error, with an allow-listed field set (route, method, status, trace identifier, error class, error message). No personal data is ever logged.",
+      "Added module-load logs in each serverless function that surface which storage backend resolved at cold start. Any future regression where the wrong adapter is chosen becomes visible in the first deploy log.",
+      "Added production smoke tests for every server endpoint. Run with <code>SMOKE_TESTS=1 npx vitest run tests/smoke/</code>. The smoke layer is now a required phase of the standard development workflow.",
+    ],
+    changed: [
+      "Consolidated all server-side persistence (license records, vault sync, Stripe event deduplication, the feed catalog, and rate-limit counters) onto a single Upstash KV instance. Replaces a previous mix of Vercel Blob, separate Upstash, and in-memory adapters. Self-hosters not configuring Upstash continue to use the filesystem and memory adapters.",
+    ],
+  },
+  {
     version: "0.8.0",
     date: "2026-05-09T12:00:00Z",
     title: "First-launch reliability fix",
