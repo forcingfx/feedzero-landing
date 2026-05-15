@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy — FeedZero</title>
+    <meta name="description" content="FeedZero privacy policy. We do not read your feeds or articles. Local-only by default. Cloud sync is zero-knowledge encrypted.">
+    <link rel="canonical" href="https://feedzero.app/legal/privacy">
+    <meta name="robots" content="index, follow">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <style>
+        body { font-family: system-ui, -apple-system, sans-serif; font-size: 17px; line-height: 1.65; color: #111; background: #fff; max-width: 38rem; margin: 3rem auto 4rem; padding: 0 1.25rem; }
+        h1 { font-size: 1.85rem; font-weight: 700; letter-spacing: -0.01em; margin: 0 0 0.4rem; }
+        h2 { font-size: 1.1rem; font-weight: 700; margin: 1.8rem 0 0.5rem; }
+        h3 { font-size: 1rem; font-weight: 600; margin: 1.2rem 0 0.3rem; }
+        p, ul { margin: 0 0 0.9rem; }
+        ul { padding-left: 1.25rem; }
+        li { margin-bottom: 0.3rem; }
+        a { color: #0645ad; }
+        a:visited { color: #0b0080; }
+        a:hover { color: #06c; }
+        .nav { color: #555; font-size: 0.95rem; margin-bottom: 1.5rem; }
+        .updated { color: #64748b; font-size: 0.85rem; margin: 0 0 1.5rem; }
+        hr { border: 0; border-top: 1px solid #ddd; margin: 2.5rem 0 1.25rem; }
+        footer { font-size: 0.9rem; color: #555; }
+        code { font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: 0.9em; background: #f4f4f4; padding: 0.05em 0.3em; border-radius: 3px; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: 2026-05-15</p>
+        <p class="nav"><a href="/">← Back to FeedZero</a></p>
+    </header>
+
+    <main>
+        <h2>The short version</h2>
+        <p>FeedZero is built to know as little about you as possible. Your subscriptions and reading history are stored in your browser, encrypted. If you turn on cloud sync, your data is encrypted on your device before it leaves — our server stores it but has no way to read it. We do not use any third-party analytics or trackers.</p>
+
+        <h2>Who we are</h2>
+        <p>Operator details and contact are in our <a href="/legal/impressum">Impressum</a>.</p>
+
+        <h2>What we collect</h2>
+
+        <h3>Free tier (local-only)</h3>
+        <p>The Free tier runs entirely in your browser. We do not have an account for you. Your feeds, articles, read state, and folders never leave your device unless you choose to enable cloud sync.</p>
+
+        <p>When the app fetches feeds and pages on your behalf (because RSS sources don't allow direct cross-origin browser fetches), our server logs the standard fields any HTTP server logs: the URL fetched, your IP address (briefly, for rate limiting), and a request timestamp. Logs are retained for at most 30 days and are not joined with any other identifier.</p>
+
+        <h3>Personal tier (cloud sync)</h3>
+        <p>For paying customers, we additionally collect:</p>
+        <ul>
+            <li>A Stripe customer ID and subscription ID (from Stripe; we do not store your credit card information — Stripe does).</li>
+            <li>Your encrypted vault blob, identified only by a derived vault ID. We cannot read the contents: encryption keys are derived from your passphrase or from material generated in your browser and never sent to us.</li>
+            <li>An anonymous license token (a short signed string) that authorizes sync requests. The token contains your customer ID and tier — no email, no name.</li>
+        </ul>
+        <p>We do not store your email address or name on our servers. Stripe stores them as part of normal billing flow — see Stripe's privacy policy.</p>
+
+        <h2>Who we share with (processors)</h2>
+        <p>We use a small number of processors to operate the service:</p>
+        <ul>
+            <li><strong>Stripe, Inc.</strong> — payment processing, customer billing portal. Standard processor agreement; EU SCCs.</li>
+            <li><strong>Vercel, Inc.</strong> — application hosting, serverless functions, CDN.</li>
+            <li><strong>Upstash, Inc.</strong> — encrypted vault storage and license records (EU region).</li>
+        </ul>
+        <p>None of these processors receive any unencrypted personal content from you. Vercel and Upstash see opaque ciphertext; Stripe sees billing data only.</p>
+
+        <h2>Cookies and analytics</h2>
+        <p>We do not use third-party analytics. We do not use any non-essential cookies. The app uses browser local storage (IndexedDB) to keep your data on your device — that is not a cookie and does not leave your device.</p>
+
+        <h2>Your rights (GDPR)</h2>
+        <p>You have the right to access, correct, delete, restrict, or object to processing of your personal data, and to data portability. Because we hold very little data about you, fulfilling these requests is usually trivial:</p>
+        <ul>
+            <li><strong>Access / portability:</strong> Your data lives in your browser. Use OPML export to take it with you. Your encrypted vault can be retrieved via the Stripe Customer Portal &rarr; FeedZero sync settings.</li>
+            <li><strong>Deletion:</strong> Cancel your subscription via the Customer Portal. We delete the encrypted vault 90 days after the subscription ends. To request immediate deletion, email <a href="mailto:support@feedzero.app">support@feedzero.app</a>.</li>
+            <li><strong>Complaint:</strong> You have the right to lodge a complaint with a supervisory authority. In Germany this is your state DPA; see <a href="https://www.bfdi.bund.de/EN/Service/Anschriften/Laender/Laender-node.html">BfDI list</a>.</li>
+        </ul>
+
+        <h2>International transfers</h2>
+        <p>Our processors operate primarily in the EU. Where transfers outside the EEA occur (e.g. Stripe), they are governed by Standard Contractual Clauses.</p>
+
+        <h2>Changes to this policy</h2>
+        <p>We will update this page and bump the "Last updated" date above. Material changes will additionally be announced in the app's "What's new" feed.</p>
+
+        <h2>Contact</h2>
+        <p>Privacy questions: <a href="mailto:support@feedzero.app">support@feedzero.app</a>.</p>
+    </main>
+
+    <hr>
+    <footer>
+        <a href="/">Home</a> ·
+        <a href="/pricing">Pricing</a> ·
+        <a href="/legal/impressum">Impressum</a> ·
+        <a href="/legal/terms">Terms</a> ·
+        <a href="/legal/refund">Refund</a>
+    </footer>
+</body>
+</html>
