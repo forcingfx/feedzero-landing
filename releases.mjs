@@ -28,6 +28,21 @@
  */
 export const releases = [
   {
+    version: "0.8.2",
+    date: "2026-05-15T12:00:00Z",
+    title: "Article flood grouping, cloud restore, and sync race fix",
+    subtitle: "Flooding feeds no longer drown out everything else in aggregated views, a Restore-from-cloud button recovers from drifted local state, and a cross-device sync race that left Device B with the wrong feed list is fixed.",
+    added: [
+      "Added inline grouping for same-feed article floods in aggregated views (All items and folder views). Runs of three or more consecutive articles from the same feed within ten-minute pairwise gaps collapse to a summary row with a chevron; expanding inline reveals the full list. Disabled in per-feed views and behind a Settings toggle if undesired.",
+      "Added a <code>Restore from cloud</code> button to the Data & Storage dialog. Replaces local feeds and articles with the cloud vault without deleting and recreating the vault, which is the recovery path when a device's local state drifts from what the cloud knows.",
+    ],
+    fixed: [
+      "Fixed a cross-device sync race where a second device could mark its status as synced without the cloud feeds materializing locally. Concurrent pulls now share a single in-flight request and the import is transactional, so the article list never serves a half-imported state.",
+      "Fixed the prev/next reader navigation pills appearing on desktop, where they duplicated existing keyboard shortcuts and sidebar navigation. The pills remain on mobile, where the touch surface is needed.",
+      "Fixed dialog buttons being pushed off-screen on iOS when the soft keyboard opens. Dialogs are now anchored to the dynamic viewport height so the action row stays reachable regardless of keyboard state.",
+    ],
+  },
+  {
     version: "0.8.1",
     date: "2026-05-14T13:00:00Z",
     title: "Server reliability, observability, and rate limiting",
