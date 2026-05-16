@@ -88,6 +88,33 @@
         .plan.coming {
             background: #f8fafc;
         }
+        .plan.self-host {
+            background: #f8fafc;
+            border-style: dashed;
+            border-color: #cbd5e1;
+        }
+
+        /* Divider between paid tiers and Self-host "or" option */
+        .or-divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin: 0.5rem 0 1.25rem;
+        }
+        .or-divider::before,
+        .or-divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        .or-divider span {
+            padding: 0 1rem;
+        }
 
         /* Recommended badge */
         .recommended {
@@ -295,14 +322,14 @@
                     <a href="https://my.feedzero.app" class="cta secondary">Open the app →</a>
                 </div>
                 <ul class="plan-features">
-                    <li>Unlimited feed subscriptions</li>
+                    <li>Up to 25 feed subscriptions</li>
                     <li>Access to 1,300+ curated feeds in Explore</li>
                     <li>OPML import &amp; export — bring your subscriptions, take them with you</li>
                     <li>Full-text article extraction</li>
                     <li>Works offline once articles have loaded</li>
                     <li>No accounts — your data stays in your browser, encrypted</li>
-                    <li>Self-hostable under MIT license — run your own copy</li>
                     <li>Local-only storage, AES-256-GCM encrypted at rest</li>
+                    <li>Subscribe to Personal or self-host (below) for unlimited feeds</li>
                 </ul>
             </article>
 
@@ -346,8 +373,30 @@
 
         </div>
 
+        <p class="or-divider"><span>or</span></p>
+
+        <div class="plans">
+            <article class="plan self-host">
+                <div class="plan-meta">
+                    <h2>Self-host</h2>
+                    <p class="tagline">Run your own copy. Every shipped feature unlocked.</p>
+                    <p class="price">$0<span class="period"> &middot; MIT licensed</span></p>
+                    <p class="price-sub">For tinkerers, privacy-conscious operators, and anyone who'd rather run their own server.</p>
+                    <a href="/docs/self-hosting" class="cta secondary">Self-hosting guide →</a>
+                </div>
+                <ul class="plan-features">
+                    <li>Unlimited feeds — quota does not apply</li>
+                    <li>Auto-organize folders + every Personal feature</li>
+                    <li>Cloud sync on your own server (Vercel one-click, or bring your own host)</li>
+                    <li>Open source under MIT — fork it, audit it, modify it</li>
+                    <li>No license check, no kill switch, no telemetry</li>
+                    <li>You provide the server + cost; we provide the code + docs</li>
+                </ul>
+            </article>
+        </div>
+
         <div class="meta">
-            <p><strong>Self-hosted:</strong> FeedZero is open source under the MIT license. <a href="https://github.com/forcingfx/feedzero">Run your own copy</a> and unlock every feature — no license, no kill switch.</p>
+            <p><strong>Why pay for Personal if self-host is free?</strong> Convenience. Personal is one click, zero ops, automatic updates, and an always-on sync server we maintain. Self-hosting is the right answer if you already run a server or want full sovereignty over your infrastructure.</p>
             <p><strong>Tax:</strong> Prices shown in USD. FeedZero is operated by a Swiss sole proprietor below the Swiss MWST threshold; no tax is added at checkout. Where local VAT or sales-tax law obligates the consumer to self-account, that obligation rests with the consumer.</p>
             <p><strong>Refund:</strong> See our <a href="/legal/refund">refund policy</a>.</p>
             <p><strong>EU 14-day withdrawal:</strong> By starting your subscription you consent to immediate provision of digital content and waive the 14-day withdrawal right. See <a href="/legal/terms">Terms</a>.</p>

@@ -518,6 +518,11 @@
             box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
         }
         .plan-mini.coming { background: #f8fafc; }
+        .plan-mini.self-host {
+            background: #f8fafc;
+            border-style: dashed;
+            border-color: #cbd5e1;
+        }
         .plan-mini .recommended {
             position: absolute;
             top: -0.65rem;
@@ -1054,7 +1059,7 @@
                     <p class="price-mini">$0<span class="period"> &middot; forever</span></p>
                 </div>
                 <p class="feature-summary">
-                    Unlimited subscriptions, 1,300+ curated feeds, OPML, full-text extraction, offline support, encrypted local storage, self-hostable.
+                    Up to 25 feeds, 1,300+ curated feeds in Explore, OPML, full-text extraction, offline support, encrypted local storage.
                 </p>
                 <div class="cta-col">
                     <a href="https://my.feedzero.app" class="cta-mini secondary">Open the app →</a>
@@ -1086,6 +1091,19 @@
                 </p>
                 <div class="cta-col">
                     <span class="cta-mini disabled">Coming soon</span>
+                </div>
+            </article>
+
+            <article class="plan-mini self-host">
+                <div>
+                    <p class="name">Self-host</p>
+                    <p class="price-mini">$0<span class="period"> &middot; MIT</span></p>
+                </div>
+                <p class="feature-summary">
+                    Run your own copy on your own server. Every shipped feature unlocked — unlimited feeds, cloud sync, auto-organize. No license check, no kill switch.
+                </p>
+                <div class="cta-col">
+                    <a href="/docs/self-hosting" class="cta-mini secondary">Self-hosting guide →</a>
                 </div>
             </article>
 
