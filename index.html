@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FeedZero — an RSS reader for your browser</title>
-    <meta name="description" content="FeedZero is a free, open source RSS reader that runs in your browser. No accounts, no tracking. Reads RSS, Atom, and JSON Feed. Optional end-to-end encrypted sync.">
+    <title>FeedZero: an RSS reader for your browser</title>
+    <meta name="description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking. Reads RSS, Atom, and JSON Feed. End-to-end encrypted sync across devices.">
     <meta name="keywords" content="RSS reader, open source RSS, browser RSS reader, Atom, JSON Feed, OPML, encrypted RSS sync, self-hosted RSS">
     <link rel="canonical" href="https://feedzero.app">
 
-    <meta property="og:title" content="FeedZero — an RSS reader for your browser">
-    <meta property="og:description" content="A free, open source RSS reader that runs in your browser. No accounts, no tracking. Optional end-to-end encrypted sync.">
+    <meta property="og:title" content="FeedZero: an RSS reader for your browser">
+    <meta property="og:description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking. End-to-end encrypted sync across devices.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://feedzero.app">
     <meta property="og:site_name" content="FeedZero">
@@ -21,8 +21,8 @@
     <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FeedZero — an RSS reader for your browser">
-    <meta name="twitter:description" content="A free, open source RSS reader that runs in your browser. No accounts, no tracking.">
+    <meta name="twitter:title" content="FeedZero: an RSS reader for your browser">
+    <meta name="twitter:description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking.">
     <meta name="twitter:image" content="https://feedzero.app/screenshot.png">
 
     <meta name="robots" content="index, follow">
@@ -42,7 +42,7 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "A free, open source RSS reader that runs in your browser. Reads RSS, Atom, and JSON Feed. Optional end-to-end encrypted sync.",
+      "description": "An open source RSS reader that runs in your browser. Reads RSS, Atom, and JSON Feed. End-to-end encrypted sync across devices.",
       "screenshot": "https://feedzero.app/screenshot.png",
       "softwareVersion": "0.8.2",
       "author": { "@type": "Person", "name": "Arjun Muralidharan" },
@@ -53,11 +53,11 @@
         "OPML import and export",
         "Offline support via service worker",
         "Keyboard navigation",
-        "Optional end-to-end encrypted sync (AES-256-GCM)",
+        "End-to-end encrypted sync across devices (AES-256-GCM)",
         "Full article text extraction",
-        "Around 1,000 curated feeds in the Explore tab",
+        "Around 1,300 curated feeds in the Explore tab",
         "Self-hostable",
-        "No accounts or tracking"
+        "No accounts or third-party tracking"
       ]
     }
     </script>
@@ -840,7 +840,7 @@
     <header id="top">
         <img src="/icon-512.png" alt="" width="72" height="72" style="display: block; margin-bottom: 0.75rem;">
         <h1>FeedZero</h1>
-        <p>A fast, keyboard-driven feed reader with no accounts, no third-party tracking, and free anonymous cloud sync.</p>
+        <p>A fast, keyboard-driven feed reader. No accounts. No third-party tracking.</p>
 
         <p class="nav">
             <a href="https://my.feedzero.app">Open the app</a> ·
@@ -855,10 +855,13 @@
     <section id="about">
         <h2>About</h2>
         <p>
-            FeedZero is a feed reader that runs in your browser. There is no account to create — you open it and start reading. There are no third-party trackers, no ads, and no data sold to anyone. Everything is stored on your device, encrypted. If you want to read on multiple devices, cloud sync is free and anonymous: a short passphrase is all you need, and the server cannot see your data.
+            FeedZero is a feed reader that runs in your browser. You open it and start reading. No account, no third-party trackers, no ads. Your feeds and reading history stay on your device, encrypted at rest.
         </p>
         <p>
-            It is built to be fast. Feeds are cached in memory, keyboard shortcuts cover every action, and there are no loading screens between articles. Free, open source (MIT license), currently in alpha (v<!-- LATEST_VERSION -->0.8.2<!-- /LATEST_VERSION -->).
+            To read across devices, a $5/month subscription syncs an encrypted vault from one browser to the next. A four-word passphrase is the only key. The server holds ciphertext and nothing else.
+        </p>
+        <p>
+            Speed comes from caching feeds in memory and from keyboard shortcuts that cover everything you do. No loading screens between articles. Open source under the MIT license. Currently in alpha (v<!-- LATEST_VERSION -->0.8.2<!-- /LATEST_VERSION -->).
         </p>
     </section>
 
@@ -895,7 +898,7 @@
                     Keyboard
                 </span>
                 <h3 class="feat-title">Fast. Keyboard-driven.</h3>
-                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Navigate everything with keyboard shortcuts, or just click — both work.</p>
+                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Navigate everything by keyboard, or click. Both work.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-keys">
@@ -939,8 +942,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Sync
                 </span>
-                <h3 class="feat-title">Free, anonymous cloud sync.</h3>
-                <p class="feat-desc">Sync across devices with a four-word passphrase. No account, no email — just the passphrase. Your data is encrypted before it leaves your browser. The server cannot read it.</p>
+                <h3 class="feat-title">End-to-end encrypted sync.</h3>
+                <p class="feat-desc">Subscribe and pick a four-word passphrase. That passphrase is the only thing you need on a new device. Encryption happens in the browser. The server stores ciphertext it cannot read.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -969,7 +972,7 @@
                     Discover
                 </span>
                 <h3 class="feat-title">1,300+ feeds to browse.</h3>
-                <p class="feat-desc">Not sure where to start? Explore feeds organized by topic and country — tech, news, science, culture, and more.</p>
+                <p class="feat-desc">Not sure where to start? Explore feeds organized by topic and country: tech, news, science, culture, and more.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-favs">
@@ -1046,7 +1049,7 @@
                     Privacy
                 </span>
                 <h3>No third-party tracking.</h3>
-                <p>No ads, no third-party scripts, no data sold to anyone. We collect anonymous usage statistics to improve the app, but we never track what you read or who you are.</p>
+                <p>No ads, no third-party scripts, no data shared with anyone. We count anonymous usage to know what is working. We do not log what you read or who you are.</p>
             </div>
         </div>
     </div>
@@ -1055,7 +1058,7 @@
     <section id="pricing">
         <h2>Pricing</h2>
         <p>
-            Free in your browser, forever. $5/month if you want cloud sync across every device you read on. Self-host the whole thing for free.
+            Free in your browser. $5 a month to sync across devices. Self-host the whole thing for free.
         </p>
 
         <div class="plans-mini">
@@ -1063,10 +1066,10 @@
             <article class="plan-mini">
                 <div>
                     <p class="name">Free</p>
-                    <p class="price-mini">$0<span class="period"> &middot; forever</span></p>
+                    <p class="price-mini">$0<span class="period"> &middot; in your browser</span></p>
                 </div>
                 <p class="feature-summary">
-                    Up to 25 feeds, 1,300+ curated feeds in Explore, OPML, full-text extraction, offline support, encrypted local storage.
+                    Up to 25 feeds. 1,300+ curated feeds in Explore. OPML import and export, full-text extraction, offline support, encrypted local storage.
                 </p>
                 <div class="cta-col">
                     <a href="https://my.feedzero.app" class="cta-mini secondary">Open the app →</a>
@@ -1080,24 +1083,11 @@
                     <p class="price-mini">$5<span class="period">/mo USD</span></p>
                 </div>
                 <p class="feature-summary">
-                    Everything in Free, plus end-to-end encrypted cloud sync across devices and auto-organize folders. Filters and keyword muting coming soon.
+                    Everything in Free, plus end-to-end encrypted sync across devices and auto-organize folders.
                 </p>
                 <div class="cta-col">
                     <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-mini primary">Subscribe</a>
-                    <a href="https://my.feedzero.app/?subscribe=personal-yearly" class="annual-mini">or $50/yr — save 17%</a>
-                </div>
-            </article>
-
-            <article class="plan-mini coming">
-                <div>
-                    <p class="name">Pro</p>
-                    <p class="price-mini">Coming 2026</p>
-                </div>
-                <p class="feature-summary">
-                    Everything in Personal, plus AI summaries and a daily briefing (Signal), full-text search, send to Kindle, authenticated fetchers for paid sources (Economist, NYT, WSJ), YouTube/Reddit/X support, and commercial theme packs.
-                </p>
-                <div class="cta-col">
-                    <span class="cta-mini disabled">Coming soon</span>
+                    <a href="https://my.feedzero.app/?subscribe=personal-yearly" class="annual-mini">or $50/yr, save 17%</a>
                 </div>
             </article>
 
@@ -1107,7 +1097,7 @@
                     <p class="price-mini">$0<span class="period"> &middot; MIT</span></p>
                 </div>
                 <p class="feature-summary">
-                    Run your own copy on your own server. Every shipped feature unlocked — unlimited feeds, cloud sync, auto-organize. No license check, no kill switch.
+                    Run your own copy on your own server. Every shipped feature unlocked: unlimited feeds, sync, auto-organize. No license check, no kill switch.
                 </p>
                 <div class="cta-col">
                     <a href="/docs/self-hosting" class="cta-mini secondary">Self-hosting guide →</a>
@@ -1117,30 +1107,30 @@
         </div>
 
         <p class="pricing-see-all">
-            <a href="/pricing">See all features and the full comparison →</a>
+            <a href="/pricing">See the full comparison →</a>
         </p>
     </section>
 
     <section id="privacy">
         <h2>Privacy</h2>
         <p>
-            Your subscriptions and reading history are stored in your browser, not on a server. Everything is encrypted on your device. If you turn on sync to use FeedZero on multiple devices, your data is encrypted before it ever leaves — the server stores it but has no way to read it.
+            Your subscriptions and reading history live in your browser, encrypted at rest. Sync replaces the server with an encrypted vault. The encryption keys never leave the browser, so the server holds ciphertext and nothing else.
         </p>
         <p>
-            There are no third-party trackers, no ads, and no data shared with anyone outside FeedZero. We collect anonymous usage statistics to improve the app, but we do not track what you read or identify you. The only thing our server sees is the web addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, you can run the whole thing yourself — it's open source.
+            There are no third-party trackers, no ads, no data shared outside FeedZero. We count anonymous usage to know what is working. We do not log what you read or who you are. The server does see the addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, run your own copy. The code is open source.
         </p>
         <p>
-            For the technically inclined: local storage uses AES-GCM-256 with PBKDF2 key derivation (600,000 iterations). Sync uses end-to-end encryption with a four-word passphrase. Full threat model and known limitations in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">SECURITY.md</a>.
+            For the curious: local storage uses AES-GCM-256 with PBKDF2 key derivation at 600,000 iterations. Sync derives keys in the browser from a four-word passphrase. Full threat model and known limitations are in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">SECURITY.md</a>.
         </p>
     </section>
 
     <section id="source">
         <h2>Open source</h2>
         <p>
-            Every privacy claim on this page is verifiable. The source code is on <a href="https://github.com/forcingfx/feedzero">GitHub</a> under the MIT license — you can read it, audit it, run it yourself, or contribute. That's the point: you don't have to take our word for it.
+            Every claim on this page is verifiable. The source is on <a href="https://github.com/forcingfx/feedzero">GitHub</a> under the MIT license. Read it, audit it, run your own copy, or send a patch.
         </p>
         <p>
-            To try it, visit <a href="https://my.feedzero.app">my.feedzero.app</a> and paste a website address. There is no sign-up step.
+            To try it, open <a href="https://my.feedzero.app">my.feedzero.app</a> and paste a feed address. No sign-up.
         </p>
     </section>
 
@@ -1481,7 +1471,7 @@
                         <li>Added an Explore tab with around 1,000 feeds organized by topic and country. The search box accepts a URL, which is added directly as a feed.</li>
                         <li>Added vim-style keyboard navigation: <code>j</code>/<code>k</code> for next/previous article, <code>Enter</code> to add a feed, <code>Space</code> to scroll, <code>h</code> for full text view, <code>o</code> to open the original.</li>
                         <li>Added unread dots and a &quot;mark all read&quot; action.</li>
-                        <li>Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data — by design.</li>
+                        <li>Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data, by design.</li>
                         <li>Added OPML import and export.</li>
                     </ul>
                 </section>

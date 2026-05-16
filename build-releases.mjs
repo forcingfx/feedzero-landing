@@ -2,7 +2,7 @@
 /**
  * Builds the release-notes artefacts from releases.mjs:
  *
- *   1. releases.xml — Atom feed served at /releases.xml (consumed by the app
+ *   1. releases.xml: Atom feed served at /releases.xml (consumed by the app
  *      at my.feedzero.app via its "What's new" feature).
  *   2. The <!-- RELEASE_NOTES_START --> / <!-- RELEASE_NOTES_END --> block
  *      inside index.html, replaced with a <details>/<summary> accordion of
@@ -127,7 +127,7 @@ function buildEntry(release) {
   const ts = toTimestamp(release.date);
   return `  <entry>
     <id>feedzero:release:${escapeXml(release.version)}</id>
-    <title>v${escapeXml(release.version)} — ${escapeXml(release.title)}</title>
+    <title>v${escapeXml(release.version)}: ${escapeXml(release.title)}</title>
     <link rel="alternate" href="${PAGE_URL}" />
     <published>${ts}</published>
     <updated>${ts}</updated>
