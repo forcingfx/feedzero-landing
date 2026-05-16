@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy — FeedZero</title>
-    <meta name="description" content="FeedZero privacy policy. We do not read your feeds or articles. Local-only by default. Cloud sync is zero-knowledge encrypted. Swiss FADP + EU GDPR.">
+    <title>Privacy Policy: FeedZero</title>
+    <meta name="description" content="FeedZero privacy policy. We do not read your feeds or articles. Local-only by default. Sync is zero-knowledge encrypted.">
     <link rel="canonical" href="https://feedzero.app/legal/privacy">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -37,77 +37,77 @@
 
     <main>
         <h2>The short version</h2>
-        <p>FeedZero is built to know as little about you as possible. Your subscriptions and reading history are stored in your browser, encrypted. If you turn on cloud sync, your data is encrypted on your device before it leaves — our server stores it but has no way to read it. We do not use any third-party analytics or trackers.</p>
+        <p>FeedZero is built to know as little about you as possible. Your subscriptions and reading history live in your browser, encrypted. If you turn on sync, the data is encrypted on your device before it leaves. Our server stores it and has no way to read it. We do not use any third-party analytics or trackers.</p>
 
         <h2>Who we are</h2>
-        <p>FeedZero is operated by a Swiss company. Operator details and contact information are in our <a href="/legal/impressum">Impressum</a>.</p>
+        <p>Operator details and contact information are in our <a href="/legal/impressum">Impressum</a>.</p>
 
         <h2>Applicable law</h2>
-        <p>This policy is governed by the <strong>revised Swiss Federal Act on Data Protection (FADP / Datenschutzgesetz, DSG)</strong>, effective 1 September 2023, and the corresponding Data Protection Ordinance. For users resident in the European Union or European Economic Area, the <strong>EU General Data Protection Regulation (GDPR)</strong> applies in parallel due to its extraterritorial scope (Art. 3(2) GDPR). Where the two regimes diverge, we apply whichever offers the data subject the greater protection.</p>
+        <p>This policy is governed by the <strong>revised Federal Act on Data Protection (FADP / Datenschutzgesetz, DSG)</strong>, effective 1 September 2023, and the corresponding Data Protection Ordinance. For users resident in the European Union or European Economic Area, the <strong>EU General Data Protection Regulation (GDPR)</strong> applies in parallel due to its extraterritorial scope (Art. 3(2) GDPR). Where the two regimes diverge, we apply whichever offers the data subject the greater protection.</p>
 
         <h2>What we collect</h2>
 
         <h3>Free tier (local-only)</h3>
-        <p>The Free tier runs entirely in your browser. We do not have an account for you. Your feeds, articles, read state, and folders never leave your device unless you choose to enable cloud sync.</p>
+        <p>The Free tier runs entirely in your browser. We do not have an account for you. Your feeds, articles, read state, and folders never leave your device unless you choose to enable sync.</p>
 
-        <p>When the app fetches feeds and pages on your behalf (because RSS sources don't allow direct cross-origin browser fetches), our server logs the standard fields any HTTP server logs: the URL fetched, your IP address (briefly, for rate limiting), and a request timestamp. Logs are retained for at most 30 days and are not joined with any other identifier.</p>
+        <p>When the app fetches feeds and pages on your behalf (RSS sources do not allow direct cross-origin browser fetches), our server logs the standard fields any HTTP server logs: the URL fetched, your IP address (briefly, for rate limiting), and a request timestamp. Logs are retained for at most 30 days and are not joined with any other identifier.</p>
 
-        <h3>Personal tier (cloud sync)</h3>
+        <h3>Personal tier (sync)</h3>
         <p>For paying customers, we additionally collect:</p>
         <ul>
-            <li>A Stripe customer ID and subscription ID (from Stripe; we do not store your credit card information — Stripe does).</li>
+            <li>A Stripe customer ID and subscription ID (from Stripe). We do not store your credit card information. Stripe does.</li>
             <li>Your encrypted vault blob, identified only by a derived vault ID. We cannot read the contents: encryption keys are derived from your passphrase or from material generated in your browser and never sent to us.</li>
-            <li>An anonymous license token (a short signed string) that authorizes sync requests. The token contains your customer ID and tier — no email, no name.</li>
+            <li>An anonymous license token (a short signed string) that authorizes sync requests. The token contains your customer ID and tier. No email, no name.</li>
         </ul>
-        <p>We do not store your email address or name on our servers. Stripe stores them as part of normal billing flow — see Stripe's privacy policy.</p>
+        <p>We do not store your email address or name on our servers. Stripe stores them as part of normal billing flow. See Stripe's privacy policy.</p>
 
         <h2>Legal bases for processing (GDPR Art. 6 / FADP Art. 31)</h2>
         <ul>
-            <li><strong>Contract performance</strong> — processing necessary to deliver the FeedZero service you subscribed to (cloud sync, license verification, billing via Stripe).</li>
-            <li><strong>Legitimate interest</strong> — short-lived server logs for security, abuse prevention, and rate limiting.</li>
-            <li><strong>Legal obligation</strong> — invoice retention under Swiss commercial-law rules and the Swiss Code of Obligations.</li>
+            <li><strong>Contract performance.</strong> Processing necessary to deliver the FeedZero service you subscribed to: sync, license verification, billing via Stripe.</li>
+            <li><strong>Legitimate interest.</strong> Short-lived server logs for security, abuse prevention, and rate limiting.</li>
+            <li><strong>Legal obligation.</strong> Invoice retention under commercial-law rules and the Code of Obligations.</li>
         </ul>
 
         <h2>Who we share with (processors)</h2>
         <p>We use a small number of processors to operate the service:</p>
         <ul>
-            <li><strong>Stripe Payments Europe Ltd. (Ireland)</strong> — payment processing, customer billing portal. EU SCCs apply for any onward transfer outside the EEA.</li>
-            <li><strong>Vercel, Inc. (United States)</strong> — application hosting, serverless functions, CDN. Cross-border transfers governed by EU SCCs and the Swiss-US Data Privacy Framework.</li>
-            <li><strong>Upstash, Inc. (United States)</strong> — encrypted vault storage and license records. Same SCC / DPF basis.</li>
+            <li><strong>Stripe Payments Europe Ltd. (Ireland).</strong> Payment processing and customer billing portal. EU SCCs apply for any onward transfer outside the EEA.</li>
+            <li><strong>Vercel, Inc. (United States).</strong> Application hosting, serverless functions, CDN. Cross-border transfers governed by EU SCCs and the Swiss-US Data Privacy Framework.</li>
+            <li><strong>Upstash, Inc. (United States).</strong> Encrypted vault storage and license records. Same SCC / DPF basis.</li>
         </ul>
         <p>None of these processors receive any unencrypted personal content from you. Vercel and Upstash see opaque ciphertext; Stripe sees billing data only.</p>
 
         <h2>International transfers</h2>
-        <p>FeedZero is established in Switzerland. Personal data may be transferred to processors in the EU (Stripe Ireland) and the United States (Vercel, Upstash). For transfers from Switzerland to the United States, we rely on the <strong>Swiss-US Data Privacy Framework</strong> where the receiving processor is certified, or on Standard Contractual Clauses (SCCs) issued by the Swiss Federal Data Protection and Information Commissioner (FDPIC). For transfers from the EEA to the US, EU SCCs apply.</p>
+        <p>Personal data may be transferred to processors in the EU (Stripe Ireland) and the United States (Vercel, Upstash). For transfers from the operator's jurisdiction to the United States, we rely on the <strong>Swiss-US Data Privacy Framework</strong> where the receiving processor is certified, or on Standard Contractual Clauses (SCCs) issued by the Federal Data Protection and Information Commissioner (FDPIC). For transfers from the EEA to the US, EU SCCs apply.</p>
 
         <h2>Cookies and analytics</h2>
-        <p>We do not use third-party analytics. We do not use any non-essential cookies. The app uses browser local storage (IndexedDB) to keep your data on your device — that is not a cookie and does not leave your device.</p>
+        <p>We do not use third-party analytics. We do not use any non-essential cookies. The app uses browser local storage (IndexedDB) to keep your data on your device. That is not a cookie and does not leave your device.</p>
 
         <h2>Your rights</h2>
 
-        <h3>Under Swiss FADP (Art. 25–28 DSG)</h3>
+        <h3>Under FADP (Art. 25–28 DSG)</h3>
         <ul>
-            <li><strong>Right of access</strong> — request a copy of personal data we hold about you.</li>
-            <li><strong>Right to rectification</strong> — correct inaccurate data.</li>
-            <li><strong>Right to erasure / restriction</strong> — request deletion or restriction of processing.</li>
-            <li><strong>Right to data portability</strong> — receive your data in a structured, commonly used format.</li>
-            <li><strong>Right to lodge a complaint</strong> with the <strong>Federal Data Protection and Information Commissioner (FDPIC / EDÖB)</strong> — see <a href="https://www.edoeb.admin.ch/" rel="noopener">edoeb.admin.ch</a>.</li>
+            <li><strong>Right of access.</strong> Request a copy of personal data we hold about you.</li>
+            <li><strong>Right to rectification.</strong> Correct inaccurate data.</li>
+            <li><strong>Right to erasure or restriction.</strong> Request deletion or restriction of processing.</li>
+            <li><strong>Right to data portability.</strong> Receive your data in a structured, commonly used format.</li>
+            <li><strong>Right to lodge a complaint</strong> with the <strong>Federal Data Protection and Information Commissioner (FDPIC / EDÖB)</strong>. See <a href="https://www.edoeb.admin.ch/" rel="noopener">edoeb.admin.ch</a>.</li>
         </ul>
 
-        <h3>Under EU GDPR (Art. 15–22) — for EU/EEA residents</h3>
+        <h3>Under EU GDPR (Art. 15–22), for EU/EEA residents</h3>
         <ul>
             <li>The same access, rectification, erasure, restriction, portability, and objection rights as above.</li>
-            <li><strong>Right to lodge a complaint</strong> with a supervisory authority in your EU/EEA member state of habitual residence — see <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" rel="noopener">EDPB member list</a>.</li>
+            <li><strong>Right to lodge a complaint</strong> with a supervisory authority in your EU/EEA member state of habitual residence. See the <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" rel="noopener">EDPB member list</a>.</li>
         </ul>
 
         <h3>Practical exercise</h3>
         <ul>
-            <li><strong>Access / portability</strong> — most of your data lives in your browser. Use OPML export to take it with you. Your encrypted vault can be retrieved via the Stripe Customer Portal → FeedZero sync settings.</li>
-            <li><strong>Deletion</strong> — cancel your subscription via the Customer Portal. We delete the encrypted vault 90 days after the subscription ends. To request immediate deletion, email <a href="mailto:support@feedzero.app">support@feedzero.app</a>.</li>
+            <li><strong>Access and portability.</strong> Most of your data lives in your browser. Use OPML export to take it with you. Your encrypted vault can be retrieved via the Stripe Customer Portal under FeedZero sync settings.</li>
+            <li><strong>Deletion.</strong> Cancel your subscription via the Customer Portal. We delete the encrypted vault 90 days after the subscription ends. To request immediate deletion, email <a href="mailto:support@feedzero.app">support@feedzero.app</a>.</li>
         </ul>
 
         <h2>Retention</h2>
-        <p>Encrypted vault data is retained for the duration of your subscription plus 90 days (a grace period in case of accidental cancellation). Billing records are retained for 10 years per Swiss Code of Obligations Art. 958f. Short-lived server logs are retained for 30 days.</p>
+        <p>Encrypted vault data is retained for the duration of your subscription plus 90 days (a grace period in case of accidental cancellation). Billing records are retained for 10 years per Code of Obligations Art. 958f. Short-lived server logs are retained for 30 days.</p>
 
         <h2>Changes to this policy</h2>
         <p>We will update this page and bump the "Last updated" date above. Material changes will additionally be announced in the app's "What's new" feed.</p>

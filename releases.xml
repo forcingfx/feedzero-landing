@@ -11,7 +11,7 @@
   </author>
   <entry>
     <id>feedzero:release:0.8.2</id>
-    <title>v0.8.2 — Article flood grouping, cloud restore, and sync race fix</title>
+    <title>v0.8.2: Article flood grouping, cloud restore, and sync race fix</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-05-15T12:00:00Z</published>
     <updated>2026-05-15T12:00:00Z</updated>
@@ -32,7 +32,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.8.1</id>
-    <title>v0.8.1 — Server reliability, observability, and rate limiting</title>
+    <title>v0.8.1: Server reliability, observability, and rate limiting</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-05-14T13:00:00Z</published>
     <updated>2026-05-14T13:00:00Z</updated>
@@ -62,7 +62,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.8.0</id>
-    <title>v0.8.0 — First-launch reliability fix</title>
+    <title>v0.8.0: First-launch reliability fix</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-05-09T12:00:00Z</published>
     <updated>2026-05-09T12:00:00Z</updated>
@@ -76,7 +76,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.7.0</id>
-    <title>v0.7.0 — Mobile bottom drawer, pill navigation, and the stats page</title>
+    <title>v0.7.0: Mobile bottom drawer, pill navigation, and the stats page</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-05-03T12:00:00Z</published>
     <updated>2026-05-03T12:00:00Z</updated>
@@ -108,7 +108,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.6.0</id>
-    <title>v0.6.0 — Resizable panels, navigation pills, and auto-organize</title>
+    <title>v0.6.0: Resizable panels, navigation pills, and auto-organize</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-05-01T12:00:00Z</published>
     <updated>2026-05-01T12:00:00Z</updated>
@@ -140,7 +140,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.5.0</id>
-    <title>v0.5.0 — Feed folders and mobile navigation</title>
+    <title>v0.5.0: Feed folders and mobile navigation</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-04-19T12:00:00Z</published>
     <updated>2026-04-19T12:00:00Z</updated>
@@ -175,7 +175,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.4.0</id>
-    <title>v0.4.0 — Release notes feed</title>
+    <title>v0.4.0: Release notes feed</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-04-06T18:00:00Z</published>
     <updated>2026-04-06T18:00:00Z</updated>
@@ -200,7 +200,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.3.1</id>
-    <title>v0.3.1 — More vertical space</title>
+    <title>v0.3.1: More vertical space</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-04-06T12:00:00Z</published>
     <updated>2026-04-06T12:00:00Z</updated>
@@ -223,7 +223,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.3.0</id>
-    <title>v0.3.0 — Tracker and link-param stripping</title>
+    <title>v0.3.0: Tracker and link-param stripping</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-04-06T06:00:00Z</published>
     <updated>2026-04-06T06:00:00Z</updated>
@@ -243,7 +243,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.2.2</id>
-    <title>v0.2.2 — Bug fixes</title>
+    <title>v0.2.2: Bug fixes</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-03-29T00:00:00Z</published>
     <updated>2026-03-29T00:00:00Z</updated>
@@ -259,7 +259,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.2.1</id>
-    <title>v0.2.1 — Visual polish</title>
+    <title>v0.2.1: Visual polish</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-03-28T00:00:00Z</published>
     <updated>2026-03-28T00:00:00Z</updated>
@@ -277,7 +277,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.2.0</id>
-    <title>v0.2.0 — Explore, keyboard nav, sync, and OPML</title>
+    <title>v0.2.0: Explore, keyboard nav, sync, and OPML</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-03-28T00:00:00Z</published>
     <updated>2026-03-28T00:00:00Z</updated>
@@ -288,7 +288,7 @@
   <li>Added an Explore tab with around 1,000 feeds organized by topic and country. The search box accepts a URL, which is added directly as a feed.</li>
   <li>Added vim-style keyboard navigation: <code>j</code>/<code>k</code> for next/previous article, <code>Enter</code> to add a feed, <code>Space</code> to scroll, <code>h</code> for full text view, <code>o</code> to open the original.</li>
   <li>Added unread dots and a &quot;mark all read&quot; action.</li>
-  <li>Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data — by design.</li>
+  <li>Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data, by design.</li>
   <li>Added OPML import and export.</li>
 </ul>
 <h3>Changed</h3>
@@ -299,7 +299,7 @@
   </entry>
   <entry>
     <id>feedzero:release:0.1.0</id>
-    <title>v0.1.0 — First release</title>
+    <title>v0.1.0: First release</title>
     <link rel="alternate" href="https://feedzero.app/#releases" />
     <published>2026-01-31T00:00:00Z</published>
     <updated>2026-01-31T00:00:00Z</updated>

@@ -7,23 +7,23 @@
  *
  * The feed is hosted at https://feedzero.app/releases.xml and the app
  * (my.feedzero.app) subscribes to it. Preserve the entry identifiers
- * (`feedzero:release:<version>`) and the feed `<id>` (`feedzero:changelog`)
- * — changing them makes every existing subscriber treat old entries as new.
+ * (`feedzero:release:<version>`) and the feed `<id>` (`feedzero:changelog`):
+ * changing them makes every existing subscriber treat old entries as new.
  *
  * Style: plain, factual, README/man-page tone. See
  * ~/.claude/projects/.../memory/feedback_writing_style.md for the full rules.
  * Short rule of thumb: describe what changed, not how exciting it is. No
- * marketing verbs, no emojis, no call-to-action. Each bullet is one
- * verb-led past-tense sentence ending with a period.
+ * marketing verbs, no emojis, no call-to-action, no em-dashes. Each bullet
+ * is one verb-led past-tense sentence ending with a period.
  */
 
 /**
  * Each release:
- *   version   — semver string (must match the app's APP_VERSION when cut)
- *   date      — ISO 8601 date or date-time
- *   title     — short headline (plain, no hype)
- *   subtitle  — one-sentence summary of the release
- *   added / changed / fixed / removed — Keep-a-Changelog sections.
+ *   version   : semver string (must match the app's APP_VERSION when cut)
+ *   date      : ISO 8601 date or date-time
+ *   title     : short headline (plain, no hype)
+ *   subtitle  : one-sentence summary of the release
+ *   added / changed / fixed / removed: Keep-a-Changelog sections.
  *     Each is an array of plain strings. Omit empty sections entirely.
  */
 export const releases = [
@@ -234,7 +234,7 @@ export const releases = [
       "Added an Explore tab with around 1,000 feeds organized by topic and country. The search box accepts a URL, which is added directly as a feed.",
       "Added vim-style keyboard navigation: `j`/`k` for next/previous article, `Enter` to add a feed, `Space` to scroll, `h` for full text view, `o` to open the original.",
       "Added unread dots and a \"mark all read\" action.",
-      "Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data — by design.",
+      "Added optional end-to-end encrypted cloud sync. The encryption key is derived from a four-word passphrase generated from the EFF wordlist. Lost passphrase means lost data, by design.",
       "Added OPML import and export.",
     ],
     changed: [

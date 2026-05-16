@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Self-hosting FeedZero — Guide</title>
+    <title>Self-hosting FeedZero: Guide</title>
     <meta name="description" content="How to self-host FeedZero. MIT-licensed, every shipped feature unlocked, no license check.">
     <link rel="canonical" href="https://feedzero.app/docs/self-hosting">
     <meta name="robots" content="index, follow">
@@ -44,29 +44,29 @@
 
     <main>
         <h2>What you get</h2>
-        <p>FeedZero is MIT-licensed. A self-hosted deployment unlocks every <em>shipped</em> feature — there is no license check, no kill switch, no telemetry. Coming-soon features (Pro AI features, search, send-to-Kindle, etc.) stay locked because the code isn't written yet; they ship to self-hosters the same day they ship to hosted users.</p>
+        <p>FeedZero is MIT-licensed. A self-hosted deployment unlocks every shipped feature. There is no license check, no kill switch, no telemetry. Features still in development stay locked until they ship, and they reach self-hosters the same day they reach hosted users.</p>
         <ul>
-            <li>Unlimited feeds — the 25-feed cap on hosted Free does not apply.</li>
+            <li>Unlimited feeds. The 25-feed cap on hosted Free does not apply.</li>
             <li>Auto-organize folders and every Personal feature, no subscription required.</li>
-            <li>End-to-end encrypted cloud sync on your own server.</li>
-            <li>Same UI, same offline support, same OPML and Explore Catalog.</li>
+            <li>End-to-end encrypted sync on your own server.</li>
+            <li>Same UI, same offline support, same OPML and Explore catalog.</li>
         </ul>
 
         <h2>What you provide</h2>
-        <p>Self-hosting trades convenience for sovereignty. You run the infrastructure; we provide the code and the docs.</p>
+        <p>Self-hosting trades convenience for control. You run the infrastructure. We provide the code and the docs.</p>
         <ul>
-            <li>A host that can serve a static SPA + a few serverless functions (Vercel free tier is plenty; Cloudflare Pages, Netlify, or a bare Node/Hono server also work).</li>
-            <li>Optional: a key/value store if you want cloud sync (Vercel Blob or Upstash KV are tested; the filesystem adapter works for single-server deployments).</li>
-            <li>A custom domain you control. The legal Impressum/Privacy/Terms pages we ship reference our Swiss entity; replace those if you intend to operate publicly.</li>
+            <li>A host that can serve a static SPA plus a few serverless functions. The Vercel free tier is plenty; Cloudflare Pages, Netlify, or a bare Node/Hono server also work.</li>
+            <li>Optional: a key/value store if you want sync. Vercel Blob and Upstash KV are tested; the filesystem adapter works for single-server deployments.</li>
+            <li>A custom domain you control. The legal Impressum, Privacy, and Terms pages we ship reference our operating entity. Replace those if you intend to operate publicly.</li>
         </ul>
 
-        <h2>Quick start (Vercel, ~10 minutes)</h2>
+        <h2>Quick start (Vercel, about 10 minutes)</h2>
         <p>The path of least resistance. The same setup we run for my.feedzero.app, minus the Stripe gates.</p>
         <ol>
             <li><strong>Fork</strong> <a href="https://github.com/forcingfx/feedzero">forcingfx/feedzero</a> to your GitHub account.</li>
             <li><strong>Import the project</strong> at <a href="https://vercel.com/new">vercel.com/new</a>, pointing at your fork.</li>
             <li><strong>Set environment variables</strong> in the Vercel project (Production environment):
-                <pre><code>VITE_SELF_HOSTED=1            # build-time flag — unlocks every shipped feature
+                <pre><code>VITE_SELF_HOSTED=1            # build-time flag: unlocks every shipped feature
 VITE_PAID_TIER_VISIBLE=        # leave unset; hides Subscribe UI
 LAUNCH_PAID_TIER=              # leave unset; disables /api/sync bearer requirement
 SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</code></pre>
@@ -74,7 +74,7 @@ SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</co
             <li><strong>Deploy.</strong> Vercel builds and serves. Open the deployment URL.</li>
             <li><strong>Add your domain</strong> in the Vercel project settings if you have one. Otherwise the vercel.app subdomain works.</li>
         </ol>
-        <p>That's it. The first launch auto-subscribes to the release feed (so you'll know when new versions ship) and is otherwise indistinguishable from my.feedzero.app — except every Personal feature is on by default.</p>
+        <p>That's it. The first launch auto-subscribes to the release feed so you know when new versions ship. Otherwise it is indistinguishable from my.feedzero.app, except every Personal feature is on by default.</p>
 
         <h2>Configuration reference</h2>
         <h3>Build-time flags (set before <code>npm run build:all</code>)</h3>
@@ -90,56 +90,56 @@ SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</co
         <table>
             <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
             <tbody>
-                <tr><td><code>LAUNCH_PAID_TIER</code></td><td>Leave unset. Setting it would cause <code>/api/sync</code> to reject requests without a valid bearer token — pointless for self-hosters who have no license server.</td></tr>
-                <tr><td><code>SYNC_STORAGE</code></td><td>Picks the sync-vault adapter: <code>filesystem</code> (default, fine for a single instance), <code>vercel-blob</code> (needs <code>BLOB_READ_WRITE_TOKEN</code>), <code>upstash</code> (needs <code>UPSTASH_REDIS_REST_URL</code> + <code>UPSTASH_REDIS_REST_TOKEN</code>), or <code>memory</code> (dev only — vault evaporates on restart).</td></tr>
+                <tr><td><code>LAUNCH_PAID_TIER</code></td><td>Leave unset. Setting it would cause <code>/api/sync</code> to reject requests without a valid bearer token, which is pointless for self-hosters who have no license server.</td></tr>
+                <tr><td><code>SYNC_STORAGE</code></td><td>Picks the sync-vault adapter: <code>filesystem</code> (default, fine for a single instance), <code>vercel-blob</code> (needs <code>BLOB_READ_WRITE_TOKEN</code>), <code>upstash</code> (needs <code>UPSTASH_REDIS_REST_URL</code> and <code>UPSTASH_REDIS_REST_TOKEN</code>), or <code>memory</code> (dev only; vault evaporates on restart).</td></tr>
                 <tr><td><code>GITHUB_FEEDBACK_TOKEN</code> + <code>GITHUB_REPO</code></td><td>Optional. Routes the in-app feedback form to GitHub Issues. Without it, the feedback button stays inactive.</td></tr>
             </tbody>
         </table>
 
         <h2>Building from source (without Vercel)</h2>
-        <p>If you'd rather not use Vercel, FeedZero ships a standalone <a href="https://hono.dev/">Hono</a> server that serves the SPA + API routes in one process.</p>
+        <p>If you would rather not use Vercel, FeedZero ships a standalone <a href="https://hono.dev/">Hono</a> server that serves the SPA and API routes in one process.</p>
         <pre><code>git clone https://github.com/forcingfx/feedzero.git
 cd feedzero
 echo "VITE_SELF_HOSTED=1" >> .env.production
 npm install
 npm run build:all
 npm run serve              # binds to PORT (default 3000)</code></pre>
-        <p>Reverse-proxy that with nginx, Caddy, or your container platform of choice. The Hono server is plain Node — runs anywhere Node runs.</p>
+        <p>Reverse-proxy that with nginx, Caddy, or your container platform of choice. The Hono server is plain Node and runs anywhere Node runs.</p>
 
-        <h2>Cloud sync on a self-hosted server</h2>
-        <p>The cloud-sync feature is end-to-end encrypted: your passphrase derives a vault ID and an AES-GCM key on the client; the server only stores ciphertext. The same architecture that protects hosted users from us also means you don't need to trust your own server with plaintext — you just need it to hold opaque bytes.</p>
+        <h2>Sync on a self-hosted server</h2>
+        <p>Sync is end-to-end encrypted. Your passphrase derives a vault ID and an AES-GCM key on the client. The server only stores ciphertext. The same architecture that keeps hosted users private from us also means you do not need to trust your own server with plaintext. It just needs to hold opaque bytes.</p>
         <p>Pick a sync adapter:</p>
         <ul>
-            <li><strong>Filesystem</strong> — vault files under a writable directory. Simplest. Single-instance.</li>
-            <li><strong>Vercel Blob</strong> — managed object storage. Works across serverless function instances. Costs scale with vault size.</li>
-            <li><strong>Upstash</strong> — Redis-compatible KV. Works well for small vaults and high cross-region traffic.</li>
+            <li><strong>Filesystem.</strong> Vault files under a writable directory. Simplest. Single-instance.</li>
+            <li><strong>Vercel Blob.</strong> Managed object storage. Works across serverless function instances. Costs scale with vault size.</li>
+            <li><strong>Upstash.</strong> Redis-compatible KV. Works well for small vaults and high cross-region traffic.</li>
         </ul>
-        <p>All three are tested in CI. Pick based on your platform; the client doesn't care which one the server uses.</p>
+        <p>All three are tested in CI. Pick based on your platform; the client does not care which one the server uses.</p>
 
         <div class="callout">
-            <strong>Where the catalog comes from.</strong> The Explore tab's 1,300+ feed catalog is a static JSON snapshot bundled at build time (<code>src/data/feed-catalog.generated.json</code>). It works fully offline and never calls home. To refresh the snapshot, rebuild from a current main; we update the catalog periodically and ship it with each release.
+            <strong>Where the catalog comes from.</strong> The Explore tab's 1,300+ feed catalog is a static JSON snapshot bundled at build time (<code>src/data/feed-catalog.generated.json</code>). It works offline and never calls home. To refresh the snapshot, rebuild from a current main; we update the catalog periodically and ship it with each release.
         </div>
 
         <div class="callout warn">
-            <strong>The Stats page is partial in self-hosted mode.</strong> The "vault count" widget works; the "popular feeds" leaderboard depends on a centralized catalog backend (Upstash) and will show an empty list unless you wire one. Configure <code>SYNC_STORAGE=upstash</code> + matching env vars to enable it for your fork's users.
+            <strong>The Stats page is partial in self-hosted mode.</strong> The "vault count" widget works. The "popular feeds" leaderboard depends on a centralized catalog backend (Upstash) and shows an empty list unless you wire one. Configure <code>SYNC_STORAGE=upstash</code> with matching env vars to enable it for your fork's users.
         </div>
 
         <h2>Updating</h2>
-        <p>Pull from upstream, rebuild, redeploy. <code>main</code> on the upstream repo is the channel hosted production tracks; tagged releases are also published. We don't ship a self-hosted-specific channel — same code, same release cadence.</p>
+        <p>Pull from upstream, rebuild, redeploy. <code>main</code> on the upstream repo is the channel hosted production tracks. Tagged releases are also published. There is no separate self-hosted channel: same code, same release cadence.</p>
         <pre><code>git remote add upstream https://github.com/forcingfx/feedzero.git
 git fetch upstream
 git merge upstream/main
-# … resolve any conflicts on your fork
+# resolve any conflicts on your fork
 npm install
 npm run build:all
 # redeploy</code></pre>
 
         <h2>License and the honor-system gates</h2>
-        <p>FeedZero is open source under the MIT license. A few features (auto-organize, cloud sync) are gated client-side by tier; setting <code>VITE_SELF_HOSTED=1</code> bypasses those gates. This is "honor-system" gating — a determined user could strip the gates from a fork. We accept that tradeoff because:</p>
+        <p>FeedZero is open source under the MIT license. A few features (auto-organize, sync) are gated client-side by tier; setting <code>VITE_SELF_HOSTED=1</code> bypasses those gates. This is honor-system gating. A determined user could strip the gates from a fork. We accept that:</p>
         <ul>
             <li>The MIT license permits it.</li>
-            <li>$5/month for a managed deployment with automatic updates and no ops is cheaper than the time-cost of forking + maintaining + hosting for almost everyone.</li>
-            <li>The features paid users actually pay for <em>include</em> the hosted infrastructure (cross-device sync needs a server they don't have to run).</li>
+            <li>$5 a month for a managed deployment with automatic updates and no ops is cheaper than the time of forking, maintaining, and hosting for almost everyone.</li>
+            <li>The features paid users pay for include the hosted infrastructure. Cross-device sync needs a server they do not have to run.</li>
         </ul>
         <p>Self-hosters who run their own server already provide that value to themselves. It would be hostile to gate the code against them.</p>
         <p>See <a href="https://github.com/forcingfx/feedzero/blob/main/docs/decisions/012-open-core-feature-gating.md">ADR 012</a> for the full design.</p>
@@ -148,12 +148,12 @@ npm run build:all
         <ul>
             <li>Open an issue: <a href="https://github.com/forcingfx/feedzero/issues">github.com/forcingfx/feedzero/issues</a></li>
             <li>Read the codebase: <a href="https://github.com/forcingfx/feedzero/blob/main/CLAUDE.md">CLAUDE.md</a> is the developer's tour of the architecture.</li>
-            <li>If you ship a public self-hosted instance, replace our Swiss legal pages (<a href="/legal/impressum">Impressum</a>, <a href="/legal/privacy">Privacy</a>, <a href="/legal/terms">Terms</a>) with your own. Operating someone else's service under our entity's name would mislead your users.</li>
+            <li>If you ship a public self-hosted instance, replace our legal pages (<a href="/legal/impressum">Impressum</a>, <a href="/legal/privacy">Privacy</a>, <a href="/legal/terms">Terms</a>) with your own. Operating someone else's service under our entity's name would mislead your users.</li>
         </ul>
 
         <hr>
         <footer>
-            <p>FeedZero is operated by a Swiss sole proprietor for <a href="https://my.feedzero.app">my.feedzero.app</a>. Self-hosted instances are operated by their respective operators — we don't track them, support them, or take responsibility for them.</p>
+            <p>The hosted my.feedzero.app is run by the operator identified in our <a href="/legal/impressum">Impressum</a>. Self-hosted instances are run by their operators. We do not track them, support them, or take responsibility for them.</p>
             <p><a href="/">← Back to FeedZero</a> · <a href="/pricing">Pricing</a> · <a href="https://github.com/forcingfx/feedzero">Source on GitHub</a></p>
         </footer>
     </main>
