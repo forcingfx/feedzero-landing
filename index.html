@@ -28,7 +28,9 @@
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#ffffff">
     <meta name="author" content="Arjun Muralidharan">
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="manifest" href="/manifest.webmanifest">
     <link rel="alternate" type="application/atom+xml" title="FeedZero Release Notes" href="/releases.xml">
 
     <script type="application/ld+json">
@@ -771,12 +773,16 @@
             font-size: 0.85rem;
         }
         .topnav .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.45rem;
             font-weight: 700;
             color: #0f172a;
             text-decoration: none;
             letter-spacing: -0.01em;
             flex-shrink: 0;
         }
+        .topnav .brand img { width: 22px; height: 22px; }
         .topnav .brand:visited { color: #0f172a; }
         .topnav-links {
             display: flex;
@@ -818,7 +824,7 @@
 
     <nav class="topnav" aria-label="Section navigation">
         <div class="topnav-inner">
-            <a href="#top" class="brand">FeedZero</a>
+            <a href="#top" class="brand"><img src="/icon-192.png" alt="" width="22" height="22">FeedZero</a>
             <div class="topnav-links">
                 <a href="#about">About</a>
                 <a href="#features">Features</a>
@@ -832,6 +838,7 @@
     </nav>
 
     <header id="top">
+        <img src="/icon-512.png" alt="" width="72" height="72" style="display: block; margin-bottom: 0.75rem;">
         <h1>FeedZero</h1>
         <p>A fast, keyboard-driven feed reader with no accounts, no third-party tracking, and free anonymous cloud sync.</p>
 
