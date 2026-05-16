@@ -495,6 +495,139 @@
             .mini:last-child { border-bottom: none; }
         }
 
+        /* ---- PRICING SECTION ---- */
+        .plans-mini {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+            margin: 0 0 1rem;
+        }
+        .plan-mini {
+            position: relative;
+            display: grid;
+            grid-template-columns: 11rem 1fr auto;
+            gap: 1.25rem;
+            align-items: center;
+            padding: 1.1rem 1.25rem;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fff;
+        }
+        .plan-mini.featured {
+            border-color: #0f172a;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+        }
+        .plan-mini.coming { background: #f8fafc; }
+        .plan-mini.self-host {
+            background: #f8fafc;
+            border-style: dashed;
+            border-color: #cbd5e1;
+        }
+        .plan-mini .recommended {
+            position: absolute;
+            top: -0.65rem;
+            left: 1.1rem;
+            display: inline-block;
+            padding: 0.15rem 0.55rem;
+            font-size: 0.66rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: #fff;
+            background: #0f172a;
+            border-radius: 999px;
+        }
+        .plan-mini .name {
+            font-size: 1.02rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0 0 0.15rem;
+            letter-spacing: -0.005em;
+        }
+        .plan-mini.coming .name { color: #475569; }
+        .plan-mini .price-mini {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 0;
+            letter-spacing: -0.015em;
+            line-height: 1.05;
+        }
+        .plan-mini .price-mini .period {
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: #64748b;
+            letter-spacing: 0;
+        }
+        .plan-mini.coming .price-mini { color: #64748b; font-size: 0.92rem; font-weight: 600; }
+        .plan-mini .feature-summary {
+            font-size: 0.88rem;
+            color: #334155;
+            margin: 0;
+            line-height: 1.5;
+        }
+        .plan-mini.coming .feature-summary { color: #64748b; }
+        .plan-mini .cta-mini {
+            display: inline-block;
+            text-align: center;
+            text-decoration: none;
+            padding: 0.5rem 0.95rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.88rem;
+            white-space: nowrap;
+            transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+        }
+        .plan-mini .cta-mini.primary {
+            background: #0f172a;
+            color: #fff;
+            border: 1px solid #0f172a;
+        }
+        .plan-mini .cta-mini.primary:visited { color: #fff; }
+        .plan-mini .cta-mini.primary:hover { background: #1e293b; border-color: #1e293b; color: #fff; text-decoration: none; }
+        .plan-mini .cta-mini.secondary {
+            background: #fff;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+        .plan-mini .cta-mini.secondary:visited { color: #0f172a; }
+        .plan-mini .cta-mini.secondary:hover { border-color: #94a3b8; color: #0f172a; text-decoration: none; }
+        .plan-mini .cta-mini.disabled {
+            background: #f1f5f9;
+            color: #94a3b8;
+            border: 1px solid #e2e8f0;
+            cursor: not-allowed;
+        }
+        .plan-mini .annual-mini {
+            display: block;
+            text-align: center;
+            margin-top: 0.3rem;
+            font-size: 0.72rem;
+            color: #64748b;
+            text-decoration: none;
+            border-bottom: 1px dotted transparent;
+        }
+        .plan-mini .annual-mini:visited { color: #64748b; }
+        .plan-mini .annual-mini:hover { color: #0f172a; border-bottom-color: #94a3b8; text-decoration: none; }
+        .pricing-see-all {
+            font-size: 0.92rem;
+            color: #475569;
+            margin: 1rem 0 0;
+        }
+        .pricing-see-all a {
+            font-weight: 500;
+        }
+
+        @media (max-width: 580px) {
+            .plan-mini {
+                grid-template-columns: 1fr;
+                gap: 0.75rem;
+                padding: 1.1rem 1rem;
+            }
+            .plan-mini .cta-col { width: 100%; }
+            .plan-mini .cta-mini { display: block; }
+        }
+
         /* ---- RELEASE NOTES ACCORDION ---- */
         #releases .releases-intro {
             color: #475569;
@@ -689,6 +822,7 @@
             <div class="topnav-links">
                 <a href="#about">About</a>
                 <a href="#features">Features</a>
+                <a href="#pricing">Pricing</a>
                 <a href="#privacy">Privacy</a>
                 <a href="#source">Source</a>
                 <a href="#releases">Releases</a>
@@ -909,6 +1043,75 @@
             </div>
         </div>
     </div>
+    </section>
+
+    <section id="pricing">
+        <h2>Pricing</h2>
+        <p>
+            Free in your browser, forever. $5/month if you want cloud sync across every device you read on. Self-host the whole thing for free.
+        </p>
+
+        <div class="plans-mini">
+
+            <article class="plan-mini">
+                <div>
+                    <p class="name">Free</p>
+                    <p class="price-mini">$0<span class="period"> &middot; forever</span></p>
+                </div>
+                <p class="feature-summary">
+                    Up to 25 feeds, 1,300+ curated feeds in Explore, OPML, full-text extraction, offline support, encrypted local storage.
+                </p>
+                <div class="cta-col">
+                    <a href="https://my.feedzero.app" class="cta-mini secondary">Open the app →</a>
+                </div>
+            </article>
+
+            <article class="plan-mini featured">
+                <span class="recommended">Recommended</span>
+                <div>
+                    <p class="name">Personal</p>
+                    <p class="price-mini">$5<span class="period">/mo USD</span></p>
+                </div>
+                <p class="feature-summary">
+                    Everything in Free, plus end-to-end encrypted cloud sync across devices and auto-organize folders. Filters and keyword muting coming soon.
+                </p>
+                <div class="cta-col">
+                    <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-mini primary">Subscribe</a>
+                    <a href="https://my.feedzero.app/?subscribe=personal-yearly" class="annual-mini">or $50/yr — save 17%</a>
+                </div>
+            </article>
+
+            <article class="plan-mini coming">
+                <div>
+                    <p class="name">Pro</p>
+                    <p class="price-mini">Coming 2026</p>
+                </div>
+                <p class="feature-summary">
+                    Everything in Personal, plus AI summaries and a daily briefing (Signal), full-text search, send to Kindle, authenticated fetchers for paid sources (Economist, NYT, WSJ), YouTube/Reddit/X support, and commercial theme packs.
+                </p>
+                <div class="cta-col">
+                    <span class="cta-mini disabled">Coming soon</span>
+                </div>
+            </article>
+
+            <article class="plan-mini self-host">
+                <div>
+                    <p class="name">Self-host</p>
+                    <p class="price-mini">$0<span class="period"> &middot; MIT</span></p>
+                </div>
+                <p class="feature-summary">
+                    Run your own copy on your own server. Every shipped feature unlocked — unlimited feeds, cloud sync, auto-organize. No license check, no kill switch.
+                </p>
+                <div class="cta-col">
+                    <a href="/docs/self-hosting" class="cta-mini secondary">Self-hosting guide →</a>
+                </div>
+            </article>
+
+        </div>
+
+        <p class="pricing-see-all">
+            <a href="/pricing">See all features and the full comparison →</a>
+        </p>
     </section>
 
     <section id="privacy">
@@ -1314,8 +1517,11 @@
 
     <footer>
         <a href="https://my.feedzero.app">Open app</a> ·
+        <a href="/pricing">Pricing</a> ·
         <a href="https://github.com/forcingfx/feedzero">Source</a> ·
-        <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">Security</a>
+        <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">Security</a> ·
+        <a href="/legal/impressum">Impressum</a> ·
+        <a href="/legal/privacy">Privacy</a>
     </footer>
 
     <script>
