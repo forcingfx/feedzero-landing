@@ -322,6 +322,9 @@ async function screenshotLanding(page, baseUrl) {
     if (!addRes.ok) throw new Error("addArticles failed: " + addRes.error);
 
     localStorage.setItem("feedzero:onboarding-complete", "true");
+    // Hide the "feeds are stored locally" warning that otherwise sits in the
+    // bottom-left of the sidebar — we want a clean marketing shot.
+    localStorage.setItem("feedzero:local-warning-dismissed", "true");
 
     return { feedId: ars.id, articleId: featuredArticleId };
   });
