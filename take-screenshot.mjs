@@ -6,7 +6,7 @@
  * Usage:
  *   node take-screenshot.mjs              # starts dev server, takes screenshot, stops server
  *   node take-screenshot.mjs --url URL    # uses an already-running instance
- *   node take-screenshot.mjs --scene X    # "explore" (default) or "feeds"
+ *   node take-screenshot.mjs --scene X    # "explore" (default), "feeds", or "landing"
  *
  * Requires: playwright (installed in ../feedzero/node_modules)
  */
@@ -146,6 +146,198 @@ async function screenshotFeeds(page, baseUrl) {
   await page.screenshot({ path: OUTPUT });
 }
 
+/**
+ * Seeds 4 folders, 20 feeds, and articles by directly invoking the app's
+ * own storage modules through Vite's module graph. The featured article
+ * gets a hero image so the resulting screenshot looks like a real reading
+ * session instead of an empty shell.
+ */
+async function screenshotLanding(page, baseUrl) {
+  await page.goto(`${baseUrl}/`);
+  // Wait for Vite to have loaded the app shell so /src/* dynamic imports resolve.
+  await page.waitForFunction(() => !!document.querySelector("#root"));
+  await page.waitForTimeout(500);
+
+  const featured = await page.evaluate(async () => {
+    const km = await import("/src/core/storage/key-manager.ts");
+    const db = await import("/src/core/storage/db.ts");
+
+    const init = await km.initFresh("screenshot-fixture", { sync: false, skipServerCleanup: true });
+    if (!init.ok) throw new Error("initFresh failed: " + init.error);
+
+    const now = Date.now();
+    const day = 86_400_000;
+
+    const folders = [
+      { id: crypto.randomUUID(), name: "News",       color: "#0ea5e9", createdAt: now },
+      { id: crypto.randomUUID(), name: "Technology", color: "#8b5cf6", createdAt: now },
+      { id: crypto.randomUUID(), name: "Design",     color: "#f59e0b", createdAt: now },
+      { id: crypto.randomUUID(), name: "Science",    color: "#10b981", createdAt: now },
+    ];
+    for (const f of folders) {
+      const r = await db.addFolder(f);
+      if (!r.ok) throw new Error("addFolder failed: " + r.error);
+    }
+    const [news, tech, design, science] = folders;
+
+    const feedDefs = [
+      // News (4)
+      { title: "Reuters",            site: "https://reuters.com",            folderId: news.id },
+      { title: "BBC News",           site: "https://bbc.com/news",           folderId: news.id },
+      { title: "NPR",                site: "https://npr.org",                folderId: news.id },
+      { title: "The Guardian",       site: "https://theguardian.com",        folderId: news.id },
+      // Technology (6)
+      { title: "Ars Technica",       site: "https://arstechnica.com",        folderId: tech.id },
+      { title: "Hacker News",        site: "https://news.ycombinator.com",   folderId: tech.id },
+      { title: "The Verge",          site: "https://theverge.com",           folderId: tech.id },
+      { title: "Wired",              site: "https://wired.com",              folderId: tech.id },
+      { title: "MIT Technology Review", site: "https://technologyreview.com",folderId: tech.id },
+      { title: "TechCrunch",         site: "https://techcrunch.com",         folderId: tech.id },
+      // Design (4)
+      { title: "Smashing Magazine",  site: "https://smashingmagazine.com",   folderId: design.id },
+      { title: "A List Apart",       site: "https://alistapart.com",         folderId: design.id },
+      { title: "CSS-Tricks",         site: "https://css-tricks.com",         folderId: design.id },
+      { title: "Nielsen Norman Group", site: "https://nngroup.com",          folderId: design.id },
+      // Science (4)
+      { title: "Quanta Magazine",    site: "https://quantamagazine.org",     folderId: science.id },
+      { title: "Nature",             site: "https://nature.com",             folderId: science.id },
+      { title: "Scientific American",site: "https://scientificamerican.com", folderId: science.id },
+      { title: "Phys.org",           site: "https://phys.org",               folderId: science.id },
+      // Unfiled (2) — total 20
+      { title: "xkcd",               site: "https://xkcd.com",               folderId: undefined },
+      { title: "Pitchfork",          site: "https://pitchfork.com",          folderId: undefined },
+    ];
+
+    const feeds = feedDefs.map((f, i) => ({
+      id: crypto.randomUUID(),
+      url: f.site + "/rss",
+      title: f.title,
+      description: "",
+      siteUrl: f.site,
+      folderId: f.folderId,
+      createdAt: now - i * 1000,
+      updatedAt: now - i * 1000,
+    }));
+    for (const f of feeds) {
+      const r = await db.addFeed(f);
+      if (!r.ok) throw new Error("addFeed failed: " + r.error);
+    }
+
+    // Featured feed + article. Ars Technica gets a hero image so the right
+    // pane shows real-looking content with a picture, not just text.
+    const ars = feeds.find((f) => f.title === "Ars Technica");
+    const featuredArticleId = crypto.randomUUID();
+    const heroImg =
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=85&auto=format&fit=crop";
+
+    const featuredContent = `
+      <figure>
+        <img src="${heroImg}" alt="Close-up of a green circuit board" style="width:100%;height:auto;border-radius:8px;" />
+        <figcaption>The new chip stacks logic and memory in a single die.</figcaption>
+      </figure>
+      <p>The fab in Hsinchu has been quiet about its newest process node, but
+      engineers familiar with the line describe a manufacturing breakthrough
+      that could reshape how we build everyday computing devices for the next
+      decade.</p>
+      <p>By co-locating SRAM directly above the compute fabric, the design
+      avoids the long copper traces that dominate power budgets in modern
+      accelerators. Early benchmarks suggest a 40% reduction in idle draw
+      without compromising peak throughput.</p>
+      <p>Independent reviewers will not get their hands on silicon until late
+      next quarter, but if the published figures hold, the implications for
+      battery-powered devices are substantial.</p>
+      <h2>What changed</h2>
+      <p>The core innovation is not the transistor density — it is the
+      packaging. By thinning the memory die to under 25 microns and bonding
+      it directly to the logic substrate, the team eliminated an entire
+      hierarchy of off-chip caches.</p>
+      <p>This is the kind of incremental, deeply physical engineering work
+      that rarely makes headlines, and almost always reshapes the industry
+      in retrospect.</p>
+    `;
+
+    const articles = [];
+    // 20+ articles spread across the featured feed and a few siblings, so
+    // the middle "article list" pane is populated and looks alive.
+    const featuredArticle = {
+      id: featuredArticleId,
+      feedId: ars.id,
+      guid: "featured",
+      title: "Inside the quiet revolution rewriting silicon",
+      link: ars.siteUrl + "/2026/05/silicon",
+      content: featuredContent,
+      summary: "A new packaging technique cuts idle power by 40% without sacrificing throughput.",
+      author: "Marian Keller",
+      publishedAt: now - 30 * 60_000,
+      read: false,
+      createdAt: now,
+    };
+    articles.push(featuredArticle);
+
+    const arsTitles = [
+      "Open-source RISC-V is finally hitting its stride",
+      "How a tiny capacitor change saved a satellite launch",
+      "What the new GPU pricing tells us about AI demand",
+      "The slow death of x86 in datacenter inference",
+      "Why your phone's modem still runs proprietary firmware",
+    ];
+    arsTitles.forEach((t, i) => {
+      articles.push({
+        id: crypto.randomUUID(),
+        feedId: ars.id,
+        guid: "ars-" + i,
+        title: t,
+        link: ars.siteUrl + "/2026/05/" + i,
+        content: "<p>" + t + ".</p>",
+        summary: t,
+        author: "Ars staff",
+        publishedAt: now - (i + 1) * 3 * 3600_000,
+        read: i >= 3,
+        createdAt: now,
+      });
+    });
+
+    // Sprinkle a handful of articles on other feeds so unread counts show.
+    const others = feeds.filter((f) => f.id !== ars.id).slice(0, 14);
+    others.forEach((feed, fi) => {
+      const count = 1 + (fi % 4);
+      for (let i = 0; i < count; i++) {
+        articles.push({
+          id: crypto.randomUUID(),
+          feedId: feed.id,
+          guid: feed.id + "-" + i,
+          title: feed.title + ": story " + (i + 1),
+          link: feed.siteUrl + "/" + i,
+          content: "<p>Placeholder.</p>",
+          summary: "",
+          author: "",
+          publishedAt: now - (fi * 5 + i) * 7200_000 - day,
+          read: false,
+          createdAt: now,
+        });
+      }
+    });
+
+    const addRes = await db.addArticles(articles);
+    if (!addRes.ok) throw new Error("addArticles failed: " + addRes.error);
+
+    localStorage.setItem("feedzero:onboarding-complete", "true");
+
+    return { feedId: ars.id, articleId: featuredArticleId };
+  });
+
+  // Reload into the seeded state and open the featured article directly.
+  await page.goto(`${baseUrl}/feeds/${featured.feedId}/articles/${featured.articleId}`);
+
+  // Wait for the article body to render — the figure/img we injected confirms
+  // the reader pane has hydrated with the seeded content.
+  await page.waitForSelector("article img, figure img", { timeout: 15000 });
+  // Give the hero image a moment to actually decode.
+  await page.waitForTimeout(2500);
+
+  await page.screenshot({ path: OUTPUT });
+}
+
 async function main() {
   const { url, scene } = parseArgs();
   let server = null;
@@ -167,6 +359,8 @@ async function main() {
 
     if (scene === "feeds") {
       await screenshotFeeds(page, baseUrl);
+    } else if (scene === "landing") {
+      await screenshotLanding(page, baseUrl);
     } else {
       await screenshotExplore(page, baseUrl);
     }
