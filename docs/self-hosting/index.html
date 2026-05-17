@@ -38,11 +38,15 @@
 <body>
     <header>
         <h1>Self-hosting FeedZero</h1>
-        <p class="updated">Last updated: 2026-05-16</p>
+        <p class="updated">Last updated: 2026-05-17</p>
         <p class="nav"><a href="/">← Back to FeedZero</a> · <a href="/pricing">Pricing</a> · <a href="https://github.com/forcingfx/feedzero">Source on GitHub</a></p>
     </header>
 
     <main>
+        <div class="callout warn">
+            <strong>HTTPS is non-negotiable.</strong> FeedZero encrypts your data at rest with the browser's Web Crypto API, which browsers gate behind a <em>secure context</em>: HTTPS, or <code>http://localhost</code>. Plain <code>http://&lt;lan-ip&gt;:3000</code> will refuse to start with a clear error pointing here. Put Caddy or nginx with a TLS cert in front of the server before opening it. The app detects this and tells you what to do — but save yourself the round-trip and set up TLS first.
+        </div>
+
         <h2>What you get</h2>
         <p>FeedZero is MIT-licensed. A self-hosted deployment unlocks every shipped feature. There is no license check, no kill switch, no telemetry. Features still in development stay locked until they ship, and they reach self-hosters the same day they reach hosted users.</p>
         <ul>
@@ -66,10 +70,10 @@
             <li><strong>Fork</strong> <a href="https://github.com/forcingfx/feedzero">forcingfx/feedzero</a> to your GitHub account.</li>
             <li><strong>Import the project</strong> at <a href="https://vercel.com/new">vercel.com/new</a>, pointing at your fork.</li>
             <li><strong>Set environment variables</strong> in the Vercel project (Production environment):
-                <pre><code>VITE_SELF_HOSTED=1            # build-time flag: unlocks every shipped feature
-VITE_PAID_TIER_VISIBLE=        # leave unset; hides Subscribe UI
-LAUNCH_PAID_TIER=              # leave unset; disables /api/sync bearer requirement
+                <pre><code>VITE_SELF_HOSTED=1            # build-time master switch
+SELF_HOSTED=1                 # runtime mirror (server reads this)
 SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</code></pre>
+                <p style="margin-top: 0.5rem; font-size: 0.95rem;"><code>VITE_SELF_HOSTED=1</code> + <code>SELF_HOSTED=1</code> are now the only two flags you need. The legacy <code>VITE_PAID_TIER_VISIBLE</code> and <code>LAUNCH_PAID_TIER</code> are forced off by the master switch — you can leave them unset.</p>
             </li>
             <li><strong>Deploy.</strong> Vercel builds and serves. Open the deployment URL.</li>
             <li><strong>Add your domain</strong> in the Vercel project settings if you have one. Otherwise the vercel.app subdomain works.</li>
@@ -82,7 +86,7 @@ SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</co
             <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
             <tbody>
                 <tr><td><code>VITE_SELF_HOSTED</code></td><td>Set to <code>1</code> to bypass tier gates. Every shipped feature is treated as unlocked regardless of stored license tier. This is the flag that distinguishes "self-hosted" from "hosted dev mode".</td></tr>
-                <tr><td><code>VITE_PAID_TIER_VISIBLE</code></td><td>Leave unset for self-hosted. Setting it would show Subscribe buttons and pricing widgets, which is wrong for a self-hosted deployment where there is nothing to subscribe to.</td></tr>
+                <tr><td><code>VITE_PAID_TIER_VISIBLE</code></td><td>Ignored when <code>VITE_SELF_HOSTED=1</code>. The master switch wins. Subscribe / pricing UI is hidden regardless.</td></tr>
             </tbody>
         </table>
 
@@ -90,7 +94,9 @@ SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</co
         <table>
             <thead><tr><th>Variable</th><th>What it does</th></tr></thead>
             <tbody>
-                <tr><td><code>LAUNCH_PAID_TIER</code></td><td>Leave unset. Setting it would cause <code>/api/sync</code> to reject requests without a valid bearer token, which is pointless for self-hosters who have no license server.</td></tr>
+                <tr><td><code>SELF_HOSTED</code></td><td>Set to <code>1</code>. Runtime mirror of the build-time <code>VITE_SELF_HOSTED</code> flag. Tells the server to (a) force the paid-tier API enforcement off regardless of <code>LAUNCH_PAID_TIER</code> and (b) send a browser-like User-Agent to upstream feeds. Set this in your service environment, not just <code>.env.production</code> — the standalone Hono server reads it from <code>process.env</code> at runtime.</td></tr>
+                <tr><td><code>FEED_USER_AGENT</code></td><td>Optional. Overrides the User-Agent the proxy sends to upstream feeds. Useful if you'd rather identify your instance honestly with contact info (e.g. <code>"MyReader/1.0 (+https://example.com/contact)"</code>). When unset, self-hosters get a modern Firefox UA by default to avoid Cloudflare-class WAFs blocking the FeedZero identifier (see <a href="https://github.com/forcingfx/feedzero/issues/97">#97</a>).</td></tr>
+                <tr><td><code>LAUNCH_PAID_TIER</code></td><td>Ignored when <code>SELF_HOSTED=1</code>. The master switch wins.</td></tr>
                 <tr><td><code>SYNC_STORAGE</code></td><td>Picks the sync-vault adapter: <code>filesystem</code> (default, fine for a single instance), <code>vercel-blob</code> (needs <code>BLOB_READ_WRITE_TOKEN</code>), <code>upstash</code> (needs <code>UPSTASH_REDIS_REST_URL</code> and <code>UPSTASH_REDIS_REST_TOKEN</code>), or <code>memory</code> (dev only; vault evaporates on restart).</td></tr>
                 <tr><td><code>GITHUB_FEEDBACK_TOKEN</code> + <code>GITHUB_REPO</code></td><td>Optional. Routes the in-app feedback form to GitHub Issues. Without it, the feedback button stays inactive.</td></tr>
             </tbody>
@@ -100,11 +106,49 @@ SYNC_STORAGE=filesystem        # or "vercel-blob" / "upstash" if you want HA</co
         <p>If you would rather not use Vercel, FeedZero ships a standalone <a href="https://hono.dev/">Hono</a> server that serves the SPA and API routes in one process.</p>
         <pre><code>git clone https://github.com/forcingfx/feedzero.git
 cd feedzero
-echo "VITE_SELF_HOSTED=1" >> .env.production
+echo "VITE_SELF_HOSTED=1" > .env.production
+echo "SELF_HOSTED=1"      >> .env.production
 npm install
 npm run build:all
-npm run serve              # binds to PORT (default 3000)</code></pre>
+SELF_HOSTED=1 npm run serve   # binds to PORT (default 3000)</code></pre>
         <p>Reverse-proxy that with nginx, Caddy, or your container platform of choice. The Hono server is plain Node and runs anywhere Node runs.</p>
+
+        <h3>Minimal Caddyfile</h3>
+        <p>If you have a domain pointing at the host, this is the entire reverse-proxy setup. Caddy obtains and renews a Let's Encrypt cert automatically, which solves the secure-context requirement above.</p>
+        <pre><code>feedzero.example.com {
+    reverse_proxy localhost:3000
+}</code></pre>
+
+        <h2>Troubleshooting</h2>
+        <h3>"FeedZero can't start here" / secure-context screen</h3>
+        <p>The app loaded over plain HTTP from a non-localhost origin. Browsers won't expose the Web Crypto API in that context. Fixes, in order of preference: put TLS in front of the server (Caddyfile above), browse via <code>http://localhost:3000</code> from the host itself, or trust a self-signed cert for the LAN address.</p>
+
+        <h3>Some feeds work on my.feedzero.app but fail on my instance</h3>
+        <p>Most commonly: the upstream is rate-limiting your IP (HTTP 429) or blocking it outright (403). The hosted deployment shares Vercel infrastructure IPs with known reputation; a fresh self-host IP doesn't have that. The app now tells you which one is happening — "Upstream rate-limited" vs "Upstream blocked" vs "No RSS feed found at this URL" — instead of conflating them. Three things help:</p>
+        <ul>
+            <li>The browser-like User-Agent default (automatic when <code>SELF_HOSTED=1</code>) reduces UA-based WAF blocks.</li>
+            <li>Set <code>FEED_USER_AGENT</code> to a custom identifier with contact info. Some operators allow-list specific UAs.</li>
+            <li>For specific feeds that consistently 403, copy the RSS link directly into the "Add feed" box rather than the homepage URL — the underlying feed often has different access rules than the site.</li>
+        </ul>
+
+        <h3>"No cloud vault was found for this passphrase"</h3>
+        <p>Two real causes: (a) this is your first device — the passphrase has never been pushed yet, so push from this device first; or (b) you mistyped the passphrase on a restore. Word order and spelling both matter.</p>
+
+        <h3>Sync across two devices on my LAN isn't working</h3>
+        <p>Both devices must load the app from the same origin (same hostname, same scheme). Cross-device sync works by deriving a vault ID from the passphrase and looking it up on the server — that lookup is per-origin. If device A loads from <code>https://feedzero.lan</code> and device B from <code>http://192.168.1.42:3000</code>, they're operating in different storage origins and never see each other's data. Pick one canonical URL, pin DNS to it, and use it everywhere.</p>
+
+        <h3>"Subscribe" UI is showing even though I'm self-hosted</h3>
+        <p>You're on a build that didn't pick up <code>VITE_SELF_HOSTED=1</code>. The flag is build-time — rebuild after changing it. Confirm: <code>cat .env.production</code> shows the line, then <code>npm run build:all</code> and reload. As of the master-switch change, <code>VITE_SELF_HOSTED=1</code> alone is sufficient — you don't need to also set <code>VITE_PAID_TIER_VISIBLE</code> or <code>LAUNCH_PAID_TIER</code>.</p>
+
+        <h2>What you give up vs. the hosted deployment</h2>
+        <p>Self-hosting is supported. It is not magical. Honest list of what changes:</p>
+        <ul>
+            <li><strong>Upstream rate-limiting smoothing.</strong> The hosted deployment uses Upstash to cap each client to 300 req/60s, which keeps you below most upstream rate-limit windows. Self-host has no limiter; bursts can trigger 429s the hosted deployment wouldn't.</li>
+            <li><strong>IP reputation.</strong> Vercel's IPs are seen by upstreams more often than yours. Fresh datacenter/residential IPs face stricter WAF treatment.</li>
+            <li><strong>Automatic TLS.</strong> Your reverse proxy provides it. Caddy is the path of least resistance.</li>
+            <li><strong>Managed storage backups.</strong> Filesystem adapter writes to <code>data/</code>. Back it up yourself.</li>
+            <li><strong>The Stats page popular-feeds widget.</strong> Centralized catalog backend; configure Upstash to enable.</li>
+        </ul>
 
         <h2>Sync on a self-hosted server</h2>
         <p>Sync is end-to-end encrypted. Your passphrase derives a vault ID and an AES-GCM key on the client. The server only stores ciphertext. The same architecture that keeps hosted users private from us also means you do not need to trust your own server with plaintext. It just needs to hold opaque bytes.</p>
