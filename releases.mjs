@@ -28,6 +28,32 @@
  */
 export const releases = [
   {
+    version: "0.9.0",
+    date: "2026-05-17T12:00:00Z",
+    title: "Settings unification, log in for existing license holders, OPML folders",
+    subtitle: "The sidebar's settings dropdown collapsed into a single button opening a unified five-tab dialog. License holders can now log in to a fresh device via a two-step wizard. OPML import and export preserve folder organization.",
+    added: [
+      "Added a Log in wizard for license holders on a fresh device. Settings → Account → Already have a FeedZero account opens a two-step ceremony: paste the license token, then optionally enter the sync passphrase to decrypt cloud data. The wizard surfaces alongside the Subscribe call to action so paying users do not accidentally re-purchase.",
+      "Added five Settings tabs (Account, Reading, Help, Import, Export) reachable from a single Settings button in the sidebar that replaces the previous dropdown menu. <kbd>Cmd</kbd>/<kbd>Ctrl</kbd>+<kbd>,</kbd> opens the same dialog.",
+      "Added OPML folder preservation. Importing an OPML from Feedly, NetNewsWire, or Inoreader now recreates the parent outline groups as folders and assigns each feed accordingly. Export round-trips the same structure.",
+      "Added a Reading tab inside Settings that exposes the article-flood grouping toggle and the Auto-organize launcher.",
+      "Added a Help tab inside Settings with inline keyboard shortcuts, a Send feedback button, and a What's new link.",
+    ],
+    changed: [
+      "Consolidated every in-app upgrade button into a single chokepoint. Clicking Upgrade anywhere (sidebar feed-limit notice, Auto-organize gate, feature gates) opens Settings → Account on the Plan card. Stripe Checkout is reachable only from the Plan card's Subscribe buttons, so users always see the tier comparison before committing.",
+      "Removed the floating tier pill (Free, Personal, Pro) from the sidebar. It was not clickable and gave a false signal that something there was actionable. The current tier remains visible inside Settings → Account.",
+      "Replaced the layered safety controls in Settings → Account with a smaller If-you-lose-access card that shows the support email, an Email-my-license-to-me button, and an Open-recovery-page link. The downloadable plain-text recovery sheet was dropped as redundant with the email-self action.",
+      "Widened the desktop sidebar default from 14rem to 18rem so feed titles have room to breathe.",
+      "Raised the desktop and mobile breakpoint from 768px to 1024px. The three-panel reading layout is fundamentally a laptop-and-up layout; below 1024px the mobile snap-scroll layout activates cleanly.",
+    ],
+    fixed: [
+      "Fixed the sidebar visibly changing width every time the user navigated between the feeds list, Explore, and Stats. The cause was per-route resizable-panel-group identifiers, which the library persists separately. A single stable identifier across all routes preserves the user-dragged width regardless of navigation.",
+      "Fixed the canvas going blank when the browser window was resized between roughly 530 and 767 pixels wide. The desktop layout's panel minimum sizes summed to ~530 pixels but the mobile fallback only kicked in below 768 pixels; the gap left panels clipped by overflow:hidden. Raising the breakpoint to 1024 pixels eliminates the dead zone.",
+      "Fixed the sync passphrase reveal overflowing the dialog when the passphrase wrapped long. The container now wraps and scrolls if needed.",
+      "Fixed paid users being able to click Delete all data and orphan their Stripe subscription. The Danger Zone now shows Cancel subscription first with a Manage subscription button for paid users; free users see the existing destructive flow.",
+    ],
+  },
+  {
     version: "0.8.2",
     date: "2026-05-15T12:00:00Z",
     title: "Article flood grouping, cloud restore, and sync race fix",
