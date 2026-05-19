@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Self-hosting FeedZero: Guide</title>
-    <meta name="description" content="How to self-host FeedZero. MIT-licensed, every shipped feature unlocked, no license check.">
+    <meta name="description" content="How to self-host FeedZero. AGPL-3.0-or-later, every shipped feature unlocked, no license check.">
     <link rel="canonical" href="https://feedzero.app/docs/self-hosting">
     <meta name="robots" content="index, follow">
     <link rel="icon" href="/favicon.ico" sizes="any">
@@ -44,7 +44,7 @@
 
     <main>
         <h2>What you get</h2>
-        <p>FeedZero is MIT-licensed. A self-hosted deployment unlocks every shipped feature. There is no license check, no kill switch, no telemetry. Features still in development stay locked until they ship, and they reach self-hosters the same day they reach hosted users.</p>
+        <p>FeedZero is open source under AGPL-3.0-or-later. A self-hosted deployment unlocks every shipped feature. There is no license check, no kill switch, no telemetry. Features still in development stay locked until they ship, and they reach self-hosters the same day they reach hosted users.</p>
         <ul>
             <li>Unlimited feeds. The 25-feed cap on hosted Free does not apply.</li>
             <li>Auto-organize folders and every Personal feature, no subscription required.</li>
@@ -135,9 +135,9 @@ npm run build:all
 # redeploy</code></pre>
 
         <h2>License and the honor-system gates</h2>
-        <p>FeedZero is open source under the MIT license. A few features (auto-organize, sync) are gated client-side by tier; setting <code>VITE_SELF_HOSTED=1</code> bypasses those gates. This is honor-system gating. A determined user could strip the gates from a fork. We accept that:</p>
+        <p>FeedZero is open source under AGPL-3.0-or-later. A few features (auto-organize, sync, smart filters, offline starred) are gated client-side by tier; setting <code>VITE_SELF_HOSTED=1</code> bypasses those gates. This is honor-system gating. A determined user could strip the gates from a fork. We accept that:</p>
         <ul>
-            <li>The MIT license permits it.</li>
+            <li>The AGPL permits it (with section 13's network-use clause: anyone running a modified FeedZero as a public service must offer their users the modified source).</li>
             <li>$5 a month for a managed deployment with automatic updates and no ops is cheaper than the time of forking, maintaining, and hosting for almost everyone.</li>
             <li>The features paid users pay for include the hosted infrastructure. Cross-device sync needs a server they do not have to run.</li>
         </ul>
