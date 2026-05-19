@@ -4,25 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>FeedZero: an RSS reader for your browser</title>
-    <meta name="description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking. Reads RSS, Atom, and JSON Feed. End-to-end encrypted sync across devices.">
-    <meta name="keywords" content="RSS reader, open source RSS, browser RSS reader, Atom, JSON Feed, OPML, encrypted RSS sync, self-hosted RSS">
+    <title>FeedZero — a private RSS reader for your browser</title>
+    <meta name="description" content="Follow blogs, news sites, newsletters, and podcasts in one inbox. No account, no ads, no tracking. Free in your browser. Encrypted sync across devices from $5/month, free for 30 days. Open source under AGPL-3.0.">
+    <meta name="keywords" content="RSS reader, open source RSS, browser RSS reader, Atom, JSON Feed, OPML, encrypted RSS sync, self-hosted RSS, private news reader, ad-free reader">
     <link rel="canonical" href="https://feedzero.app">
 
-    <meta property="og:title" content="FeedZero: an RSS reader for your browser">
-    <meta property="og:description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking. End-to-end encrypted sync across devices.">
+    <meta property="og:title" content="FeedZero — a private RSS reader for your browser">
+    <meta property="og:description" content="Follow the web in one inbox. No algorithm, no ads, no tracking. Free in your browser. Encrypted sync from $5/month (30 days free). Open source.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://feedzero.app">
     <meta property="og:site_name" content="FeedZero">
     <meta property="og:image" content="https://feedzero.app/screenshot.png">
     <meta property="og:image:width" content="1440">
     <meta property="og:image:height" content="900">
-    <meta property="og:image:alt" content="Screenshot of the FeedZero RSS reader showing the Explore tab.">
+    <meta property="og:image:alt" content="Screenshot of FeedZero showing a three-pane reader with folders, an article list, and a featured story.">
     <meta property="og:locale" content="en_US">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="FeedZero: an RSS reader for your browser">
-    <meta name="twitter:description" content="An open source RSS reader that runs in your browser. No accounts, no third-party tracking.">
+    <meta name="twitter:title" content="FeedZero — a private RSS reader for your browser">
+    <meta name="twitter:description" content="Follow the web in one inbox. No algorithm, no ads, no tracking. Free in your browser. Encrypted sync from $5/month (30 days free).">
     <meta name="twitter:image" content="https://feedzero.app/screenshot.png">
 
     <meta name="robots" content="index, follow">
@@ -42,7 +42,7 @@
       "applicationCategory": "UtilitiesApplication",
       "operatingSystem": "Web",
       "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
-      "description": "An open source RSS reader that runs in your browser. Reads RSS, Atom, and JSON Feed. End-to-end encrypted sync across devices.",
+      "description": "An open-source RSS reader for your browser. Subscribe to blogs, news sites, newsletters, and podcasts. End-to-end encrypted sync across devices. No accounts, no ads, no third-party tracking.",
       "screenshot": "https://feedzero.app/screenshot.png",
       "softwareVersion": "0.10.0",
       "author": { "@type": "Person", "name": "Arjun Muralidharan" },
@@ -50,14 +50,17 @@
       "downloadUrl": "https://my.feedzero.app",
       "featureList": [
         "RSS, Atom, and JSON Feed support",
-        "OPML import and export",
-        "Offline support via service worker",
+        "OPML import and export with folder structure preserved",
+        "Works offline once articles have loaded",
         "Keyboard navigation",
         "End-to-end encrypted sync across devices (AES-256-GCM)",
+        "Auto-organize folders by topic",
+        "Smart filters: saved rules that match articles by keywords, date, feed, and read state",
+        "Star articles to read later; offline-prefetch of starred articles with sync",
         "Full article text extraction",
-        "Around 1,300 curated feeds in the Explore tab",
-        "Self-hostable",
-        "No accounts or third-party tracking"
+        "1,300+ curated feeds in Explore",
+        "Self-hostable with one Docker command",
+        "No accounts, no ads, no third-party tracking"
       ]
     }
     </script>
@@ -432,6 +435,39 @@
         .tile-lines.long span:nth-child(2) { width: 50px; }
         .tile-lines.long span:nth-child(3) { width: 38px; }
         .tile-lines.long span:nth-child(4) { width: 46px; }
+
+        /* Tile: Star */
+        .tile-star {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 0;
+        }
+
+        /* Tile: Smart Filters */
+        .tile-filter-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .tile-filter-row .tag {
+            font-size: 0.6rem;
+        }
+        .tile-filter-row .tag code {
+            background: none;
+            padding: 0;
+            font-size: 0.95em;
+            color: #475569;
+        }
+        .tile-filter-and {
+            font-size: 0.52rem;
+            font-weight: 700;
+            color: #94a3b8;
+            letter-spacing: 0.08em;
+            text-align: center;
+            line-height: 1;
+            margin: 1px 0;
+        }
 
         /* Tile 7: Offline */
         .tile-offline {
@@ -818,6 +854,180 @@
         @media (max-width: 380px) {
             .topnav .cta { display: none; }
         }
+
+        /* ---- HERO ---- */
+        .lede {
+            font-size: 1.08rem;
+            color: #334155;
+            margin: 0 0 1.4rem;
+            line-height: 1.5;
+        }
+        .hero-actions {
+            display: flex;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+            margin: 0 0 0.85rem;
+        }
+        .cta-large {
+            display: inline-block;
+            padding: 0.7rem 1.15rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: background 0.15s, color 0.15s, border-color 0.15s, box-shadow 0.15s;
+        }
+        .cta-large.primary {
+            background: #0f172a;
+            color: #fff;
+            border: 1px solid #0f172a;
+        }
+        .cta-large.primary:visited { color: #fff; }
+        .cta-large.primary:hover {
+            background: #1e293b;
+            border-color: #1e293b;
+            color: #fff;
+            text-decoration: none;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.18);
+        }
+        .cta-large.secondary {
+            background: #fff;
+            color: #0f172a;
+            border: 1px solid #cbd5e1;
+        }
+        .cta-large.secondary:visited { color: #0f172a; }
+        .cta-large.secondary:hover { border-color: #94a3b8; color: #0f172a; text-decoration: none; }
+        .hero-trust {
+            color: #64748b;
+            font-size: 0.85rem;
+            margin: 0 0 0.5rem;
+            line-height: 1.55;
+        }
+        .hero-trust .sep { color: #cbd5e1; padding: 0 0.35em; }
+
+        /* ---- Free / Paid badges ---- */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            height: 1.35em;
+            padding: 0 0.5em;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            border-radius: 4px;
+            margin-left: 0.45rem;
+            line-height: 1;
+            white-space: nowrap;
+        }
+        .badge-free {
+            color: #047857;
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+        }
+        .badge-paid {
+            color: #92400e;
+            background: #fef3c7;
+            border: 1px solid #fde68a;
+        }
+        .mini .badge { font-size: 0.55rem; height: 1.25em; }
+
+        /* ---- "What it is" intro card ---- */
+        .intro-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            background: #fafafa;
+            padding: 1.25rem 1.4rem;
+            margin: 0 0 1rem;
+        }
+        .intro-card p { margin: 0 0 0.75rem; }
+        .intro-card p:last-child { margin-bottom: 0; }
+        .intro-card .compare {
+            font-size: 0.88rem;
+            color: #64748b;
+            margin-top: 0.5rem;
+        }
+
+        /* ---- FAQ ---- */
+        .faq {
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #fff;
+        }
+        .faq details {
+            border-bottom: 1px solid #e5e7eb;
+        }
+        .faq details:last-child { border-bottom: none; }
+        .faq summary {
+            list-style: none;
+            cursor: pointer;
+            padding: 0.95rem 1.15rem;
+            font-weight: 600;
+            color: #0f172a;
+            font-size: 0.98rem;
+            display: flex;
+            align-items: baseline;
+            gap: 0.85rem;
+            transition: background-color 0.12s;
+        }
+        .faq summary::-webkit-details-marker { display: none; }
+        .faq summary:hover { background: #f9fafb; }
+        .faq summary::before {
+            content: "+";
+            color: #94a3b8;
+            font-weight: 400;
+            font-size: 1.15rem;
+            line-height: 1;
+            flex-shrink: 0;
+            width: 0.8em;
+            display: inline-block;
+        }
+        .faq details[open] > summary::before { content: "−"; }
+        .faq .faq-body {
+            padding: 0 1.15rem 1.1rem 2.3rem;
+            color: #475569;
+            font-size: 0.93rem;
+            line-height: 1.6;
+        }
+        .faq .faq-body p { margin: 0 0 0.7rem; }
+        .faq .faq-body p:last-child { margin-bottom: 0; }
+
+        /* ---- Section CTA strip ---- */
+        .cta-strip {
+            margin-top: 1.25rem;
+            padding: 1rem 1.25rem;
+            background: #0f172a;
+            color: #fff;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+        .cta-strip p {
+            margin: 0;
+            color: #e2e8f0;
+            font-size: 0.95rem;
+        }
+        .cta-strip strong { color: #fff; }
+        .cta-strip a.cta-large.primary {
+            background: #fff;
+            color: #0f172a;
+            border-color: #fff;
+        }
+        .cta-strip a.cta-large.primary:visited { color: #0f172a; }
+        .cta-strip a.cta-large.primary:hover {
+            background: #f1f5f9;
+            border-color: #f1f5f9;
+            color: #0f172a;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
+        }
+        @media (max-width: 520px) {
+            .cta-strip { flex-direction: column; align-items: stretch; text-align: left; }
+            .cta-strip a.cta-large { text-align: center; }
+        }
     </style>
 </head>
 <body>
@@ -826,12 +1036,11 @@
         <div class="topnav-inner">
             <a href="#top" class="brand"><img src="/icon-192.png" alt="" width="22" height="22">FeedZero</a>
             <div class="topnav-links">
-                <a href="#about">About</a>
                 <a href="#features">Features</a>
                 <a href="#pricing">Pricing</a>
+                <a href="#faq">FAQ</a>
                 <a href="#privacy">Privacy</a>
                 <a href="#source">Source</a>
-                <a href="#releases">Releases</a>
             </div>
             <a href="https://my.feedzero.app" class="cta">Open app &rarr;</a>
         </div>
@@ -839,34 +1048,51 @@
 
     <header id="top">
         <img src="/icon-512.png" alt="" width="72" height="72" style="display: block; margin-bottom: 0.75rem;">
-        <h1>FeedZero</h1>
-        <p>A fast, keyboard-driven feed reader. No accounts. No third-party tracking.</p>
+        <h1>Follow the web. Without the algorithm.</h1>
+        <p class="lede">FeedZero is an open-source RSS reader for your browser. Subscribe to blogs, news sites, newsletters, and podcasts &mdash; they all show up in one inbox, in the order they were published. No account, no ads, no tracking.</p>
 
-        <p class="nav">
-            <a href="https://my.feedzero.app">Open the app</a> ·
-            <a href="https://github.com/forcingfx/feedzero">Source code</a>
+        <p class="hero-actions">
+            <a href="https://my.feedzero.app" class="cta-large primary">Open the app &mdash; it's free</a>
+            <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-large secondary">Start 30-day sync trial</a>
         </p>
 
-        <img class="shot" src="screenshot.png" alt="Screenshot of FeedZero showing the Explore tab with curated feed categories." width="1440" height="900" loading="eager">
+        <p class="hero-trust">
+            Free forever for up to 25 feeds<span class="sep">&middot;</span>1,300+ feeds to discover<span class="sep">&middot;</span>Works offline<span class="sep">&middot;</span>Open source under <a href="https://github.com/forcingfx/feedzero">AGPL-3.0</a>
+        </p>
+
+        <img class="shot" src="screenshot.png" alt="Screenshot of FeedZero: a three-pane reader with a sidebar of folders, an article list, and a full article with a hero image." width="1440" height="900" loading="eager">
     </header>
 
     <main>
 
     <section id="about">
-        <h2>About</h2>
+        <h2>What is this?</h2>
+
+        <div class="intro-card">
+            <p>
+                Almost every site on the internet &mdash; blogs, news outlets, YouTube channels, podcasts, even most newsletters &mdash; publishes a public, machine-readable list of its new posts. It's called a <em>feed</em>. FeedZero subscribes to those feeds and pulls everything into one inbox, sorted by date.
+            </p>
+            <p>
+                That's it. No timeline algorithm reordering posts. No "for you" page. No promoted content. You decide what you follow. You see everything they publish, in the order they wrote it.
+            </p>
+            <p class="compare">
+                If you've used Feedly, Inoreader, NetNewsWire, or Reeder &mdash; FeedZero is that, but faster, more private, and the data stays yours.
+            </p>
+        </div>
+
         <p>
-            FeedZero is a feed reader that runs in your browser. You open it and start reading. No account, no third-party trackers, no ads. Your feeds and reading history stay on your device, encrypted at rest.
+            It runs in your browser. Open <a href="https://my.feedzero.app">my.feedzero.app</a> and start reading &mdash; no email, no password, no install. Your subscriptions and reading history live on your device, encrypted. To read across devices, you can turn on end-to-end encrypted sync (a paid feature, free for 30 days). Or run the whole thing on your own server &mdash; the code is open source under <a href="https://github.com/forcingfx/feedzero/blob/main/LICENSE">AGPL-3.0</a>.
         </p>
         <p>
-            To read across devices, sync runs on a Personal subscription &mdash; free for 30 days, then $5/month. A four-word passphrase is the only key. The server holds ciphertext and nothing else.
-        </p>
-        <p>
-            Speed comes from caching feeds in memory and from keyboard shortcuts that cover everything you do. No loading screens between articles. Open source under the AGPL-3.0-or-later license. Currently in alpha (v<!-- LATEST_VERSION -->0.10.0<!-- /LATEST_VERSION -->).
+            Currently in alpha (v<!-- LATEST_VERSION -->0.10.0<!-- /LATEST_VERSION -->). Already used daily by the people building it.
         </p>
     </section>
 
     <section id="features">
     <h2>Features</h2>
+    <p style="color:#475569; font-size:0.92rem; margin-bottom:1rem;">
+        Most of FeedZero is free forever. The three power features &mdash; cross-device sync, auto-organize, and smart filters &mdash; need a server, so they're on the Personal plan (or free if you self-host). Every paid feature comes with a 30-day free trial.
+    </p>
 
     <div class="panel">
     <ul class="features">
@@ -874,10 +1100,10 @@
             <div class="feat-text">
                 <span class="eyebrow">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
-                    Formats
+                    Any feed<span class="badge badge-free">Free</span>
                 </span>
                 <h3 class="feat-title">Works with any site that publishes a feed.</h3>
-                <p class="feat-desc">Most news sites, blogs, and podcasts have one. Paste the address and FeedZero finds it.</p>
+                <p class="feat-desc">Blogs, news sites, podcasts, YouTube channels, Substacks, GitHub releases &mdash; if it has a feed (most do), FeedZero reads it. Paste the address and the app finds the right URL automatically.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-urlbar">
@@ -894,56 +1120,11 @@
         <li>
             <div class="feat-text">
                 <span class="eyebrow">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
-                    Keyboard
-                </span>
-                <h3 class="feat-title">Fast. Keyboard-driven.</h3>
-                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Navigate everything by keyboard, or click. Both work.</p>
-            </div>
-            <div class="feat-tile">
-                <div class="tile-keys">
-                    <kbd>j</kbd><span>next</span>
-                    <kbd>u</kbd><span>next feed</span>
-                    <kbd>k</kbd><span>prev</span>
-                    <kbd>h</kbd><span>full text</span>
-                    <kbd>o</kbd><span>open</span>
-                    <kbd>r</kbd><span>refresh</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="feat-text">
-                <span class="eyebrow">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-                    Subscriptions
-                </span>
-                <h3 class="feat-title">Bring your subscriptions. Take them with you.</h3>
-                <p class="feat-desc">Coming from another reader? Import your list, with folders preserved. Leaving? Export it the same way. Your subscriptions belong to you, not us.</p>
-            </div>
-            <div class="feat-tile">
-                <div class="tile-opml-top">
-                    <span class="tile-file">XML</span>
-                    <span class="tile-arr">&harr;</span>
-                    <span class="tile-sub" style="letter-spacing:0.04em;">OPML</span>
-                </div>
-                <div class="tile-pills">
-                    <span class="tag">Feedly</span>
-                    <span class="tag">Inoreader</span>
-                </div>
-                <div class="tile-pills">
-                    <span class="tag">NewsBlur</span>
-                    <span class="tag">Miniflux</span>
-                </div>
-            </div>
-        </li>
-        <li>
-            <div class="feat-text">
-                <span class="eyebrow">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-                    Sync
+                    Sync<span class="badge badge-paid">Paid &middot; 30 days free</span>
                 </span>
-                <h3 class="feat-title">End-to-end encrypted sync.</h3>
-                <p class="feat-desc">Subscribe and save the four-word passphrase the app generates for you. That passphrase is the only thing you need on a new device. Encryption happens in the browser. The server stores ciphertext it cannot read.</p>
+                <h3 class="feat-title">Read on your laptop. Pick up on your phone.</h3>
+                <p class="feat-desc">Turn on sync and your subscriptions, folders, and read state follow you to every device. End-to-end encrypted in the browser: a four-word passphrase is the only key. The server stores ciphertext and can't read a thing &mdash; not even us. Buy once, log in anywhere with your license.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -968,11 +1149,124 @@
         <li>
             <div class="feat-text">
                 <span class="eyebrow">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-                    Discover
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2" ry="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M8 12h.01"/><path d="M12 12h.01"/><path d="M16 12h.01"/><path d="M7 16h10"/></svg>
+                    Keyboard-driven<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">1,300+ feeds to browse.</h3>
-                <p class="feat-desc">Not sure where to start? Explore feeds organized by topic and country: tech, news, science, culture, and more.</p>
+                <h3 class="feat-title">Faster than scrolling Twitter.</h3>
+                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Move with <kbd>j</kbd>/<kbd>k</kbd>, jump feeds with <kbd>u</kbd>, open the original with <kbd>o</kbd>. Or just click everything. Both work the same way.</p>
+            </div>
+            <div class="feat-tile">
+                <div class="tile-keys">
+                    <kbd>j</kbd><span>next</span>
+                    <kbd>u</kbd><span>next feed</span>
+                    <kbd>k</kbd><span>prev</span>
+                    <kbd>h</kbd><span>full text</span>
+                    <kbd>o</kbd><span>open</span>
+                    <kbd>r</kbd><span>refresh</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                    Switch readers<span class="badge badge-free">Free</span>
+                </span>
+                <h3 class="feat-title">Bring your subscriptions. Folders and all.</h3>
+                <p class="feat-desc">Coming from Feedly, Inoreader, or NetNewsWire? Import your OPML &mdash; folders are preserved, not flattened. Want to leave? Export the same way. Your subscription list belongs to you.</p>
+            </div>
+            <div class="feat-tile">
+                <div class="tile-opml-top">
+                    <span class="tile-file">XML</span>
+                    <span class="tile-arr">&harr;</span>
+                    <span class="tile-sub" style="letter-spacing:0.04em;">OPML</span>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag">Feedly</span>
+                    <span class="tag">Inoreader</span>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag">NewsBlur</span>
+                    <span class="tag">Miniflux</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    Starring<span class="badge badge-free">Free</span>
+                </span>
+                <h3 class="feat-title">Star it now. Read it later. Even offline.</h3>
+                <p class="feat-desc">Hit <kbd>s</kbd> on any article to save it. Your starred items land in a virtual feed in the sidebar, sorted by date &mdash; the "read later" pile that doesn't get lost in the flow. With sync turned on, FeedZero also downloads the full text of starred articles in the background, so the train ride home is covered.</p>
+            </div>
+            <div class="feat-tile">
+                <div class="tile-star">
+                    <svg width="36" height="36" viewBox="0 0 24 24" fill="#fbbf24" stroke="#f59e0b" stroke-width="1.5" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag" style="color:#92400e; background:#fffbeb; border-color:#fde68a;">Press <kbd style="font-size:0.62rem; color:#92400e; background:#fef3c7; border-color:#fde68a;">s</kbd> to star</span>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag" style="color:#047857; background:#ecfdf5; border-color:#a7f3d0;">Offline (with sync)</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .963 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.963 0z"/></svg>
+                    Auto-organize<span class="badge badge-paid">Paid</span>
+                </span>
+                <h3 class="feat-title">A button that files your feeds for you.</h3>
+                <p class="feat-desc">Click the wand and FeedZero groups your feeds into topic folders &mdash; tech, news, science, design, sports, and more &mdash; based on what each feed actually publishes. Tweak the result, or undo it. No AI promises, no waiting on a server.</p>
+            </div>
+            <div class="feat-tile">
+                <div class="tile-pills">
+                    <span class="tag">Tech</span>
+                    <span class="tag">News</span>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag">Science</span>
+                    <span class="tag">Design</span>
+                </div>
+                <div class="tile-pills">
+                    <span class="tag">Sports</span>
+                    <span class="tag">+ more</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>
+                    Smart Filters<span class="badge badge-paid">Paid</span>
+                </span>
+                <h3 class="feat-title">Smart Playlists, for the news.</h3>
+                <p class="feat-desc">Build a rule once and FeedZero keeps a live feed of every matching article. <em>"AI news, this week, unread."</em> <em>"Anything from these three feeds I starred."</em> <em>"Everything tagged 'launch'."</em> Stack conditions, nest them with AND/OR/NOT, sync them across devices. Like iTunes Smart Playlists, for your reading.</p>
+            </div>
+            <div class="feat-tile">
+                <div class="tile-filter-row">
+                    <span class="tag">title <code>⊃</code> "AI"</span>
+                </div>
+                <div class="tile-filter-and">AND</div>
+                <div class="tile-filter-row">
+                    <span class="tag">last 7 days</span>
+                </div>
+                <div class="tile-filter-and">AND</div>
+                <div class="tile-filter-row">
+                    <span class="tag">unread</span>
+                </div>
+            </div>
+        </li>
+        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                    Discover<span class="badge badge-free">Free</span>
+                </span>
+                <h3 class="feat-title">1,300+ hand-picked feeds to start from.</h3>
+                <p class="feat-desc">Not sure what to follow? Browse a curated catalog: tech, world news, science, culture, finance, sports, design &mdash; organized by topic and country. One click to subscribe.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-favs">
@@ -991,10 +1285,10 @@
             <div class="feat-text">
                 <span class="eyebrow">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
-                    Reader
+                    Full text<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">Read the full article, not just the headline.</h3>
-                <p class="feat-desc">Some feeds only include the first paragraph. FeedZero can pull the full text so you can read without leaving the app.</p>
+                <h3 class="feat-title">Read the article, not just the teaser.</h3>
+                <p class="feat-desc">Some feeds publish only the first paragraph to drive clicks back to their site. FeedZero pulls the full article so you stay in the reader. No clickbait detour.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-para">
@@ -1017,48 +1311,69 @@
     </div>
 
     <div class="panel">
-        <div class="mini-head">And a few smaller things</div>
+        <div class="mini-head">And a handful of things that just work</div>
         <div class="mini-grid">
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="1" y1="1" x2="23" y2="23"/><path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"/><path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"/><path d="M10.71 5.05A16 16 0 0 1 22.58 9"/><path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"/><path d="M8.53 16.11a6 6 0 0 1 6.95 0"/><line x1="12" y1="20" x2="12.01" y2="20"/></svg>
-                    Offline
+                    Offline<span class="badge badge-free">Free</span>
                 </span>
-                <h3>Works offline.</h3>
-                <p>Already loaded articles are available even without an internet connection.</p>
+                <h3>Reads on the train.</h3>
+                <p>Already-loaded articles stay readable even without a connection. Subway, plane, the back of the cafe with bad Wi-Fi.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
-                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
-                    Hosting
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+                    Mobile<span class="badge badge-free">Free</span>
                 </span>
-                <h3>Run it yourself.</h3>
-                <p>The entire app is open source. You can run your own copy if you'd rather not depend on anyone else's server.</p>
+                <h3>Phone-first, not phone-afterthought.</h3>
+                <p>A swipeable bottom drawer for everything, snap-scroll between the article list and the reader, safe-area support for the notch and Dynamic Island.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><line x1="17" y1="11" x2="23" y2="11" stroke-dasharray="2 2"/></svg>
-                    Account
+                    No account<span class="badge badge-free">Free</span>
                 </span>
-                <h3>No account needed.</h3>
-                <p>No email, no password, no "sign in with Google." Open the app and start reading.</p>
+                <h3>No sign-up. Ever.</h3>
+                <p>No email, no password, no "sign in with Google." Open the app and start reading. Paid sync uses a license token, not a login.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-                    Privacy
+                    Privacy<span class="badge badge-free">Free</span>
                 </span>
-                <h3>No third-party tracking.</h3>
-                <p>No ads, no third-party scripts, no data shared with anyone. We count anonymous usage to know what is working. We do not log what you read or who you are.</p>
+                <h3>Nobody's tracking your reading.</h3>
+                <p>No ads, no analytics SDKs, no Google Tag Manager, no Facebook Pixel. We don't log what you read or who you are. The privacy policy says it because the code does it.</p>
+            </div>
+            <div class="mini">
+                <span class="eyebrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+                    Self-host<span class="badge badge-free">Free</span>
+                </span>
+                <h3>Run your own. Three commands.</h3>
+                <p>Clone the repo, copy <code>.env.example</code>, run <code>./scripts/feedzero up</code>. Docker, Caddy, automatic TLS. amd64 and arm64 images on GHCR &mdash; Raspberry Pi included.</p>
+            </div>
+            <div class="mini">
+                <span class="eyebrow">
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    AGPL<span class="badge badge-free">Free</span>
+                </span>
+                <h3>Verifiable promises.</h3>
+                <p>Every claim on this page is auditable. Source code on <a href="https://github.com/forcingfx/feedzero">GitHub</a> under AGPL-3.0-or-later. Read it, fork it, run your own, send a patch.</p>
             </div>
         </div>
+    </div>
+
+    <div class="cta-strip">
+        <p><strong>Curious yet?</strong> Open the app. It's free, no sign-up. You'll be reading in 30 seconds.</p>
+        <a href="https://my.feedzero.app" class="cta-large primary">Open the app &rarr;</a>
     </div>
     </section>
 
     <section id="pricing">
         <h2>Pricing</h2>
         <p>
-            Free in your browser. Sync across devices is free for 30 days, then $5 a month. Self-host the whole thing for free.
+            Free in your browser. Sync, auto-organize, and smart filters are on the Personal plan &mdash; free for 30 days, then $5 a month. Or self-host the whole thing for free.
         </p>
 
         <div class="plans-mini">
@@ -1066,13 +1381,13 @@
             <article class="plan-mini">
                 <div>
                     <p class="name">Free</p>
-                    <p class="price-mini">$0<span class="period"> &middot; in your browser</span></p>
+                    <p class="price-mini">$0<span class="period"> &middot; forever</span></p>
                 </div>
                 <p class="feature-summary">
-                    Up to 25 feeds. 1,300+ curated feeds in Explore. OPML import and export, full-text extraction, offline support, encrypted local storage.
+                    Up to 25 feeds. The full reader: keyboard shortcuts, full-text extraction, OPML with folders, 1,300+ feeds to discover, starring, offline reading, encrypted local storage. No card, no email.
                 </p>
                 <div class="cta-col">
-                    <a href="https://my.feedzero.app" class="cta-mini secondary">Open the app →</a>
+                    <a href="https://my.feedzero.app" class="cta-mini secondary">Open the app &rarr;</a>
                 </div>
             </article>
 
@@ -1083,10 +1398,10 @@
                     <p class="price-mini">30 days free<span class="period"> &middot; then $5/mo USD</span></p>
                 </div>
                 <p class="feature-summary">
-                    Everything in Free, plus end-to-end encrypted sync across devices and auto-organize folders. Cancel anytime during the trial.
+                    Everything in Free, plus unlimited feeds, end-to-end encrypted sync across every device, auto-organize, smart filters, and offline reading of starred articles. Cancel anytime during the trial &mdash; no charge until day 31.
                 </p>
                 <div class="cta-col">
-                    <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-mini primary">Start free trial</a>
+                    <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-mini primary">Start 30-day free trial</a>
                     <a href="https://my.feedzero.app/?subscribe=personal-yearly" class="annual-mini">or $50/yr &mdash; 30 days free, save 17%</a>
                 </div>
             </article>
@@ -1097,40 +1412,99 @@
                     <p class="price-mini">$0<span class="period"> &middot; AGPL-3.0-or-later</span></p>
                 </div>
                 <p class="feature-summary">
-                    Run your own copy on your own server. Every shipped feature unlocked: unlimited feeds, sync, auto-organize. No license check, no kill switch.
+                    Your server, your data. Every Personal feature unlocked: unlimited feeds, sync, auto-organize, smart filters. No license check, no kill switch, no phoning home. Three commands to deploy.
                 </p>
                 <div class="cta-col">
-                    <a href="/docs/self-hosting" class="cta-mini secondary">Self-hosting guide →</a>
+                    <a href="/docs/self-hosting" class="cta-mini secondary">Self-hosting guide &rarr;</a>
                 </div>
             </article>
 
         </div>
 
         <p class="pricing-see-all">
-            <a href="/pricing">See the full comparison →</a>
+            Already a Personal subscriber? <a href="https://my.feedzero.app">Open the app</a> and sign in with your license &mdash; one purchase, every device.
+            &nbsp;&middot;&nbsp;
+            <a href="/pricing">See the full comparison &rarr;</a>
         </p>
+    </section>
+
+    <section id="faq">
+        <h2>Common questions</h2>
+
+        <div class="faq">
+            <details>
+                <summary>If it's open source, why does anything cost money?</summary>
+                <div class="faq-body">
+                    <p>The reader runs in your browser &mdash; that part costs us nothing, so it's free forever. But syncing across your laptop and phone means storing your (encrypted) data on a server, and that server costs real money to run. Auto-organize and smart filters do the same thing: they need a backend.</p>
+                    <p>The $5 covers it. No VCs, no ads, no upsells, no data sales. If you'd rather not pay, self-host &mdash; it's the same code, AGPL-licensed, free.</p>
+                </div>
+            </details>
+            <details>
+                <summary>What if I cancel my subscription?</summary>
+                <div class="faq-body">
+                    <p>The reader keeps working forever &mdash; everything you read locally stays local. You lose cross-device sync, auto-organize, smart filters, and the 25-feed limit comes back. You can re-subscribe any time, or export to OPML and walk away.</p>
+                </div>
+            </details>
+            <details>
+                <summary>Is sync really private? You're storing my data on your server.</summary>
+                <div class="faq-body">
+                    <p>Yes. Encryption happens in your browser using a four-word passphrase that <em>only you</em> know. The server never sees that passphrase. It stores a blob of ciphertext it has no way to decrypt &mdash; not for support, not for a subpoena, not for us.</p>
+                    <p>Lose the passphrase and your cloud data is gone. There is no reset. That's the deal.</p>
+                </div>
+            </details>
+            <details>
+                <summary>I bought a license. Can I use it on my other devices?</summary>
+                <div class="faq-body">
+                    <p>Yes &mdash; one Personal subscription covers every device you use. Open the app on a new laptop or phone, paste your license token, enter your sync passphrase, and your subscriptions and read state appear. No per-device fees, no seat limits.</p>
+                </div>
+            </details>
+            <details>
+                <summary>What's the catch with "Free"?</summary>
+                <div class="faq-body">
+                    <p>No catch. The free tier is the full reader &mdash; same UI, same speed, same keyboard shortcuts, same OPML export. You're capped at 25 feed subscriptions; beyond that, subscribe or self-host. No card, no email, no "free for the first month then we charge you."</p>
+                </div>
+            </details>
+            <details>
+                <summary>Why should I care about RSS in 2026?</summary>
+                <div class="faq-body">
+                    <p>Because every link you click is shaped by someone else's algorithm. RSS is the opposite: you pick what you follow, you see everything they publish, in the order it happened. No promoted posts. No "you might also like." No quietly-deprecated emails. It is a small, stubborn corner of the internet that still works the way you'd expect.</p>
+                </div>
+            </details>
+            <details>
+                <summary>What happens if FeedZero shuts down tomorrow?</summary>
+                <div class="faq-body">
+                    <p>Export your subscriptions to OPML (one click, in Settings) and import them into any other reader. Or spin up the open-source build on your own server &mdash; the code is AGPL, the Docker image is on GHCR, the self-hosting guide is in the repo. We can't lock you in even if we wanted to.</p>
+                </div>
+            </details>
+        </div>
     </section>
 
     <section id="privacy">
         <h2>Privacy</h2>
         <p>
-            Your subscriptions and reading history live in your browser, encrypted at rest. Sync replaces the server with an encrypted vault. The encryption keys never leave the browser, so the server holds ciphertext and nothing else.
+            Your subscriptions and reading history live in your browser, encrypted at rest. When you turn on sync, the server stores an encrypted vault &mdash; the keys never leave the browser, so the server holds ciphertext and nothing else.
         </p>
         <p>
-            There are no third-party trackers, no ads, no data shared outside FeedZero. We count anonymous usage to know what is working. We do not log what you read or who you are. The server does see the addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, run your own copy. The code is open source.
+            There are no third-party trackers, no ads, no analytics SDKs, no crash reporters. We count anonymous usage to know what's working. We don't log what you read or who you are. The server does see the addresses of the feeds you subscribe to (it fetches them on your behalf) &mdash; if that bothers you, self-host. The code is open source and reproducible.
         </p>
         <p>
-            For the curious: local storage uses AES-GCM-256 with PBKDF2 key derivation at 600,000 iterations. Sync derives keys in the browser from a four-word passphrase. Full threat model and known limitations are in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">SECURITY.md</a>.
+            For the curious: local storage uses AES-GCM-256 with PBKDF2 key derivation at 600,000 iterations. Sync derives keys in the browser from a four-word passphrase generated from the EFF wordlist. Full threat model and known limitations are in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">SECURITY.md</a>.
         </p>
     </section>
 
     <section id="source">
         <h2>Open source</h2>
         <p>
-            Every claim on this page is verifiable. The source is on <a href="https://github.com/forcingfx/feedzero">GitHub</a> under the AGPL-3.0-or-later license. Read it, audit it, run your own copy, or send a patch.
+            Every claim on this page is auditable. The source is on <a href="https://github.com/forcingfx/feedzero">GitHub</a> under <a href="https://github.com/forcingfx/feedzero/blob/main/LICENSE">AGPL-3.0-or-later</a>. Read it. Audit it. Fork it. Run your own copy. Send a patch.
         </p>
         <p>
-            To try it, open <a href="https://my.feedzero.app">my.feedzero.app</a> and paste a feed address. No sign-up.
+            Self-hosting takes three commands once Docker is installed:
+        </p>
+        <pre style="background:#0f172a; color:#e2e8f0; padding:0.9rem 1.1rem; border-radius:8px; font-size:0.82rem; line-height:1.6; overflow-x:auto; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; margin: 0 0 1rem;"><span style="color:#94a3b8">$</span> git clone https://github.com/forcingfx/feedzero.git
+<span style="color:#94a3b8">$</span> cd feedzero <span style="color:#94a3b8">&amp;&amp;</span> cp .env.example .env
+<span style="color:#94a3b8">$</span> ./scripts/feedzero up</pre>
+        <p>
+            Caddy handles automatic TLS, multi-arch images (amd64 + arm64) ship from GHCR on every release, and day-2 ops (<code>update</code>, <code>backup</code>, <code>restore</code>, <code>logs</code>, <code>doctor</code>) are one command each. Full walkthrough in the <a href="/docs/self-hosting">self-hosting guide</a>.
         </p>
     </section>
 
@@ -1597,8 +1971,10 @@
         <a href="/pricing">Pricing</a> ·
         <a href="https://github.com/forcingfx/feedzero">Source</a> ·
         <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md">Security</a> ·
+        <a href="/releases.xml">Atom feed</a> ·
         <a href="/legal/impressum">Impressum</a> ·
-        <a href="/legal/privacy">Privacy</a>
+        <a href="/legal/privacy">Privacy</a> ·
+        <a href="/legal/terms">Terms</a>
     </footer>
 
     <script>
