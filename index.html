@@ -517,16 +517,37 @@
         .tile-term .cmd { color: #a7f3d0; }
 
         @media (max-width: 520px) {
-            .feat-tile { width: 128px; height: 92px; padding: 7px 8px; gap: 3px; }
-            .features > li { gap: 0.85rem; padding: 1.1rem; }
-            .feat-title { font-size: 1rem; }
-            .feat-desc { font-size: 0.88rem; }
-            .tile-keys { font-size: 0.5rem; gap: 2px 4px; }
-            .tile-keys kbd { font-size: 0.58rem; }
-            .tile-num { font-size: 1rem; }
-            .tile-favs img { width: 14px; height: 14px; margin-left: -3px; }
-            .tile-urlbar { font-size: 0.5rem; padding: 3px 5px; }
-            .tile-term { font-size: 0.48rem; }
+            .features > li,
+            .features > li:nth-child(even) {
+                flex-direction: column-reverse;
+                align-items: stretch;
+                gap: 1rem;
+                padding: 1.25rem;
+            }
+            .feat-tile {
+                width: 100%;
+                height: auto;
+                min-height: 128px;
+                padding: 16px 18px;
+                gap: 10px;
+            }
+            .feat-title { font-size: 1.05rem; }
+            .feat-desc { font-size: 0.92rem; }
+            .tile-keys { font-size: 0.7rem; gap: 6px 14px; }
+            .tile-keys kbd { font-size: 0.74rem; min-width: 1.55em; height: 1.55em; }
+            .tile-num { font-size: 1.65rem; }
+            .tile-favs img { width: 24px; height: 24px; margin-left: -6px; }
+            .tile-urlbar { font-size: 0.72rem; padding: 6px 9px; gap: 6px; }
+            .tile-urlbar svg { width: 12px; height: 12px; }
+            .tile-term { font-size: 0.64rem; }
+            .tile-filter-and { font-size: 0.6rem; }
+            .tile-filter-row .tag { font-size: 0.72rem; }
+            .tile-sync-words .word { font-size: 0.78rem; padding: 0 0.55em; height: 1.7em; }
+            .tile-chip { font-size: 0.66rem; padding: 3px 8px; }
+            .tile-chip svg { width: 10px; height: 10px; }
+            .tile-pills .tag { font-size: 0.72rem; }
+            .tile-file { width: 28px; height: 32px; font-size: 0.6rem; }
+            .tile-arr { font-size: 1rem; }
             .mini-grid { grid-template-columns: 1fr; }
             .mini { padding: 0.9rem 1rem; border-right: none; }
             .mini:nth-last-child(-n+2) { border-bottom: 1px solid #e5e7eb; }
