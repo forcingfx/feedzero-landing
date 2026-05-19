@@ -28,6 +28,32 @@
  */
 export const releases = [
   {
+    version: "0.10.0",
+    date: "2026-05-19T15:00:00Z",
+    title: "Self-host packaged, privacy promise enforced",
+    subtitle:
+      "Self-host deploys in three commands via Docker. The client stops loading Vercel Speed Insights. Error logs stop emitting feed URLs. The repository ships an explicit AGPL-3.0-or-later LICENSE.",
+    added: [
+      "Added a single-container Docker deploy with Caddy in front for automatic TLS. <code>cp .env.example .env</code>, edit one value, run <code>./scripts/feedzero up</code>. Day-2 ops (<code>update</code>, <code>backup</code>, <code>restore</code>, <code>logs</code>, <code>doctor</code>) wrap the underlying docker-compose commands so self-hosters do not memorize them.",
+      "Added <code>scripts/feedzero</code> (POSIX shell) and <code>scripts/feedzero.ps1</code> (PowerShell) so the same surface works on macOS, Linux, WSL2, Git Bash, and native Windows.",
+      "Added a comprehensive self-hosting guide at <code>docs/self-hosting.md</code>. Covers Docker installation on each OS, public-hostname deploys via Let's Encrypt, LAN-only deploys with self-signed certs (with per-OS instructions for trusting Caddy's root CA), day-2 operations, and the seven failures self-hosters actually hit.",
+      "Added a GitHub Actions workflow that builds and publishes a multi-arch self-host image (amd64 + arm64) to <code>ghcr.io/forcingfx/feedzero</code> on every version tag. Raspberry Pi self-hosters no longer rebuild from source on updates.",
+      "Added integration tests that exercise feed-store and sync-store actions against the real encrypted database via fake-indexeddb. Replaces faith-based mocks at the storage boundary, closing the gap that produced the issue #117 cascade.",
+    ],
+    changed: [
+      "Changed the license from implicit \"All rights reserved\" to <strong>AGPL-3.0-or-later</strong>. The repository now ships a <code>LICENSE</code> file and a matching SPDX identifier in <code>package.json</code>. Section 13 (the network-use clause) means anyone running a modified FeedZero as a public service must offer their users the modified source.",
+      "Reduced the first-paint bundle by 90 KB (gzipped). The Defuddle full-text extractor and its adapter registry now load on demand when a user clicks Extracted, not on every page load. Main bundle dropped from 404 KB to 314 KB gzipped — meaningful for the five-year-old phone on a slow connection.",
+      "Refactored the feeds route from a 459-line monolith into a layout-with-Outlet shape (ADR 013). The stable two-panel topology survives navigation cleanly and adding a new full-page surface no longer means another <code>isXxxPage</code> flag.",
+      "Split the explore catalog from a single 889-line file into a tab-pluggable shell plus per-tab modules. Sets up the upcoming curated catalog work (use-case packs, editorial collections, platform bridges).",
+    ],
+    fixed: [
+      "Server stopped logging full feed URLs in proxy error paths. Previously a failed fetch on <code>/api/feed</code> or <code>/api/icon</code> emitted the target URL into stdout, where it landed in operator-readable log retention. The privacy-floor logger (<code>logError</code>) now handles both call sites with an opaque trace id the user can quote in support.",
+    ],
+    removed: [
+      "Removed the <code>@vercel/speed-insights</code> client SDK. The README's headline privacy promise (“No telemetry. No analytics. No crash reporting. No third-party tracking.”) now matches the shipped code. No page-view or Web-Vitals beacons leave the browser.",
+    ],
+  },
+  {
     version: "0.9.0",
     date: "2026-05-17T12:00:00Z",
     title: "Settings unification, log in for existing license holders, OPML folders",

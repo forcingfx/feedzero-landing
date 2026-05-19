@@ -93,7 +93,7 @@ function codeify(text) {
  * those tags get HTML-escaped and rendered as literal "&lt;code&gt;".
  */
 function unescapeInlineTags(text) {
-  const tags = ["code", "kbd"];
+  const tags = ["code", "kbd", "strong"];
   for (const tag of tags) {
     text = text
       .replace(new RegExp(`&lt;${tag}&gt;`, "g"), `<${tag}>`)
