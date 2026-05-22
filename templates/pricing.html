@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Pricing: FeedZero</title>
-    <meta name="description" content="FeedZero pricing in USD. Free in your browser, with encrypted sync across devices included. Personal lifts the feed cap and adds auto-organize, smart filters, and offline starred. 30 days free, then $5 a month. Self-host for free.">
+    <title>{{title}}</title>
+    <meta name="description" content="{{description}}">
     <link rel="canonical" href="https://feedzero.app/pricing">
 
-    <meta property="og:title" content="Pricing, FeedZero">
-    <meta property="og:description" content="Free in your browser, sync included. Personal lifts the feed cap and adds auto-organize, smart filters, offline starred. 30 days free, then $5/month. Self-host for free.">
+    <meta property="og:title" content="{{ogTitle}}">
+    <meta property="og:description" content="{{ogDescription}}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://feedzero.app/pricing">
     <meta property="og:site_name" content="FeedZero">
@@ -304,8 +304,8 @@
 <body>
 
     <header>
-        <h1>Pricing</h1>
-        <p class="lede">Free in your browser, with encrypted sync across devices included. Personal lifts the feed cap and adds auto-organize, smart filters, and offline prefetch. 30-day free trial, then $5 a month. Self-host the whole thing for free. Prices in USD.</p>
+        <h1>{{heading}}</h1>
+        <p class="lede">{{lede}}</p>
 
         <p class="nav">
             <a href="/">← Back to FeedZero</a> ·
@@ -316,78 +316,17 @@
 
     <main>
         <div class="plans">
-            <article class="plan">
-                <div class="plan-meta">
-                    <h2>Free</h2>
-                    <p class="tagline">Open it and read. No account.</p>
-                    <p class="price">$0<span class="period"> · in your browser</span></p>
-                    <p class="price-sub">No card, no email, no tracking.</p>
-                    <a href="https://my.feedzero.app" class="cta secondary">Open the app →</a>
-                </div>
-                <ul class="plan-features">
-                    <li>Up to 50 feed subscriptions</li>
-                    <li>End-to-end encrypted sync across every device. Four-word passphrase, no account, no license</li>
-                    <li>Access to 1,300+ curated feeds in Explore</li>
-                    <li>OPML import and export with folder structure preserved</li>
-                    <li>Full-text article extraction</li>
-                    <li>Star articles to save them for later</li>
-                    <li>Works offline once articles have loaded</li>
-                    <li>Keyboard navigation and three-pane resizable desktop layout</li>
-                    <li>No account. Data stays in your browser, AES-256-GCM encrypted at rest</li>
-                    <li>Subscribe to Personal or self-host (below) for unlimited feeds</li>
-                </ul>
-            </article>
-            <article class="plan featured">
-                <span class="recommended">Recommended</span>
-                <div class="plan-meta">
-                    <h2>Personal</h2>
-                    <p class="tagline">For power readers. Lift the feed cap, auto-file, save complex queries.</p>
-                    <p class="price">30 days free<span class="period"> · then $5/month USD</span></p>
-                    <p class="price-sub">Cancel anytime during the trial. No charge until day 31. Card required.</p>
-                    <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta primary">Start 30-day free trial</a>
-                    <a href="https://my.feedzero.app/?subscribe=personal-yearly" class="annual-link">or 30 days free, then $50/yr, save 17%</a>
-                </div>
-                <ul class="plan-features">
-                    <li class="heading">Everything in Free, and:</li>
-                    <li>Unlimited feed subscriptions (the 50-feed cap lifts)</li>
-                    <li>Auto-organize folders. FeedZero files your feeds by topic</li>
-                    <li>Smart filters. Saved rules that pull matching articles into a live feed (like Smart Playlists for the news)</li>
-                    <li>Offline prefetch of starred articles. Full text downloaded in the background for the train</li>
-                    <li>Log in on any device with your license. One purchase, every device</li>
-                </ul>
-            </article>
+{{plans}}
         </div>
 
         <p class="or-divider"><span>or</span></p>
 
         <div class="plans">
-            <article class="plan self-host">
-                <div class="plan-meta">
-                    <h2>Self-host</h2>
-                    <p class="tagline">Run your own copy. Every shipped feature unlocked.</p>
-                    <p class="price">$0<span class="period"> · AGPL-3.0-or-later</span></p>
-                    <p class="price-sub">For people who already run a server, or want to.</p>
-                    <a href="https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md" class="cta secondary">Self-hosting guide →</a>
-                </div>
-                <ul class="plan-features">
-                    <li>Unlimited feeds. The 50-feed cap does not apply</li>
-                    <li>Every Personal feature unlocked: auto-organize, smart filters, offline starred</li>
-                    <li>End-to-end encrypted sync runs on your own server, against your own vault store</li>
-                    <li>One-command Docker deploy with Caddy + automatic TLS. Three commands from clone to running</li>
-                    <li>Multi-arch images on GHCR (amd64 + arm64). Raspberry Pi included</li>
-                    <li>Open source under AGPL-3.0-or-later. Fork it, audit it, modify it</li>
-                    <li>No license check, no kill switch, no telemetry, no phoning home</li>
-                    <li>You provide the server and pay its cost. We provide the code and docs</li>
-                </ul>
-            </article>
+{{selfHost}}
         </div>
 
         <div class="meta">
-<p><strong>Why pay for Personal if self-host is free?</strong> Convenience. Personal is one click, no setup, automatic updates, and a backend we keep running for the heavier features. Self-host if you already run a server or want full control of where your data lives.</p>
-<p><strong>Tax:</strong> Prices in USD. The operator is below the local VAT registration threshold, so no tax is added at checkout. Where local VAT or sales-tax law obligates the consumer to self-account, that obligation rests with the consumer.</p>
-<p><strong>Refund:</strong> See our <a href="/legal/refund">refund policy</a>.</p>
-<p><strong>EU 14-day withdrawal:</strong> By starting your subscription you consent to immediate provision of digital content and waive the 14-day withdrawal right. See <a href="/legal/terms">Terms</a>.</p>
-<p><strong>Privacy:</strong> See our <a href="/legal/privacy">privacy policy</a>. We do not read your feeds or articles.</p>
+{{metaNotes}}
         </div>
     </main>
 

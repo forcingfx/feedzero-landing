@@ -1,0 +1,389 @@
+#!/usr/bin/env node
+/**
+ * Builds every static HTML page from editable content + templates.
+ *
+ *   content/home.md          -> index.html
+ *   content/pricing.md       -> pricing/index.html
+ *   content/legal/<x>.md     -> legal/<x>/index.html
+ *   releases.mjs             -> releases.xml  (+ the homepage accordion)
+ *
+ * Content lives in markdown/frontmatter files under content/. Layout, CSS, and
+ * the bespoke feature-tile illustrations live under templates/. This script is
+ * the only thing that writes the deployed HTML, so the generated files are
+ * build artefacts: edit content/ or templates/, never the HTML directly.
+ *
+ * Run after editing content, templates, or releases.mjs:
+ *   node build.mjs
+ *
+ * Commit the regenerated HTML (and releases.xml) so Vercel serves them.
+ */
+
+import { readFile, writeFile, mkdir } from "node:fs/promises";
+import { dirname, join } from "node:path";
+import { fileURLToPath, pathToFileURL } from "node:url";
+import { parseFrontmatter, renderInline, renderMarkdown } from "./lib/markdown.mjs";
+import { releases } from "./releases.mjs";
+import { buildFeed, buildAccordion } from "./lib/releases.mjs";
+
+const ROOT = dirname(fileURLToPath(import.meta.url));
+const VERSION = releases[0].version;
+
+// ---------- Small helpers ----------
+
+const read = (rel) => readFile(join(ROOT, rel), "utf8");
+
+async function write(rel, content) {
+  const path = join(ROOT, rel);
+  await mkdir(dirname(path), { recursive: true });
+  await writeFile(path, content, "utf8");
+  console.log(`Wrote ${rel}`);
+}
+
+function escapeAttr(s) {
+  return String(s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+/** Replace {{ key }} placeholders; throw on any that has no value. */
+function fill(template, vars) {
+  return template.replace(/\{\{\s*([\w.-]+)\s*\}\}/g, (_m, key) => {
+    if (!(key in vars)) throw new Error(`Missing template var: ${key}`);
+    return vars[key] == null ? "" : String(vars[key]);
+  });
+}
+
+/** Parse the feature-tiles partial into a { "icon:id": html, ... } map. */
+function parsePartials(text) {
+  const map = {};
+  const re = /<!--\s*@\s*([\w:-]+)\s*-->/g;
+  const marks = [];
+  let m;
+  while ((m = re.exec(text))) marks.push({ name: m[1], start: m.index, end: re.lastIndex });
+  for (let i = 0; i < marks.length; i++) {
+    const slice = text.slice(marks[i].end, i + 1 < marks.length ? marks[i + 1].start : undefined);
+    map[marks[i].name] = slice.trim();
+  }
+  return map;
+}
+
+// ---------- Footer ----------
+
+function renderFooter(links) {
+  return links
+    .map((l) => `        <a href="${l.href}">${renderInline(l.label)}</a>`)
+    .join(" ·\n");
+}
+
+// ---------- Homepage sections ----------
+
+function badgeSpan(badge) {
+  return badge === "paid"
+    ? '<span class="badge badge-paid">Paid</span>'
+    : '<span class="badge badge-free">Free</span>';
+}
+
+function renderFeatureItems(items, partials) {
+  return items
+    .map((f) => {
+      const icon = partials[`icon:${f.id}`] ?? "";
+      const tile = partials[`tile:${f.id}`] ?? "";
+      return `        <li>
+            <div class="feat-text">
+                <span class="eyebrow">
+                    ${icon}
+                    ${renderInline(f.eyebrow)}${badgeSpan(f.badge)}
+                </span>
+                <h3 class="feat-title">${renderInline(f.title)}</h3>
+                <p class="feat-desc">${renderInline(f.desc)}</p>
+            </div>
+            <div class="feat-tile">
+                ${tile}
+            </div>
+        </li>`;
+    })
+    .join("\n");
+}
+
+function renderMinis(minis, partials) {
+  return minis
+    .map((mn) => {
+      const icon = partials[`icon:mini-${mn.id}`] ?? "";
+      return `            <div class="mini">
+                <span class="eyebrow">
+                    ${icon}
+                    ${renderInline(mn.eyebrow)}${badgeSpan(mn.badge)}
+                </span>
+                <h3>${renderInline(mn.title)}</h3>
+                <p>${renderInline(mn.desc)}</p>
+            </div>`;
+    })
+    .join("\n");
+}
+
+function planMiniClass(p) {
+  if (p.featured) return " featured";
+  if (p.selfHost) return " self-host";
+  return "";
+}
+
+function renderPricingMinis(plans) {
+  return plans
+    .map((p) => {
+      const recommended = p.recommended
+        ? '\n                <span class="recommended">Recommended</span>'
+        : "";
+      const annual = p.annualLabel
+        ? `\n                    <a href="${p.annualHref}" class="annual-mini">${renderInline(p.annualLabel)}</a>`
+        : "";
+      return `            <article class="plan-mini${planMiniClass(p)}">${recommended}
+                <div>
+                    <p class="name">${renderInline(p.name)}</p>
+                    <p class="price-mini">${renderInline(p.price)}<span class="period"> ${renderInline(p.period)}</span></p>
+                </div>
+                <p class="feature-summary">
+                    ${renderInline(p.summary)}
+                </p>
+                <div class="cta-col">
+                    <a href="${p.ctaHref}" class="cta-mini ${p.ctaStyle}">${renderInline(p.ctaLabel)}</a>${annual}
+                </div>
+            </article>`;
+    })
+    .join("\n");
+}
+
+function renderFaq(items) {
+  return items
+    .map((it) => {
+      const body = it.a.map((p) => `                    <p>${renderInline(p)}</p>`).join("\n");
+      return `            <details>
+                <summary>${renderInline(it.q)}</summary>
+                <div class="faq-body">
+${body}
+                </div>
+            </details>`;
+    })
+    .join("\n");
+}
+
+function renderParagraphs(arr, indent) {
+  return arr.map((p) => `${indent}<p>${renderInline(p)}</p>`).join("\n");
+}
+
+function renderHeroTrust(segments) {
+  return segments
+    .map((s) => renderInline(s))
+    .join('<span class="sep">&middot;</span>');
+}
+
+function renderSourceCommands(commands) {
+  return commands
+    .map((line) => {
+      const colored = line.replace(/ && /g, ' <span style="color:#94a3b8">&amp;&amp;</span> ');
+      return `<span style="color:#94a3b8">$</span> ${colored}`;
+    })
+    .join("\n");
+}
+
+function buildJsonLd(meta) {
+  const obj = {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    name: "FeedZero",
+    url: "https://feedzero.app",
+    applicationCategory: "UtilitiesApplication",
+    operatingSystem: "Web",
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    description: meta.jsonLdDescription,
+    screenshot: "https://feedzero.app/screenshot.png",
+    softwareVersion: VERSION,
+    author: { "@type": "Person", name: "Arjun Muralidharan" },
+    license: "https://github.com/forcingfx/feedzero/blob/main/LICENSE",
+    downloadUrl: "https://my.feedzero.app",
+    featureList: meta.featureList,
+  };
+  // Indent every line by 4 spaces to sit under the <script> in the template.
+  return JSON.stringify(obj, null, 2).split("\n").join("\n    ");
+}
+
+async function buildHome() {
+  const [{ data }, template, partialsRaw] = await Promise.all([
+    read("content/home.md").then(parseFrontmatter),
+    read("templates/home.html"),
+    read("templates/partials/feature-tiles.html"),
+  ]);
+  const partials = parsePartials(partialsRaw);
+  const c = data;
+
+  const vars = {
+    metaTitle: escapeAttr(c.meta.title),
+    metaDescription: escapeAttr(c.meta.description),
+    metaKeywords: escapeAttr(c.meta.keywords),
+    ogDescription: escapeAttr(c.meta.ogDescription),
+    ogImageAlt: escapeAttr(c.meta.ogImageAlt),
+    twitterDescription: escapeAttr(c.meta.twitterDescription),
+    jsonLd: buildJsonLd(c.meta),
+
+    heroHeading: renderInline(c.hero.heading),
+    heroLede: renderInline(c.hero.lede),
+    heroCtaPrimaryHref: c.hero.ctaPrimary.href,
+    heroCtaPrimaryLabel: renderInline(c.hero.ctaPrimary.label),
+    heroCtaSecondaryHref: c.hero.ctaSecondary.href,
+    heroCtaSecondaryLabel: renderInline(c.hero.ctaSecondary.label),
+    heroTrust: renderHeroTrust(c.hero.trust),
+
+    aboutHeading: renderInline(c.about.heading),
+    aboutCard:
+      renderParagraphs(c.about.card, "            ") +
+      `\n            <p class="compare">${renderInline(c.about.compare)}</p>`,
+    aboutBody: renderParagraphs(c.about.body, "        "),
+
+    featuresHeading: renderInline(c.features.heading),
+    featuresIntro: renderInline(c.features.intro),
+    featuresItems: renderFeatureItems(c.features.items, partials),
+    miniHeading: renderInline(c.features.miniHeading),
+    miniItems: renderMinis(c.features.minis, partials),
+    ctaStripText: renderInline(c.features.ctaStrip.text),
+    ctaStripHref: c.features.ctaStrip.ctaHref,
+    ctaStripLabel: renderInline(c.features.ctaStrip.ctaLabel),
+
+    pricingHeading: renderInline(c.pricing.heading),
+    pricingIntro: renderInline(c.pricing.intro),
+    pricingPlans: renderPricingMinis(c.pricing.plans),
+    pricingSeeAll: renderInline(c.pricing.seeAll),
+
+    faqHeading: renderInline(c.faq.heading),
+    faqItems: renderFaq(c.faq.items),
+
+    privacyHeading: renderInline(c.privacy.heading),
+    privacyBody: renderParagraphs(c.privacy.body, "        "),
+
+    sourceHeading: renderInline(c.source.heading),
+    sourceIntro: renderInline(c.source.intro),
+    sourceCommandsIntro: renderInline(c.source.commandsIntro),
+    sourceCommands: renderSourceCommands(c.source.commands),
+    sourceOutro: renderInline(c.source.outro),
+
+    releasesHeading: renderInline(c.releases.heading),
+    releasesIntro: renderInline(c.releases.intro),
+    releaseNotes: buildAccordion(releases),
+
+    footer: renderFooter(c.footer),
+  };
+
+  // The version sentinel can appear in any content string.
+  const html = fill(template, vars).replace(/\{\{\s*version\s*\}\}/g, VERSION);
+  await write("index.html", html);
+}
+
+// ---------- Pricing page ----------
+
+function renderPricingPageFeatures(features) {
+  return features
+    .map((f) => {
+      if (typeof f === "string") return `                    <li>${renderInline(f)}</li>`;
+      if (f.heading) return `                    <li class="heading">${renderInline(f.heading)}</li>`;
+      if (f.soon)
+        return `                    <li class="soon">${renderInline(f.soon)} <span class="soon-pill">Soon</span></li>`;
+      return "";
+    })
+    .join("\n");
+}
+
+function renderPricingPagePlan(p) {
+  const cls = p.featured ? " featured" : p.selfHost ? " self-host" : "";
+  const recommended = p.recommended
+    ? '\n                <span class="recommended">Recommended</span>'
+    : "";
+  const annual = p.annual
+    ? `\n                    <a href="${p.annual.href}" class="annual-link">${renderInline(p.annual.label)}</a>`
+    : "";
+  return `            <article class="plan${cls}">${recommended}
+                <div class="plan-meta">
+                    <h2>${renderInline(p.name)}</h2>
+                    <p class="tagline">${renderInline(p.tagline)}</p>
+                    <p class="price">${renderInline(p.price)}<span class="period"> ${renderInline(p.period)}</span></p>
+                    <p class="price-sub">${renderInline(p.priceSub)}</p>
+                    <a href="${p.cta.href}" class="cta ${p.cta.style}">${renderInline(p.cta.label)}</a>${annual}
+                </div>
+                <ul class="plan-features">
+${renderPricingPageFeatures(p.features)}
+                </ul>
+            </article>`;
+}
+
+async function buildPricing() {
+  const [{ data, body }, template] = await Promise.all([
+    read("content/pricing.md").then(parseFrontmatter),
+    read("templates/pricing.html"),
+  ]);
+  const c = data;
+  const vars = {
+    title: escapeAttr(c.meta.title),
+    description: escapeAttr(c.meta.description),
+    ogTitle: escapeAttr(c.meta.ogTitle),
+    ogDescription: escapeAttr(c.meta.ogDescription),
+    heading: renderInline(c.heading),
+    lede: renderInline(c.lede),
+    plans: c.plans.map(renderPricingPagePlan).join("\n"),
+    selfHost: renderPricingPagePlan(c.selfHost),
+    metaNotes: renderMarkdown(body),
+  };
+  await write("pricing/index.html", fill(template, vars));
+}
+
+// ---------- Legal pages ----------
+
+const LEGAL_PAGES = ["impressum", "privacy", "terms", "refund"];
+const LEGAL_FOOTER = [
+  { label: "Home", href: "/" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Impressum", href: "/legal/impressum" },
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Terms", href: "/legal/terms" },
+  { label: "Refund", href: "/legal/refund" },
+];
+
+function renderLegalFooter(canonical) {
+  return LEGAL_FOOTER.filter((l) => l.href !== canonical)
+    .map((l) => `        <a href="${l.href}">${l.label}</a>`)
+    .join(" ·\n");
+}
+
+async function buildLegal() {
+  const template = await read("templates/legal.html");
+  for (const name of LEGAL_PAGES) {
+    const { data, body } = parseFrontmatter(await read(`content/legal/${name}.md`));
+    const updated = data.updated
+      ? `        <p class="updated">Last updated: ${data.updated}</p>\n`
+      : "";
+    const vars = {
+      title: escapeAttr(data.title),
+      description: escapeAttr(data.description),
+      canonical: data.canonical,
+      updated,
+      body: renderMarkdown(body),
+      footer: renderLegalFooter(data.canonical),
+    };
+    await write(`legal/${name}/index.html`, fill(template, vars));
+  }
+}
+
+// ---------- Main ----------
+
+export async function buildAll() {
+  await write("releases.xml", buildFeed(releases));
+  await buildHome();
+  await buildPricing();
+  await buildLegal();
+  console.log(`Done. ${releases.length} releases, ${LEGAL_PAGES.length} legal pages.`);
+}
+
+if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  buildAll().catch((err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
