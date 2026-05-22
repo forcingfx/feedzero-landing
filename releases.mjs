@@ -28,6 +28,34 @@
  */
 export const releases = [
   {
+    version: "0.11.0",
+    date: "2026-05-22T12:00:00Z",
+    title: "Signal, free cloud sync, per-feed rules, and auto-refresh",
+    subtitle:
+      "Signal surfaces what is loud across your feeds entirely on-device. Cloud sync is now free for everyone. Per-feed rules act on new articles automatically, feeds refresh in the background, and non-RSS sources work by pasting their URL.",
+    added: [
+      "Added Signal, an on-device view of what is loud across your feeds. It clusters article titles on proper-noun and compound-noun entities (for example OpenAI or Iran War), ranks topics by how many distinct feeds cover each story rather than how often one outlet repeats it, and folds syndicated coverage of the same story behind a <code>Covered by N outlets</code> badge. Story rows show a peek preview on hover or tap before opening the full reader, and the back button returns to Signal rather than the feed list. It unlocks once the local corpus reaches 100 articles and runs with no external API or LLM. Available on the Personal tier.",
+      "Added a per-feed auto-action rules engine. Each rule pairs a condition (the same predicate used by smart filters) with one or more actions applied to new articles during refresh: mark read, star, mute, or move to a folder. Rules are scoped to a single feed and reachable from that feed's settings. Available on the Personal tier.",
+      "Added bridges that turn non-RSS source URLs into the native feed each source already publishes. Pasting a Reddit subreddit or user, a GitHub repository, a Mastodon profile, or a YouTube channel URL into Add feed resolves the underlying feed by URL pattern alone, with no scraping. URLs that match no bridge fall back to the existing discovery path. Available on the Personal tier.",
+      "Added a per-feed <code>Prefetch full text</code> toggle that extracts the 20 most recent articles on each refresh for offline reading. Feeds you read often (10 or more articles in the past 30 days) prefetch automatically, with the selection computed on-device from the encrypted vault. Available on the Personal tier.",
+      "Added periodic background auto-refresh. Feeds refresh every 30 minutes, and a tab that regains focus after sitting idle longer than the interval refreshes immediately.",
+      "Added refresh controls to mobile. A refresh button sits in the mobile header and a <code>Refresh all</code> entry in the navigation drawer, both showing a spinning Refreshing state while they run.",
+      "Added a quick-switch favicon dock to the closed mobile bottom drawer. The closed strip now shows an All items button and favicons for your most recently viewed feeds; tapping one switches feed without opening the drawer, and the chevron opens the full feed list.",
+    ],
+    changed: [
+      "Made end-to-end encrypted cloud sync a Free-tier feature. Every user can now sync across devices without a license. The Free tier keeps its 50-feed cap, while paid tiers add unlimited feeds, smart filters, auto-organize, and offline prefetch.",
+      "Replaced the sidebar dropdown menus with a context-aware cog and a sort control in a sticky header above the article list. The cog opens feed, folder, or smart-filter settings depending on what is selected and hides on aggregated views like All items and Starred. The sort control is an icon-only pill on desktop that expands to its label on hover and stays labeled on mobile.",
+      "Tightened license enforcement with daily in-session re-verification. A tab left open now re-checks the subscription every 24 hours, and again when the device wakes from sleep, so a subscription that ends mid-session no longer keeps paid features until the next reload.",
+      "Per-feed <code>Refresh now</code> and <code>Clear cached articles</code> actions now disable while running, spin their icon, and confirm with a toast.",
+    ],
+    fixed: [
+      "Fixed duplicate articles appearing when a single feed was refreshed concurrently. Overlapping refreshes of the same feed now share one in-flight request.",
+      "Fixed feed favicons that failed to load staying blank. Failed favicons now retry on the next refresh and recover.",
+      "Fixed feeds dropping out of an OPML import when their server rate-limited the initial fetch. Rate-limited URLs now import as placeholder feeds and fill in on a later refresh.",
+      "Fixed Signal previews rendering empty when an article had no extracted content, which now fall back to the summary, and fixed the preview sheet being clipped by the iOS toolbar.",
+    ],
+  },
+  {
     version: "0.10.0",
     date: "2026-05-19T15:00:00Z",
     title: "Self-host packaged, privacy promise enforced",
