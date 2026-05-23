@@ -27,6 +27,20 @@ import { buildFeed, buildAccordion } from "./lib/releases.mjs";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const VERSION = releases[0].version;
+const SITE_ORIGIN = "https://feedzero.app";
+
+// Shutdown-migration pages: source-of-truth markdown lives in the feedzero repo
+// under docs/marketing/<slug>-migration.md. Build-time fetch keeps the landing
+// pages in sync with strategy refreshes there without duplicating copy here.
+const MIGRATION_SOURCE_DIR = "docs/marketing";
+const MIGRATION_RAW_BASE =
+  "https://raw.githubusercontent.com/forcingfx/feedzero/main/docs/marketing";
+const FEEDZERO_REPO_BASE = "https://github.com/forcingfx/feedzero/blob/main";
+const MIGRATIONS = [
+  { slug: "pocket", file: "pocket-migration.md" },
+  { slug: "omnivore", file: "omnivore-migration.md" },
+  { slug: "tt-rss", file: "tt-rss-migration.md" },
+];
 
 // ---------- Small helpers ----------
 
@@ -295,6 +309,15 @@ async function buildHome() {
   const partials = parsePartials(partialsRaw);
   const c = data;
 
+  const shutdownItems = c.shutdown.items
+    .map(
+      (it) => `            <li>
+                <span class="shutdown-text">${renderInline(it.text)}</span>
+                <a href="${it.href}">${renderInline(it.linkLabel)}</a>
+            </li>`,
+    )
+    .join("\n");
+
   const vars = {
     metaTitle: escapeAttr(c.meta.title),
     metaDescription: escapeAttr(c.meta.description),
@@ -311,6 +334,9 @@ async function buildHome() {
     heroCtaSecondaryHref: c.hero.ctaSecondary.href,
     heroCtaSecondaryLabel: renderInline(c.hero.ctaSecondary.label),
     heroTrust: renderHeroTrust(c.hero.trust),
+
+    shutdownHeading: renderInline(c.shutdown.heading),
+    shutdownItems,
 
     aboutHeading: renderInline(c.about.heading),
     aboutCard:
@@ -454,6 +480,100 @@ async function buildLegal() {
   }
 }
 
+// ---------- Migration pages ----------
+
+const MIGRATION_FOOTER = [
+  { label: "Home", href: "/" },
+  { label: "Open app", href: "https://my.feedzero.app" },
+  { label: "Pricing", href: "/pricing" },
+  { label: "Impressum", href: "/legal/impressum" },
+  { label: "Privacy", href: "/legal/privacy" },
+  { label: "Terms", href: "/legal/terms" },
+];
+
+/**
+ * Rewrite relative markdown links (`../foo.md`, `../../README.md#x`) to point
+ * at the feedzero repo on GitHub. The source markdown lives at
+ * `docs/marketing/<file>.md` so relative paths resolve against that directory.
+ */
+function rewriteRelativeLinks(body, sourceDir) {
+  return body.replace(/(\[[^\]]+\]\()(\.\.?\/[^)\s]+)\)/g, (_m, prefix, raw) => {
+    const hashIdx = raw.indexOf("#");
+    const pathPart = hashIdx === -1 ? raw : raw.slice(0, hashIdx);
+    const hash = hashIdx === -1 ? "" : raw.slice(hashIdx);
+    const segments = sourceDir.split("/").filter(Boolean);
+    for (const part of pathPart.split("/")) {
+      if (part === "..") segments.pop();
+      else if (part === "." || part === "") continue;
+      else segments.push(part);
+    }
+    return `${prefix}${FEEDZERO_REPO_BASE}/${segments.join("/")}${hash})`;
+  });
+}
+
+async function fetchText(url) {
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Fetch failed for ${url}: ${res.status} ${res.statusText}`);
+  return res.text();
+}
+
+async function buildMigrations() {
+  const template = await read("templates/migration.html");
+  for (const { slug, file } of MIGRATIONS) {
+    const url = `${MIGRATION_RAW_BASE}/${file}`;
+    const raw = await fetchText(url);
+    const { data, body } = parseFrontmatter(raw);
+    if (data.slug !== slug) {
+      throw new Error(`Slug mismatch in ${file}: expected ${slug}, got ${data.slug}`);
+    }
+    const rewritten = rewriteRelativeLinks(body, MIGRATION_SOURCE_DIR);
+    const footer = MIGRATION_FOOTER.filter((l) => l.href !== `/${slug}`)
+      .map((l) => `        <a href="${l.href}">${l.label}</a>`)
+      .join(" ·\n");
+    const vars = {
+      title: escapeAttr(data.title),
+      description: escapeAttr(data.description),
+      intendedUrl: data.intended_url,
+      body: renderMarkdown(rewritten),
+      footer,
+    };
+    await write(`${slug}/index.html`, fill(template, vars));
+  }
+}
+
+// ---------- Sitemap ----------
+
+async function buildSitemap() {
+  const today = new Date().toISOString().slice(0, 10);
+  const urls = [
+    { loc: "/", priority: "1.0", changefreq: "weekly" },
+    { loc: "/pricing", priority: "0.8", changefreq: "monthly" },
+    { loc: "/pocket", priority: "0.7", changefreq: "monthly" },
+    { loc: "/omnivore", priority: "0.7", changefreq: "monthly" },
+    { loc: "/tt-rss", priority: "0.7", changefreq: "monthly" },
+    { loc: "/legal/impressum", priority: "0.3", changefreq: "yearly" },
+    { loc: "/legal/privacy", priority: "0.3", changefreq: "yearly" },
+    { loc: "/legal/terms", priority: "0.3", changefreq: "yearly" },
+    { loc: "/legal/refund", priority: "0.3", changefreq: "yearly" },
+  ];
+  const entries = urls
+    .map(
+      (u) => `    <url>
+        <loc>${SITE_ORIGIN}${u.loc}</loc>
+        <lastmod>${today}</lastmod>
+        <changefreq>${u.changefreq}</changefreq>
+        <priority>${u.priority}</priority>
+    </url>`,
+    )
+    .join("\n");
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries}
+</urlset>
+`;
+  await write("sitemap.xml", xml);
+}
+
 // ---------- Main ----------
 
 export async function buildAll() {
@@ -461,7 +581,11 @@ export async function buildAll() {
   await buildHome();
   await buildPricing();
   await buildLegal();
-  console.log(`Done. ${releases.length} releases, ${LEGAL_PAGES.length} legal pages.`);
+  await buildMigrations();
+  await buildSitemap();
+  console.log(
+    `Done. ${releases.length} releases, ${LEGAL_PAGES.length} legal pages, ${MIGRATIONS.length} migration pages.`,
+  );
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
