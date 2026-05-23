@@ -154,6 +154,84 @@ function renderPricingMinis(plans) {
     .join("\n");
 }
 
+const ICON_CHECK =
+  '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const ICON_X =
+  '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>';
+const ICON_LIMITED =
+  '<svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>';
+
+function renderCompareCell(raw, isFz) {
+  const value = raw == null ? "" : String(raw);
+  let main = value;
+  let note = "";
+  const pipe = value.indexOf("|");
+  if (pipe !== -1) {
+    main = value.slice(0, pipe).trim();
+    note = value.slice(pipe + 1).trim();
+  }
+  const noteHtml = note ? `<span class="cell-note">${renderInline(note)}</span>` : "";
+  if (main === "yes" || main === "true") {
+    const cls = isFz ? "cell-yes cell-yes-fz" : "cell-yes";
+    return `<span class="${cls}" aria-label="Yes">${ICON_CHECK}</span>${noteHtml}`;
+  }
+  if (main === "no" || main === "false") {
+    return `<span class="cell-no" aria-label="No">${ICON_X}</span>${noteHtml}`;
+  }
+  if (main === "limited") {
+    return `<span class="cell-limited" aria-label="Limited">${ICON_LIMITED}</span>${noteHtml}`;
+  }
+  if (main === "—" || main === "-") {
+    return `<span class="cell-dash" aria-label="Not applicable">&mdash;</span>${noteHtml}`;
+  }
+  return `<span class="cell-text">${renderInline(main)}</span>${noteHtml}`;
+}
+
+function renderCompare(c) {
+  const fzIndex = c.columns.findIndex((col) => col.featured);
+  const headerCells = c.columns
+    .map((col, i) => {
+      const cls = i === fzIndex ? ' class="col-fz"' : "";
+      return `                <th${cls} scope="col">${renderInline(col.name)}</th>`;
+    })
+    .join("\n");
+  const totalCols = c.columns.length + 1;
+  const groupBlocks = c.groups
+    .map((group) => {
+      const groupHead = `            <tr class="group-row">
+                <th scope="rowgroup" colspan="${totalCols}">${renderInline(group.heading)}</th>
+            </tr>`;
+      const rowsHtml = group.rows
+        .map((row) => {
+          const cells = row.cells
+            .map((cell, i) => {
+              const isFz = i === fzIndex;
+              const cls = isFz ? ' class="cell-fz"' : "";
+              return `                <td${cls}>${renderCompareCell(cell, isFz)}</td>`;
+            })
+            .join("\n");
+          return `            <tr>
+                <th scope="row" class="row-label">${renderInline(row.label)}</th>
+${cells}
+            </tr>`;
+        })
+        .join("\n");
+      return `${groupHead}\n${rowsHtml}`;
+    })
+    .join("\n");
+  return `        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th scope="col" class="row-label"></th>
+${headerCells}
+                </tr>
+            </thead>
+            <tbody>
+${groupBlocks}
+            </tbody>
+        </table>`;
+}
+
 function renderFaq(items) {
   return items
     .map((it) => {
@@ -248,6 +326,11 @@ async function buildHome() {
     ctaStripText: renderInline(c.features.ctaStrip.text),
     ctaStripHref: c.features.ctaStrip.ctaHref,
     ctaStripLabel: renderInline(c.features.ctaStrip.ctaLabel),
+
+    compareHeading: renderInline(c.compare.heading),
+    compareIntro: renderInline(c.compare.intro),
+    compareTable: renderCompare(c.compare),
+    compareFootnote: renderInline(c.compare.footnote),
 
     pricingHeading: renderInline(c.pricing.heading),
     pricingIntro: renderInline(c.pricing.intro),
