@@ -36,6 +36,19 @@ hero:
     - 1,300+ feeds to browse
     - Open source under [AGPL-3.0](https://github.com/forcingfx/feedzero)
 
+shutdown:
+  heading: Coming from a shutdown?
+  items:
+    - text: "**Pocket** shut down 2025-11."
+      linkLabel: Where to land →
+      href: /pocket
+    - text: "**Omnivore** shut down 2024-11."
+      linkLabel: Where to land →
+      href: /omnivore
+    - text: "**TT-RSS** maintainer walked away 2025-11."
+      linkLabel: Where to land →
+      href: /tt-rss
+
 about:
   heading: What is this?
   card:
