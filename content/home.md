@@ -132,6 +132,93 @@ features:
     ctaLabel: Open the app →
     ctaHref: https://my.feedzero.app
 
+compare:
+  heading: How FeedZero compares
+  intro: "Every reader on this list does the same core job: subscribe to feeds, show new posts. The differences are price, privacy, and whether you can read (and run) the code. The short version, with sources at the bottom."
+  columns:
+    - id: feedzero
+      name: FeedZero
+      featured: true
+    - id: feedly
+      name: Feedly
+    - id: inoreader
+      name: Inoreader
+    - id: reeder
+      name: Reeder
+    - id: netnewswire
+      name: NetNewsWire
+  groups:
+    - heading: Money & openness
+      rows:
+        - label: Free tier
+          cells:
+            - yes
+            - "yes|with ads"
+            - "yes|with ads"
+            - no
+            - yes
+        - label: Paid plan starts at
+          cells:
+            - "$5/mo"
+            - "$6/mo*"
+            - "$9.99/mo*"
+            - "$0.99/mo or one-time"
+            - "Free"
+        - label: Open source
+          cells:
+            - "yes|AGPL-3.0"
+            - no
+            - no
+            - no
+            - "yes|MIT"
+        - label: Self-host the server
+          cells:
+            - yes
+            - no
+            - no
+            - no
+            - "—|native app, no server"
+    - heading: Privacy
+      rows:
+        - label: Start with no signup
+          cells:
+            - yes
+            - no
+            - no
+            - yes
+            - yes
+        - label: End-to-end-encrypted sync, included
+          cells:
+            - yes
+            - no
+            - no
+            - "—|via provider you choose"
+            - "—|via provider you choose"
+        - label: No ads, no third-party trackers
+          cells:
+            - yes
+            - no
+            - no
+            - yes
+            - yes
+    - heading: Power tools
+      rows:
+        - label: Smart filters / saved rules
+          cells:
+            - "yes|Personal"
+            - "limited|Pro+ tier only"
+            - "yes|Pro tier"
+            - no
+            - no
+        - label: One-click auto-organize folders
+          cells:
+            - "yes|Personal"
+            - "limited|via Leo AI"
+            - no
+            - no
+            - no
+  footnote: "*Cheapest paid tier on an annual plan, checked 2026-05; competitor pricing changes — verify on their sites before deciding. Feature rows reflect what's built in to each reader by default. FeedZero is open source under [AGPL-3.0](https://github.com/forcingfx/feedzero); all other product names are trademarks of their respective owners."
+
 pricing:
   heading: Pricing
   intro: "Free in your browser, with encrypted sync across devices included. Unlimited feeds, auto-organize, smart filters, and offline prefetch are on the Personal plan: free for 30 days, then $5 a month. Or self-host the whole thing for free."
