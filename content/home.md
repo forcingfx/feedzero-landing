@@ -134,7 +134,7 @@ features:
 
 compare:
   heading: How FeedZero compares
-  intro: "Every reader on this list does the same core job: subscribe to feeds, show new posts. The differences are price, privacy, and whether you can read (and run) the code. The short version, with sources at the bottom."
+  intro: "Every reader on this list does the same core job: subscribe to feeds, show new posts. The differences are platform, price, privacy, and how far the power tools go. Footnoted sources at the bottom."
   columns:
     - id: feedzero
       name: FeedZero
@@ -148,8 +148,15 @@ compare:
     - id: netnewswire
       name: NetNewsWire
   groups:
-    - heading: Money & openness
+    - heading: Platform & money
       rows:
+        - label: Runs on
+          cells:
+            - "Any browser"
+            - "Web, iOS, Android"
+            - "Web, iOS, Android"
+            - "Apple only"
+            - "Apple only"
         - label: Free tier
           cells:
             - yes
@@ -180,13 +187,13 @@ compare:
             - "—|native app, no server"
     - heading: Privacy
       rows:
-        - label: Start with no signup
+        - label: Works without any account
           cells:
             - yes
-            - no
-            - no
-            - yes
-            - yes
+            - "no|email + password"
+            - "no|email + password"
+            - "limited|Apple ID + sync provider"
+            - "limited|Apple ID + sync provider"
         - label: End-to-end-encrypted sync, included
           cells:
             - yes
@@ -201,15 +208,29 @@ compare:
             - no
             - yes
             - yes
-    - heading: Power tools
+    - heading: Reading & organising
       rows:
-        - label: Smart filters / saved rules
+        - label: Full-text article extraction
+          cells:
+            - yes
+            - "limited|Pro tier"
+            - "limited|Pro tier"
+            - yes
+            - yes
+        - label: Offline reading with full-text prefetch
+          cells:
+            - "yes|Personal: starred + read-often"
+            - "limited|Pro: offline mode only"
+            - "limited|Pro: offline mode"
+            - yes
+            - yes
+        - label: Star, with offline copy of starred
           cells:
             - "yes|Personal"
-            - "limited|Pro+ tier only"
-            - "yes|Pro tier"
-            - no
-            - no
+            - "limited|Pro Save for Later"
+            - yes
+            - yes
+            - yes
         - label: One-click auto-organize folders
           cells:
             - "yes|Personal"
@@ -217,7 +238,44 @@ compare:
             - no
             - no
             - no
-  footnote: "*Cheapest paid tier on an annual plan, checked 2026-05; competitor pricing changes — verify on their sites before deciding. Feature rows reflect what's built in to each reader by default. FeedZero is open source under [AGPL-3.0](https://github.com/forcingfx/feedzero); all other product names are trademarks of their respective owners."
+        - label: Folder colors + custom feed sort
+          cells:
+            - yes
+            - "limited|Pro themes"
+            - yes
+            - "limited|sort only"
+            - "limited|sort only"
+    - heading: Power tools
+      rows:
+        - label: Smart filters (saved rule feeds)
+          cells:
+            - "yes|Personal"
+            - "limited|Pro+ tier only"
+            - "yes|Pro tier"
+            - no
+            - no
+        - label: Per-feed rules (auto-actions on new articles)
+          cells:
+            - "yes|Personal"
+            - "limited|Pro+ Mute Filters"
+            - "yes|Pro tier"
+            - no
+            - no
+        - label: Bridges — paste a Reddit, GitHub, Mastodon, or YouTube URL
+          cells:
+            - "yes|Personal, by URL pattern"
+            - "limited|YouTube + Reddit"
+            - "limited|YouTube + Reddit"
+            - no
+            - "limited|YouTube only"
+        - label: Signal — trends across your feeds, on-device, no AI
+          cells:
+            - "yes|Personal"
+            - "limited|Leo, cloud AI"
+            - "limited|cross-user Trending"
+            - no
+            - no
+  footnote: "*Cheapest paid tier on an annual plan, checked 2026-05; competitor pricing and feature tiers change — verify on their sites before deciding. \"Apple only\" means macOS, iOS, and iPadOS; FeedZero runs in any modern browser including Safari, Firefox, Chrome, and Edge. FeedZero is open source under [AGPL-3.0](https://github.com/forcingfx/feedzero); all other product names are trademarks of their respective owners."
 
 pricing:
   heading: Pricing
