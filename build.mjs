@@ -43,6 +43,14 @@ const MIGRATIONS = [
   { slug: "tt-rss", file: "tt-rss-migration.md" },
 ];
 
+// Per-feature product screenshots — captured in the feedzero repo by
+// scripts/capture-marketing.mjs, mirrored here at build time so Vercel
+// serves them from our own edge (no third-party request per visitor, no
+// dependency on raw.githubusercontent.com staying up).
+const FEATURE_SHOTS_RAW_BASE =
+  "https://raw.githubusercontent.com/forcingfx/feedzero/main/docs/marketing/screenshots";
+const FEATURE_SHOTS_OUT_DIR = "assets/feature-shots";
+
 // ---------- Small helpers ----------
 
 const read = (rel) => readFile(join(ROOT, rel), "utf8");
@@ -52,6 +60,19 @@ async function write(rel, content) {
   await mkdir(dirname(path), { recursive: true });
   await writeFile(path, content, "utf8");
   console.log(`Wrote ${rel}`);
+}
+
+/** Mirror a binary asset from the feedzero repo into our build output. */
+async function mirrorAsset(rel, sourceUrl) {
+  const path = join(ROOT, rel);
+  await mkdir(dirname(path), { recursive: true });
+  const res = await fetch(sourceUrl);
+  if (!res.ok) {
+    throw new Error(`Fetch ${sourceUrl} failed: ${res.status} ${res.statusText}`);
+  }
+  const buf = Buffer.from(await res.arrayBuffer());
+  await writeFile(path, buf);
+  console.log(`Mirrored ${rel} (${buf.length} bytes)`);
 }
 
 function escapeAttr(s) {
@@ -109,6 +130,13 @@ function renderFeatureItems(items, partials, affects) {
     .map((f) => {
       const icon = partials[`icon:${f.id}`] ?? "";
       const tile = partials[`tile:${f.id}`] ?? "";
+      const visual = f.screenshot
+        ? `            <div class="feat-shot">
+                <img src="/${FEATURE_SHOTS_OUT_DIR}/feature-${f.id}.png" alt="${escapeAttr(f.screenshot)}" width="1920" height="1200" loading="lazy">
+            </div>`
+        : `            <div class="feat-tile">
+                ${tile}
+            </div>`;
       return `        <li>
             <div class="feat-text">
                 <span class="eyebrow">
@@ -118,9 +146,7 @@ function renderFeatureItems(items, partials, affects) {
                 <h3 class="feat-title">${renderInline(f.title)}</h3>
                 <p class="feat-desc">${renderInline(f.desc)}</p>
             </div>
-            <div class="feat-tile">
-                ${tile}
-            </div>
+${visual}
         </li>`;
     })
     .join("\n");
@@ -313,6 +339,25 @@ async function buildHome() {
   ]);
   const partials = parsePartials(partialsRaw);
   const c = data;
+
+  // Mirror every per-feature product screenshot referenced in content/home.md.
+  // The PNGs live on main in forcingfx/feedzero and get pulled into our own
+  // /assets so we serve from our edge. Failures (no network, file moved) fall
+  // back to the SVG tile by simply not emitting an <img> for that feature.
+  const shotsToMirror = c.features.items.filter((f) => f.screenshot);
+  await Promise.all(
+    shotsToMirror.map(async (f) => {
+      try {
+        await mirrorAsset(
+          `${FEATURE_SHOTS_OUT_DIR}/feature-${f.id}.png`,
+          `${FEATURE_SHOTS_RAW_BASE}/feature-${f.id}.png`,
+        );
+      } catch (err) {
+        console.warn(`Skipped screenshot for ${f.id}: ${err.message}`);
+        delete f.screenshot;
+      }
+    }),
+  );
 
   const shutdownItems = c.shutdown.items
     .map(
