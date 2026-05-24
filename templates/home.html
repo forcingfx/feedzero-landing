@@ -134,23 +134,6 @@
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
             margin: 1.5rem 0;
         }
-        /* Tinted hero backdrop — light cyan panel behind the product screenshot.
-           Pulled slightly into the gutter so it reads as an anchor, not a card. */
-        .hero-shot-frame {
-            margin: 1.75rem -1.5rem 0;
-            padding: 2rem 1.5rem 0;
-            background:
-                radial-gradient(120% 90% at 50% 0%, rgba(56, 189, 248, 0.18), rgba(56, 189, 248, 0.04) 55%, transparent 80%),
-                linear-gradient(180deg, #f0f9ff 0%, #ffffff 100%);
-            border-radius: 16px;
-            overflow: hidden;
-        }
-        .hero-shot-frame img.shot {
-            margin: 0;
-        }
-        @media (max-width: 520px) {
-            .hero-shot-frame { margin: 1.25rem -1rem 0; padding: 1.25rem 1rem 0; border-radius: 12px; }
-        }
         .nav {
             color: #555;
             font-size: 0.95rem;
@@ -1407,9 +1390,7 @@
             <a class="hero-alt-install-cmd" href="{{heroAltInstallHref}}" target="_blank" rel="noopener"><code>{{heroAltInstallCommand}}</code> <span class="hero-alt-install-arrow">→</span></a>
         </p>
 
-        <div class="hero-shot-frame">
-            <img class="shot" src="screenshot.png" alt="Screenshot of FeedZero: a three-pane reader with a sidebar of folders, an article list, and a full article with a hero image." width="1440" height="900" loading="eager">
-        </div>
+        <img class="shot" src="screenshot.png" alt="Screenshot of FeedZero: a three-pane reader with a sidebar of folders, an article list, and a full article with a hero image." width="1440" height="900" loading="eager">
     </header>
 
     <main>

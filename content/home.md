@@ -66,7 +66,7 @@ about:
 features:
   eyebrow: What it does
   heading: Everything a reader should do. Nothing it shouldn't.
-  intro: Free covers most of it. Hosted adds the heavy lifts.
+  intro: Free is the full reader. Hosted ($5/mo) adds auto-organize, smart filters, and offline prefetch.
   items:
     - id: any-feed
       eyebrow: Any feed
