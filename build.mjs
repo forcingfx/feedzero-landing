@@ -27,6 +27,7 @@ import { buildFeed, buildAccordion } from "./lib/releases.mjs";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const VERSION = releases[0].version;
+const LATEST_AFFECTS = new Set(releases[0].affects ?? []);
 const SITE_ORIGIN = "https://feedzero.app";
 
 // Shutdown-migration pages: source-of-truth markdown lives in the feedzero repo
@@ -99,7 +100,11 @@ function badgeSpan(badge) {
     : '<span class="badge badge-free">Free</span>';
 }
 
-function renderFeatureItems(items, partials) {
+function newBadge(id, affects) {
+  return affects.has(id) ? '<span class="badge badge-new">New</span>' : "";
+}
+
+function renderFeatureItems(items, partials, affects) {
   return items
     .map((f) => {
       const icon = partials[`icon:${f.id}`] ?? "";
@@ -108,7 +113,7 @@ function renderFeatureItems(items, partials) {
             <div class="feat-text">
                 <span class="eyebrow">
                     ${icon}
-                    ${renderInline(f.eyebrow)}${badgeSpan(f.badge)}
+                    ${renderInline(f.eyebrow)}${badgeSpan(f.badge)}${newBadge(f.id, affects)}
                 </span>
                 <h3 class="feat-title">${renderInline(f.title)}</h3>
                 <p class="feat-desc">${renderInline(f.desc)}</p>
@@ -121,14 +126,14 @@ function renderFeatureItems(items, partials) {
     .join("\n");
 }
 
-function renderMinis(minis, partials) {
+function renderMinis(minis, partials, affects) {
   return minis
     .map((mn) => {
       const icon = partials[`icon:mini-${mn.id}`] ?? "";
       return `            <div class="mini">
                 <span class="eyebrow">
                     ${icon}
-                    ${renderInline(mn.eyebrow)}${badgeSpan(mn.badge)}
+                    ${renderInline(mn.eyebrow)}${badgeSpan(mn.badge)}${newBadge(mn.id, affects)}
                 </span>
                 <h3>${renderInline(mn.title)}</h3>
                 <p>${renderInline(mn.desc)}</p>
@@ -351,9 +356,9 @@ async function buildHome() {
     featuresEyebrow: renderInline(c.features.eyebrow),
     featuresHeading: renderInline(c.features.heading),
     featuresIntro: renderInline(c.features.intro),
-    featuresItems: renderFeatureItems(c.features.items, partials),
+    featuresItems: renderFeatureItems(c.features.items, partials, LATEST_AFFECTS),
     miniHeading: renderInline(c.features.miniHeading),
-    miniItems: renderMinis(c.features.minis, partials),
+    miniItems: renderMinis(c.features.minis, partials, LATEST_AFFECTS),
     ctaStripText: renderInline(c.features.ctaStrip.text),
     ctaStripHref: c.features.ctaStrip.ctaHref,
     ctaStripLabel: renderInline(c.features.ctaStrip.ctaLabel),

@@ -25,6 +25,10 @@
  *   subtitle  : one-sentence summary of the release
  *   added / changed / fixed / removed: Keep-a-Changelog sections.
  *     Each is an array of plain strings. Omit empty sections entirely.
+ *   affects   : optional array of landing-page feature IDs (the `id:` fields
+ *     under `features.items` / `features.minis` in content/home.md) that this
+ *     release materially adds or changes. The landing build stamps a NEW
+ *     badge on those features when this is the latest release.
  */
 export const releases = [
   {
@@ -33,6 +37,7 @@ export const releases = [
     title: "Signal, free cloud sync, per-feed rules, and auto-refresh",
     subtitle:
       "Signal surfaces what is loud across your feeds entirely on-device. Cloud sync is now free for everyone. Per-feed rules act on new articles automatically, feeds refresh in the background, and non-RSS sources work by pasting their URL.",
+    affects: ["sync", "starring"],
     added: [
       "Added Signal, an on-device view of what is loud across your feeds. It clusters article titles on proper-noun and compound-noun entities (for example OpenAI or Iran War), ranks topics by how many distinct feeds cover each story rather than how often one outlet repeats it, and folds syndicated coverage of the same story behind a <code>Covered by N outlets</code> badge. Story rows show a peek preview on hover or tap before opening the full reader, and the back button returns to Signal rather than the feed list. It unlocks once the local corpus reaches 100 articles and runs with no external API or LLM. Available on the Personal tier.",
       "Added a per-feed auto-action rules engine. Each rule pairs a condition (the same predicate used by smart filters) with one or more actions applied to new articles during refresh: mark read, star, mute, or move to a folder. Rules are scoped to a single feed and reachable from that feed's settings. Available on the Personal tier.",
