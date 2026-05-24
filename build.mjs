@@ -264,10 +264,10 @@ function renderParagraphs(arr, indent) {
   return arr.map((p) => `${indent}<p>${renderInline(p)}</p>`).join("\n");
 }
 
-function renderHeroTrust(segments) {
+function renderHeroChips(segments) {
   return segments
-    .map((s) => renderInline(s))
-    .join('<span class="sep">&middot;</span>');
+    .map((s) => `            <li class="hero-chip">${renderInline(s)}</li>`)
+    .join("\n");
 }
 
 function renderSourceCommands(commands) {
@@ -333,7 +333,7 @@ async function buildHome() {
     heroCtaPrimaryLabel: renderInline(c.hero.ctaPrimary.label),
     heroCtaSecondaryHref: c.hero.ctaSecondary.href,
     heroCtaSecondaryLabel: renderInline(c.hero.ctaSecondary.label),
-    heroTrust: renderHeroTrust(c.hero.trust),
+    heroChips: renderHeroChips(c.hero.chips),
 
     shutdownHeading: renderInline(c.shutdown.heading),
     shutdownItems,

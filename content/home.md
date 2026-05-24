@@ -22,19 +22,20 @@ meta:
     - No accounts, no ads, no third-party tracking
 
 hero:
-  heading: Follow the web, without the algorithm.
-  lede: FeedZero is an open-source RSS reader for your browser. It pulls blogs, news sites, newsletters, and podcasts into one inbox, in the order they were published. No account, no ads, no tracking.
+  heading: Your feeds. Your inbox. No algorithm.
+  lede: An open-source RSS reader that runs in your browser. Blogs, news, newsletters, podcasts — sorted by date, never by algorithm.
   ctaPrimary:
     label: Open the app, it's free
     href: https://my.feedzero.app
   ctaSecondary:
     label: Try Personal, 30 days free
     href: https://my.feedzero.app/?subscribe=personal-monthly
-  trust:
+  chips:
     - Free, sync included
-    - Up to 50 feeds
+    - End-to-end encrypted
+    - No account, ever
     - 1,300+ feeds to browse
-    - Open source under [AGPL-3.0](https://github.com/forcingfx/feedzero)
+    - "[AGPL-3.0](https://github.com/forcingfx/feedzero)"
 
 shutdown:
   heading: Coming from a shutdown?
