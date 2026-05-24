@@ -36,6 +36,10 @@ hero:
     - No account, ever
     - 1,300+ feeds to browse
     - "[AGPL-3.0](https://github.com/forcingfx/feedzero)"
+  altInstall:
+    label: Or self-host
+    command: ./scripts/feedzero up
+    href: https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md
 
 shutdown:
   heading: Coming from a shutdown?

@@ -334,6 +334,9 @@ async function buildHome() {
     heroCtaSecondaryHref: c.hero.ctaSecondary.href,
     heroCtaSecondaryLabel: renderInline(c.hero.ctaSecondary.label),
     heroChips: renderHeroChips(c.hero.chips),
+    heroAltInstallLabel: renderInline(c.hero.altInstall.label),
+    heroAltInstallCommand: c.hero.altInstall.command,
+    heroAltInstallHref: c.hero.altInstall.href,
 
     shutdownHeading: renderInline(c.shutdown.heading),
     shutdownItems,

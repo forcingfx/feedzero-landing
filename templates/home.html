@@ -1131,6 +1131,40 @@
         .hero-chip a:visited { color: #0f172a; }
         .hero-chip a:hover { color: #0f172a; border-bottom-color: #0f172a; }
 
+        .hero-alt-install {
+            margin: 0.85rem 0 0;
+            font-size: 0.84rem;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .hero-alt-install-label { flex-shrink: 0; }
+        .hero-alt-install-cmd {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4em;
+            color: #0f172a;
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted transparent;
+            transition: border-color 0.15s ease;
+        }
+        .hero-alt-install-cmd:visited { color: #0f172a; }
+        .hero-alt-install-cmd:hover { border-bottom-color: #94a3b8; text-decoration: none; }
+        .hero-alt-install-cmd code {
+            font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+            font-size: 0.86em;
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 0.18em 0.55em;
+            border-radius: 5px;
+            border: 1px solid #e2e8f0;
+        }
+        .hero-alt-install-cmd:hover code { border-color: #cbd5e1; }
+        .hero-alt-install-arrow { color: #94a3b8; }
+
         /* ---- Free / Paid badges ---- */
         .badge {
             display: inline-flex;
@@ -1271,35 +1305,23 @@
 
         /* ---- Section CTA strip ---- */
         .cta-strip {
-            margin-top: 1.25rem;
-            padding: 1rem 1.25rem;
-            background: #0f172a;
-            color: #fff;
+            margin-top: 1.5rem;
+            padding: 1.1rem 1.25rem;
+            background: #f8fafc;
+            border: 1px solid #e5e7eb;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.85rem;
         }
         .cta-strip p {
             margin: 0;
-            color: #e2e8f0;
+            color: #334155;
             font-size: 0.95rem;
         }
-        .cta-strip strong { color: #fff; }
-        .cta-strip a.cta-large.primary {
-            background: #fff;
-            color: #0f172a;
-            border-color: #fff;
-        }
-        .cta-strip a.cta-large.primary:visited { color: #0f172a; }
-        .cta-strip a.cta-large.primary:hover {
-            background: #f1f5f9;
-            border-color: #f1f5f9;
-            color: #0f172a;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.2);
-        }
+        .cta-strip strong { color: #0f172a; }
         @media (max-width: 520px) {
             .cta-strip { flex-direction: column; align-items: stretch; text-align: left; }
             .cta-strip a.cta-large { text-align: center; }
@@ -1336,6 +1358,11 @@
         <ul class="hero-chips">
 {{heroChips}}
         </ul>
+
+        <p class="hero-alt-install">
+            <span class="hero-alt-install-label">{{heroAltInstallLabel}}:</span>
+            <a class="hero-alt-install-cmd" href="{{heroAltInstallHref}}" target="_blank" rel="noopener"><code>{{heroAltInstallCommand}}</code> <span class="hero-alt-install-arrow">→</span></a>
+        </p>
 
         <img class="shot" src="screenshot.png" alt="Screenshot of FeedZero: a three-pane reader with a sidebar of folders, an article list, and a full article with a hero image." width="1440" height="900" loading="eager">
     </header>
