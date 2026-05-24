@@ -1,12 +1,12 @@
 ---
 meta:
   title: "Pricing: FeedZero"
-  description: "FeedZero pricing in USD. Free in your browser, with encrypted sync across devices included. Personal lifts the feed cap and adds auto-organize, smart filters, and offline starred. 30 days free, then $5 a month. Self-host for free."
+  description: "FeedZero pricing in USD. Free in your browser, with encrypted sync across devices included. Hosted lifts the feed cap and adds auto-organize, smart filters, and offline starred. 30 days free, then $5 a month. Self-host for free."
   ogTitle: "Pricing, FeedZero"
-  ogDescription: "Free in your browser, sync included. Personal lifts the feed cap and adds auto-organize, smart filters, offline starred. 30 days free, then $5/month. Self-host for free."
+  ogDescription: "Free in your browser, sync included. Hosted lifts the feed cap and adds auto-organize, smart filters, offline starred. 30 days free, then $5/month. Self-host for free."
   canonical: /pricing
 heading: Pricing
-lede: Free in your browser, with encrypted sync across devices included. Personal lifts the feed cap and adds auto-organize, smart filters, and offline prefetch. 30-day free trial, then $5 a month. Self-host the whole thing for free. Prices in USD.
+lede: Free in your browser, with encrypted sync across devices included. Hosted lifts the feed cap and adds auto-organize, smart filters, and offline prefetch. 30-day free trial, then $5 a month. Self-host the whole thing for free. Prices in USD.
 plans:
   - name: Free
     tagline: Open it and read. No account.
@@ -27,8 +27,8 @@ plans:
       - Works offline once articles have loaded
       - Keyboard navigation and three-pane resizable desktop layout
       - No account. Data stays in your browser, AES-256-GCM encrypted at rest
-      - Subscribe to Personal or self-host (below) for unlimited feeds
-  - name: Personal
+      - Subscribe to Hosted or self-host (below) for unlimited feeds
+  - name: Hosted
     featured: true
     recommended: true
     tagline: For power readers. Lift the feed cap, auto-file, save complex queries.
@@ -62,7 +62,7 @@ selfHost:
     style: secondary
   features:
     - Unlimited feeds. The 50-feed cap does not apply
-    - "Every Personal feature unlocked: auto-organize, smart filters, offline starred"
+    - "Every Hosted feature unlocked: auto-organize, smart filters, offline starred"
     - End-to-end encrypted sync runs on your own server, against your own vault store
     - One-command Docker deploy with Caddy + automatic TLS. Three commands from clone to running
     - Multi-arch images on GHCR (amd64 + arm64). Raspberry Pi included
@@ -70,7 +70,7 @@ selfHost:
     - No license check, no kill switch, no telemetry, no phoning home
     - You provide the server and pay its cost. We provide the code and docs
 ---
-**Why pay for Personal if self-host is free?** Convenience. Personal is one click, no setup, automatic updates, and a backend we keep running for the heavier features. Self-host if you already run a server or want full control of where your data lives.
+**Why pay for Hosted if self-host is free?** Convenience. Hosted is one click, no setup, automatic updates, and a backend we keep running for the heavier features. Self-host if you already run a server or want full control of where your data lives.
 
 **Tax:** Prices in USD. The operator is below the local VAT registration threshold, so no tax is added at checkout. Where local VAT or sales-tax law obligates the consumer to self-account, that obligation rests with the consumer.
 

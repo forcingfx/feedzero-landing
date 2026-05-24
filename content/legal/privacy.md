@@ -24,7 +24,7 @@ The Free tier runs entirely in your browser. We do not have an account for you. 
 
 When the app fetches feeds and pages on your behalf (RSS sources do not allow direct cross-origin browser fetches), our server logs the standard fields any HTTP server logs: the URL fetched, your IP address (briefly, for rate limiting), and a request timestamp. Logs are retained for at most 30 days and are not joined with any other identifier.
 
-### Personal tier (sync)
+### Hosted tier (sync)
 
 For paying customers, we additionally collect:
 

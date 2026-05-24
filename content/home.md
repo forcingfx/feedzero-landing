@@ -1,10 +1,10 @@
 ---
 meta:
   title: FeedZero, a private RSS reader for your browser
-  description: An open-source RSS reader for your browser. Blogs, news sites, newsletters, and podcasts in one inbox. Free, with encrypted sync across devices. No account, no ads, no tracking. Personal plan ($5/month) adds unlimited feeds, auto-organize, and smart filters. AGPL-3.0.
+  description: An open-source RSS reader for your browser. Blogs, news sites, newsletters, and podcasts in one inbox. Free, with encrypted sync across devices. No account, no ads, no tracking. Hosted plan ($5/month) adds unlimited feeds, auto-organize, and smart filters. AGPL-3.0.
   keywords: RSS reader, open source RSS, browser RSS reader, Atom, JSON Feed, OPML, encrypted RSS sync, self-hosted RSS, private news reader, ad-free reader
-  ogDescription: The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Personal plan. Open source.
-  twitterDescription: The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Personal plan.
+  ogDescription: The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Hosted plan. Open source.
+  twitterDescription: The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Hosted plan.
   ogImageAlt: Screenshot of FeedZero showing a three-pane reader with folders, an article list, and a featured story.
   jsonLdDescription: An open-source RSS reader for your browser. Subscribe to blogs, news sites, newsletters, and podcasts. End-to-end encrypted sync across devices, free on every tier. No accounts, no ads, no third-party tracking.
   featureList:
@@ -15,7 +15,7 @@ meta:
     - End-to-end encrypted sync across devices (AES-256-GCM), included on every tier
     - Auto-organize folders by topic
     - "Smart filters: saved rules that match articles by keywords, date, feed, and read state"
-    - Star articles to read later; offline prefetch of starred articles (Personal)
+    - Star articles to read later; offline prefetch of starred articles (Hosted)
     - Full article text extraction
     - 1,300+ curated feeds in Explore
     - Self-hostable with one Docker command
@@ -28,7 +28,7 @@ hero:
     label: Open the app, it's free
     href: https://my.feedzero.app
   ctaSecondary:
-    label: Try Personal, 30 days free
+    label: Try Hosted, 30 days free
     href: https://my.feedzero.app/?subscribe=personal-monthly
   chips:
     - Free, sync included
@@ -62,7 +62,7 @@ about:
 features:
   eyebrow: What it does
   heading: Everything a reader should do. Nothing it shouldn't.
-  intro: Free covers most of it. Personal adds the heavy lifts.
+  intro: Free covers most of it. Hosted adds the heavy lifts.
   items:
     - id: any-feed
       eyebrow: Any feed
@@ -88,7 +88,7 @@ features:
       eyebrow: Starring
       badge: free
       title: Star now. Read later. Even offline.
-      desc: Hit <kbd>s</kbd> to save any article. Personal also downloads the full text in the background — covered on the train, on the plane, anywhere.
+      desc: Hit <kbd>s</kbd> to save any article. Hosted also downloads the full text in the background — covered on the train, on the plane, anywhere.
     - id: auto-organize
       eyebrow: Auto-organize
       badge: paid
@@ -234,21 +234,21 @@ compare:
             - yes
         - label: Offline reading with full-text prefetch
           cells:
-            - "yes|Personal: starred + read-often"
+            - "yes|Hosted: starred + read-often"
             - "limited|Pro: offline mode only"
             - "limited|Pro: offline mode"
             - yes
             - yes
         - label: Star, with offline copy of starred
           cells:
-            - "yes|Personal"
+            - "yes|Hosted"
             - "limited|Pro Save for Later"
             - yes
             - yes
             - yes
         - label: One-click auto-organize folders
           cells:
-            - "yes|Personal"
+            - "yes|Hosted"
             - "limited|via Leo AI"
             - no
             - no
@@ -264,28 +264,28 @@ compare:
       rows:
         - label: Smart filters (saved rule feeds)
           cells:
-            - "yes|Personal"
+            - "yes|Hosted"
             - "limited|Pro+ tier only"
             - "yes|Pro tier"
             - no
             - no
         - label: Per-feed rules (auto-actions on new articles)
           cells:
-            - "yes|Personal"
+            - "yes|Hosted"
             - "limited|Pro+ Mute Filters"
             - "yes|Pro tier"
             - no
             - no
         - label: Bridges — paste a Reddit, GitHub, Mastodon, or YouTube URL
           cells:
-            - "yes|Personal, by URL pattern"
+            - "yes|Hosted, by URL pattern"
             - "limited|YouTube + Reddit"
             - "limited|YouTube + Reddit"
             - no
             - "limited|YouTube only"
         - label: Signal — trends across your feeds, on-device, no AI
           cells:
-            - "yes|Personal"
+            - "yes|Hosted"
             - "limited|Leo, cloud AI"
             - "limited|cross-user Trending"
             - no
@@ -295,7 +295,7 @@ compare:
 pricing:
   eyebrow: What it costs
   heading: Free in your browser. $5 for the power tools.
-  intro: Encrypted sync is included on every tier. Personal lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch. Self-host unlocks everything, free.
+  intro: Encrypted sync is included on every tier. Hosted lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch. Self-host unlocks everything, free.
   plans:
     - name: Free
       price: $0
@@ -304,7 +304,7 @@ pricing:
       ctaLabel: Open the app →
       ctaHref: https://my.feedzero.app
       ctaStyle: secondary
-    - name: Personal
+    - name: Hosted
       featured: true
       recommended: true
       price: 30 days free
@@ -319,11 +319,11 @@ pricing:
       selfHost: true
       price: $0
       period: · AGPL-3.0-or-later
-      summary: "Your server, your data. Every Personal feature unlocked: unlimited feeds, auto-organize, smart filters, offline starred. Sync runs on your own server. No license check, no kill switch, no phoning home. Three commands to deploy."
+      summary: "Your server, your data. Every Hosted feature unlocked: unlimited feeds, auto-organize, smart filters, offline starred. Sync runs on your own server. No license check, no kill switch, no phoning home. Three commands to deploy."
       ctaLabel: Self-hosting guide →
       ctaHref: https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md
       ctaStyle: secondary
-  seeAll: Already a Personal subscriber? [Open the app](https://my.feedzero.app) and sign in with your license. One purchase, every device. &nbsp;·&nbsp; [See the full comparison →](/pricing)
+  seeAll: Already on Hosted? [Open the app](https://my.feedzero.app) and sign in with your license. One purchase, every device. &nbsp;·&nbsp; [See the full comparison →](/pricing)
 
 faq:
   eyebrow: FAQ
@@ -331,7 +331,7 @@ faq:
   items:
     - q: If it's open source, why does anything cost money?
       a:
-        - The reader and encrypted sync are free — they cost us nothing. The Personal plan covers the heavy ones: auto-organize, smart filters, offline prefetch, and the lifted 50-feed cap. No VCs, no ads, no data sales. If you'd rather not pay, self-host. Same code, AGPL, free.
+        - The reader and encrypted sync are free — they cost us nothing. The Hosted plan covers the heavy ones: auto-organize, smart filters, offline prefetch, and the lifted 50-feed cap. No VCs, no ads, no data sales. If you'd rather not pay, self-host. Same code, AGPL, free.
     - q: What if I cancel my subscription?
       a:
         - The reader keeps working. Sync keeps working — it's free for everyone. You lose auto-organize, smart filters, offline prefetch, and the 50-feed cap comes back. Re-subscribe any time, or export to OPML and walk away.
@@ -340,7 +340,7 @@ faq:
         - Yes. Encryption happens in your browser with a four-word passphrase only you know. The server holds ciphertext it has no way to decrypt — not for support, not for a subpoena, not for us. Lose the passphrase and your cloud data is gone. There's no reset; that's the trade-off.
     - q: One license, multiple devices?
       a:
-        - Yes. One Personal subscription covers every device. Enter your sync passphrase to restore, paste your license to unlock. No per-device fees, no seat limits.
+        - Yes. One Hosted subscription covers every device. Enter your sync passphrase to restore, paste your license to unlock. No per-device fees, no seat limits.
     - q: What's the catch with "Free"?
       a:
         - "No catch. Full reader, same speed, same OPML export, same encrypted sync. Capped at 50 feed subscriptions; beyond that, subscribe or self-host."

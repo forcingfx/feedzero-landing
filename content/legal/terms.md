@@ -13,7 +13,7 @@ FeedZero's operator is identified in our [Impressum](/legal/impressum). Referenc
 FeedZero is an RSS reader available in two ways:
 
 - **Free.** Runs in your browser at [my.feedzero.app](https://my.feedzero.app). No account, no payment. All data stays on your device.
-- **Personal subscription.** USD 5/month or USD 49/year (excluding VAT where applicable). Lifts the Free feed cap and adds auto-organize folders, smart filters, and offline prefetch of starred articles. End-to-end encrypted sync across devices is included on the Free tier and remains available on Personal. Cancellable anytime.
+- **Hosted subscription.** USD 5/month or USD 49/year (excluding VAT where applicable). Lifts the Free feed cap and adds auto-organize folders, smart filters, and offline prefetch of starred articles. End-to-end encrypted sync across devices is included on the Free tier and remains available on Hosted. Cancellable anytime.
 
 FeedZero is also open source under AGPL-3.0-or-later. You may run your own copy on your own infrastructure, in which case these Terms do not apply to that copy.
 
@@ -41,7 +41,7 @@ See our [refund policy](/legal/refund).
 
 <div class="callout">
     <p><strong>Withdrawal right.</strong> EU/EEA consumers have a 14-day right of withdrawal for distance contracts under Directive 2011/83/EU. This right applies regardless of where the operator is established.</p>
-    <p><strong>Waiver.</strong> For digital subscriptions like FeedZero Personal, the contract is performed immediately on activation. Your license is minted and the Personal features (the lifted feed cap, auto-organize, smart filters, and offline prefetch) unlock within seconds of payment. When you subscribe, you expressly request immediate provision of the service and acknowledge that, by doing so, your right of withdrawal expires upon completion of that provision (Art. 16(m) of Directive 2011/83/EU).</p>
+    <p><strong>Waiver.</strong> For digital subscriptions like FeedZero Hosted, the contract is performed immediately on activation. Your license is minted and the Hosted features (the lifted feed cap, auto-organize, smart filters, and offline prefetch) unlock within seconds of payment. When you subscribe, you expressly request immediate provision of the service and acknowledge that, by doing so, your right of withdrawal expires upon completion of that provision (Art. 16(m) of Directive 2011/83/EU).</p>
     <p>If you do not consent to this waiver, do not start the subscription. Stripe Checkout requires you to tick a Terms-of-Service consent box before payment is taken.</p>
 </div>
 

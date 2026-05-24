@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>FeedZero, a private RSS reader for your browser</title>
-    <meta name="description" content="An open-source RSS reader for your browser. Blogs, news sites, newsletters, and podcasts in one inbox. Free, with encrypted sync across devices. No account, no ads, no tracking. Personal plan ($5/month) adds unlimited feeds, auto-organize, and smart filters. AGPL-3.0.">
+    <meta name="description" content="An open-source RSS reader for your browser. Blogs, news sites, newsletters, and podcasts in one inbox. Free, with encrypted sync across devices. No account, no ads, no tracking. Hosted plan ($5/month) adds unlimited feeds, auto-organize, and smart filters. AGPL-3.0.">
     <meta name="keywords" content="RSS reader, open source RSS, browser RSS reader, Atom, JSON Feed, OPML, encrypted RSS sync, self-hosted RSS, private news reader, ad-free reader">
     <link rel="canonical" href="https://feedzero.app">
 
     <meta property="og:title" content="FeedZero, a private RSS reader for your browser">
-    <meta property="og:description" content="The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Personal plan. Open source.">
+    <meta property="og:description" content="The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Hosted plan. Open source.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://feedzero.app">
     <meta property="og:site_name" content="FeedZero">
@@ -23,7 +23,7 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="FeedZero, a private RSS reader for your browser">
-    <meta name="twitter:description" content="The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Personal plan.">
+    <meta name="twitter:description" content="The web in one inbox. No algorithm, no ads, no tracking. Free in your browser, encrypted sync included. Unlimited feeds and power tools on the $5/month Hosted plan.">
     <meta name="twitter:image" content="https://feedzero.app/screenshot.png">
 
     <meta name="robots" content="index, follow">
@@ -64,7 +64,7 @@
         "End-to-end encrypted sync across devices (AES-256-GCM), included on every tier",
         "Auto-organize folders by topic",
         "Smart filters: saved rules that match articles by keywords, date, feed, and read state",
-        "Star articles to read later; offline prefetch of starred articles (Personal)",
+        "Star articles to read later; offline prefetch of starred articles (Hosted)",
         "Full article text extraction",
         "1,300+ curated feeds in Explore",
         "Self-hostable with one Docker command",
@@ -1365,7 +1365,7 @@
 
         <p class="hero-actions">
             <a href="https://my.feedzero.app" class="cta-large primary">Open the app, it's free</a>
-            <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-large secondary">Try Personal, 30 days free</a>
+            <a href="https://my.feedzero.app/?subscribe=personal-monthly" class="cta-large secondary">Try Hosted, 30 days free</a>
         </p>
 
         <ul class="hero-chips">
@@ -1414,7 +1414,7 @@
     <section id="features">
         <p class="section-eye">What it does</p>
         <h2>Everything a reader should do. Nothing it shouldn't.</h2>
-        <p class="section-intro">Free covers most of it. Personal adds the heavy lifts.</p>
+        <p class="section-intro">Free covers most of it. Hosted adds the heavy lifts.</p>
 
     <div class="panel">
     <ul class="features">
@@ -1520,7 +1520,7 @@
                     Starring<span class="badge badge-free">Free</span>
                 </span>
                 <h3 class="feat-title">Star now. Read later. Even offline.</h3>
-                <p class="feat-desc">Hit <kbd>s</kbd> to save any article. Personal also downloads the full text in the background — covered on the train, on the plane, anywhere.</p>
+                <p class="feat-desc">Hit <kbd>s</kbd> to save any article. Hosted also downloads the full text in the background — covered on the train, on the plane, anywhere.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-star">
@@ -1530,7 +1530,7 @@
     <span class="tag" style="color:#92400e; background:#fffbeb; border-color:#fde68a;">Press <kbd style="font-size:0.62rem; color:#92400e; background:#fef3c7; border-color:#fde68a;">s</kbd> to star</span>
 </div>
 <div class="tile-pills">
-    <span class="tag" style="color:#047857; background:#ecfdf5; border-color:#a7f3d0;">Offline (Personal)</span>
+    <span class="tag" style="color:#047857; background:#ecfdf5; border-color:#a7f3d0;">Offline (Hosted)</span>
 </div>
             </div>
         </li>
@@ -1793,7 +1793,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Offline reading with full-text prefetch</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal: starred + read-often</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted: starred + read-often</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Pro: offline mode only</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Pro: offline mode</span></td>
                 <td><span class="cell-yes" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
@@ -1801,7 +1801,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Star, with offline copy of starred</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Pro Save for Later</span></td>
                 <td><span class="cell-yes" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
                 <td><span class="cell-yes" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></td>
@@ -1809,7 +1809,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">One-click auto-organize folders</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">via Leo AI</span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
@@ -1828,7 +1828,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Smart filters (saved rule feeds)</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Pro+ tier only</span></td>
                 <td><span class="cell-yes" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Pro tier</span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
@@ -1836,7 +1836,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Per-feed rules (auto-actions on new articles)</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Pro+ Mute Filters</span></td>
                 <td><span class="cell-yes" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Pro tier</span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
@@ -1844,7 +1844,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Bridges — paste a Reddit, GitHub, Mastodon, or YouTube URL</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal, by URL pattern</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted, by URL pattern</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">YouTube + Reddit</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">YouTube + Reddit</span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
@@ -1852,7 +1852,7 @@
             </tr>
             <tr>
                 <th scope="row" class="row-label">Signal — trends across your feeds, on-device, no AI</th>
-                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Personal</span></td>
+                <td class="cell-fz"><span class="cell-yes cell-yes-fz" aria-label="Yes"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8.5l3 3 7-7" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="cell-note">Hosted</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">Leo, cloud AI</span></td>
                 <td><span class="cell-limited" aria-label="Limited"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M3 8h10" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></span><span class="cell-note">cross-user Trending</span></td>
                 <td><span class="cell-no" aria-label="No"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></td>
@@ -1870,7 +1870,7 @@
     <section id="pricing">
         <p class="section-eye">What it costs</p>
         <h2>Free in your browser. $5 for the power tools.</h2>
-        <p class="section-intro">Encrypted sync is included on every tier. Personal lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch. Self-host unlocks everything, free.</p>
+        <p class="section-intro">Encrypted sync is included on every tier. Hosted lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch. Self-host unlocks everything, free.</p>
 
         <div class="plans-mini">
             <article class="plan-mini">
@@ -1888,7 +1888,7 @@
             <article class="plan-mini featured">
                 <span class="recommended">Recommended</span>
                 <div>
-                    <p class="name">Personal</p>
+                    <p class="name">Hosted</p>
                     <p class="price-mini">30 days free<span class="period"> · then $5/mo USD</span></p>
                 </div>
                 <p class="feature-summary">
@@ -1905,7 +1905,7 @@
                     <p class="price-mini">$0<span class="period"> · AGPL-3.0-or-later</span></p>
                 </div>
                 <p class="feature-summary">
-                    Your server, your data. Every Personal feature unlocked: unlimited feeds, auto-organize, smart filters, offline starred. Sync runs on your own server. No license check, no kill switch, no phoning home. Three commands to deploy.
+                    Your server, your data. Every Hosted feature unlocked: unlimited feeds, auto-organize, smart filters, offline starred. Sync runs on your own server. No license check, no kill switch, no phoning home. Three commands to deploy.
                 </p>
                 <div class="cta-col">
                     <a href="https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md" class="cta-mini secondary">Self-hosting guide →</a>
@@ -1914,7 +1914,7 @@
         </div>
 
         <p class="pricing-see-all">
-            Already a Personal subscriber? <a href="https://my.feedzero.app" rel="noopener">Open the app</a> and sign in with your license. One purchase, every device. &nbsp;·&nbsp; <a href="/pricing">See the full comparison →</a>
+            Already on Hosted? <a href="https://my.feedzero.app" rel="noopener">Open the app</a> and sign in with your license. One purchase, every device. &nbsp;·&nbsp; <a href="/pricing">See the full comparison →</a>
         </p>
     </section>
 
@@ -1926,7 +1926,7 @@
             <details>
                 <summary>If it's open source, why does anything cost money?</summary>
                 <div class="faq-body">
-                    <p>The reader and encrypted sync are free — they cost us nothing. The Personal plan covers the heavy ones: auto-organize, smart filters, offline prefetch, and the lifted 50-feed cap. No VCs, no ads, no data sales. If you'd rather not pay, self-host. Same code, AGPL, free.</p>
+                    <p>The reader and encrypted sync are free — they cost us nothing. The Hosted plan covers the heavy ones: auto-organize, smart filters, offline prefetch, and the lifted 50-feed cap. No VCs, no ads, no data sales. If you'd rather not pay, self-host. Same code, AGPL, free.</p>
                 </div>
             </details>
             <details>
@@ -1944,7 +1944,7 @@
             <details>
                 <summary>One license, multiple devices?</summary>
                 <div class="faq-body">
-                    <p>Yes. One Personal subscription covers every device. Enter your sync passphrase to restore, paste your license to unlock. No per-device fees, no seat limits.</p>
+                    <p>Yes. One Hosted subscription covers every device. Enter your sync passphrase to restore, paste your license to unlock. No per-device fees, no seat limits.</p>
                 </div>
             </details>
             <details>
