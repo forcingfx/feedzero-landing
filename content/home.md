@@ -73,46 +73,55 @@ features:
       badge: free
       title: Paste any URL. FeedZero finds the feed.
       desc: Blogs, podcasts, YouTube channels, Substacks, GitHub releases. If it ships a feed (most do), you can read it.
+      screenshot: "Pasting a feed URL into the Explore search field."
     - id: sync
       eyebrow: Sync
       badge: free
       title: Pick up where you left off, anywhere.
       desc: Subscriptions, folders, and read state follow you. Encrypted in your browser with a four-word passphrase — the server only ever sees ciphertext. Included on every tier.
+      screenshot: "Cloud-sync setup showing the four-word recovery passphrase."
     - id: keyboard
       eyebrow: Keyboard-driven
       badge: free
       title: Faster than scrolling Twitter.
       desc: Move with <kbd>j</kbd>/<kbd>k</kbd>, jump feeds with <kbd>u</kbd>, open the original with <kbd>o</kbd>. Or click. Both work the same way.
+      screenshot: "Keyboard shortcuts panel with j, k, u, o, Ctrl+K and more."
     - id: switch-readers
       eyebrow: Switch readers
       badge: free
       title: Bring your subscriptions. Folders and all.
       desc: Import OPML from Feedly, Inoreader, or NetNewsWire — folders preserved, not flattened. Export the same way, any time.
+      screenshot: "OPML import result, 17 feeds added, with the export panel alongside."
     - id: starring
       eyebrow: Starring
       badge: free
       title: Star now. Read later. Even offline.
       desc: Hit <kbd>s</kbd> to save any article. Hosted also downloads the full text in the background — covered on the train, on the plane, anywhere.
+      screenshot: "Starred view with a list of starred articles, each with a filled gold star."
     - id: auto-organize
       eyebrow: Auto-organize
       badge: paid
       title: A button that files your feeds for you.
       desc: One click and FeedZero sorts your subscriptions into topic folders. Tweak it, undo it. On-device, no AI.
+      screenshot: "Sidebar after auto-organize, feeds grouped under colour-coded Business, Culture, Lifestyle, News folders."
     - id: smart-filters
       eyebrow: Smart Filters
       badge: paid
       title: Smart Playlists, for the news.
       desc: <em>"AI news, this week, unread."</em> Stack conditions with AND/OR/NOT and FeedZero keeps a live feed of every match. Syncs across devices.
+      screenshot: "Smart-filter editor with three stacked conditions and a live match count."
     - id: discover
       eyebrow: Discover
       badge: free
       title: 1,300+ hand-picked feeds to start from.
       desc: Browse a curated catalog by topic and country. One click to subscribe.
+      screenshot: "Explore Featured tab with the curated catalog and per-row Add buttons."
     - id: full-text
       eyebrow: Full text
       badge: free
       title: Read the article, not the teaser.
       desc: When a feed only ships the first paragraph, FeedZero fetches the rest. Stay in the reader.
+      screenshot: "Reader pane in Full text mode rendering an extracted article body."
   miniHeading: And a handful of things that just work
   minis:
     - id: offline
