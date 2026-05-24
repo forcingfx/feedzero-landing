@@ -21,8 +21,8 @@ You can cancel your subscription at any time:
 We will refund (in full or in part, as appropriate) when:
 
 - You were billed in error (for example, a duplicate charge).
-- The Personal features (the lifted feed cap, auto-organize, smart filters, or offline prefetch) were unavailable for an extended outage caused by our service.
-- You purchased a subscription, never used any Personal-only feature, and contact us within 14 days of purchase. Note: using any Personal-only feature (subscribing to a feed beyond the Free cap, running auto-organize, creating a smart filter, or enabling offline prefetch) constitutes use, and (for EU/EEA consumers) explicitly waives the EU 14-day withdrawal right under Art. 16(m) of Directive 2011/83/EU. See [Terms § 6](/legal/terms).
+- The Hosted features (the lifted feed cap, auto-organize, smart filters, or offline prefetch) were unavailable for an extended outage caused by our service.
+- You purchased a subscription, never used any Hosted-only feature, and contact us within 14 days of purchase. Note: using any Hosted-only feature (subscribing to a feed beyond the Free cap, running auto-organize, creating a smart filter, or enabling offline prefetch) constitutes use, and (for EU/EEA consumers) explicitly waives the EU 14-day withdrawal right under Art. 16(m) of Directive 2011/83/EU. See [Terms § 6](/legal/terms).
 
 ## When we do not issue refunds
 
