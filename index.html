@@ -117,8 +117,28 @@
             h2 { font-size: 1.45rem; }
         }
         section {
-            margin-top: 2.75rem;
+            margin-top: 5rem;
             scroll-margin-top: 64px;
+        }
+        .section-eye {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin: 0 0 0.6rem;
+        }
+        section > p:first-of-type.section-intro {
+            color: #475569;
+            font-size: 1.02rem;
+            line-height: 1.55;
+            max-width: 36rem;
+            margin: 0 0 1.5rem;
+        }
+        @media (max-width: 520px) {
+            section { margin-top: 3.5rem; }
+            section > p:first-of-type.section-intro { font-size: 0.95rem; }
         }
         section > p:last-child,
         section > ul:last-child { margin-bottom: 0; }
@@ -1380,23 +1400,21 @@
     </aside>
 
     <section id="about">
-        <h2>What is this?</h2>
+        <p class="section-eye">The idea</p>
+        <h2>A reader that just shows you what you follow.</h2>
 
         <div class="intro-card">
-            <p>Almost every site on the internet (blogs, news outlets, YouTube channels, podcasts, even most newsletters) publishes a public list of its new posts. The list is called a <em>feed</em>. FeedZero subscribes to those feeds and pulls everything into one inbox, sorted by date.</p>
-            <p>That's it. No timeline algorithm reordering posts. No "for you" page. No promoted content. You pick what you follow, and you see everything they publish, in the order they wrote it.</p>
-            <p class="compare">If you've used Feedly, Inoreader, NetNewsWire, or Reeder, FeedZero is the same idea. The differences: it runs in your browser, it's open source, and your data stays on your device.</p>
+            <p>Most sites publish a list of their new posts — a <em>feed</em>. FeedZero subscribes and shows everything in one inbox, sorted by date. No "for you", no promoted, no algorithm.</p>
+            <p class="compare">Like Feedly, Inoreader, or NetNewsWire — but in your browser, open source, and your data stays on your device.</p>
         </div>
 
-        <p>Open <a href="https://my.feedzero.app" rel="noopener">my.feedzero.app</a> and start reading. No email, no password, no install. Your subscriptions and reading history live on your device, encrypted. If you want to read across devices, turn on encrypted sync. It's included on every tier and doesn't need an account. Or run the whole thing on your own server. The code is open source under <a href="https://github.com/forcingfx/feedzero/blob/main/LICENSE" rel="noopener">AGPL-3.0</a>.</p>
         <p>Currently in alpha (v0.11.0). Used daily by the people building it.</p>
     </section>
 
     <section id="features">
-    <h2>Features</h2>
-    <p style="color:#475569; font-size:0.92rem; margin-bottom:1rem;">
-        Most of FeedZero is free, including encrypted sync across devices. The Personal plan lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch of starred articles. It's free for 30 days, and unlocked by default if you self-host.
-    </p>
+        <p class="section-eye">What it does</p>
+        <h2>Everything a reader should do. Nothing it shouldn't.</h2>
+        <p class="section-intro">Free covers most of it. Personal adds the heavy lifts.</p>
 
     <div class="panel">
     <ul class="features">
@@ -1406,8 +1424,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
                     Any feed<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">Works with any site that publishes a feed.</h3>
-                <p class="feat-desc">Blogs, news sites, podcasts, YouTube channels, Substacks, GitHub releases. If it has a feed (most do), FeedZero reads it. Paste the address and the app finds the right URL automatically.</p>
+                <h3 class="feat-title">Paste any URL. FeedZero finds the feed.</h3>
+                <p class="feat-desc">Blogs, podcasts, YouTube channels, Substacks, GitHub releases. If it ships a feed (most do), you can read it.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-urlbar">
@@ -1427,8 +1445,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
                     Sync<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">Read on your laptop, pick up on your phone.</h3>
-                <p class="feat-desc">Turn on sync and your subscriptions, folders, and read state follow you to every device. Encryption happens in the browser using a four-word passphrase. The server only ever sees ciphertext, so we can't read your data. Sync is included on every tier, no account, no license.</p>
+                <h3 class="feat-title">Pick up where you left off, anywhere.</h3>
+                <p class="feat-desc">Subscriptions, folders, and read state follow you. Encrypted in your browser with a four-word passphrase — the server only ever sees ciphertext. Included on every tier.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-sync-words">
@@ -1457,7 +1475,7 @@
                     Keyboard-driven<span class="badge badge-free">Free</span>
                 </span>
                 <h3 class="feat-title">Faster than scrolling Twitter.</h3>
-                <p class="feat-desc">Feeds load from memory. Articles switch instantly. Move with <kbd>j</kbd>/<kbd>k</kbd>, jump feeds with <kbd>u</kbd>, open the original with <kbd>o</kbd>. Or just click everything. Both work the same way.</p>
+                <p class="feat-desc">Move with <kbd>j</kbd>/<kbd>k</kbd>, jump feeds with <kbd>u</kbd>, open the original with <kbd>o</kbd>. Or click. Both work the same way.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-keys">
@@ -1477,7 +1495,7 @@
                     Switch readers<span class="badge badge-free">Free</span>
                 </span>
                 <h3 class="feat-title">Bring your subscriptions. Folders and all.</h3>
-                <p class="feat-desc">Coming from Feedly, Inoreader, or NetNewsWire? Import your OPML and the folders are preserved, not flattened. Want to leave? Export the same way. Your subscription list belongs to you.</p>
+                <p class="feat-desc">Import OPML from Feedly, Inoreader, or NetNewsWire — folders preserved, not flattened. Export the same way, any time.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-opml-top">
@@ -1501,8 +1519,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
                     Starring<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">Star it now. Read it later. Even offline.</h3>
-                <p class="feat-desc">Hit <kbd>s</kbd> on any article to save it. Starred items land in a virtual feed in the sidebar, sorted by date. It's your "read later" pile, and it doesn't get lost in the flow. With sync (free), starred items follow you across devices. On Personal, FeedZero also downloads the full text of starred articles in the background, so the train ride home is covered.</p>
+                <h3 class="feat-title">Star now. Read later. Even offline.</h3>
+                <p class="feat-desc">Hit <kbd>s</kbd> to save any article. Personal also downloads the full text in the background — covered on the train, on the plane, anywhere.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-star">
@@ -1523,7 +1541,7 @@
                     Auto-organize<span class="badge badge-paid">Paid</span>
                 </span>
                 <h3 class="feat-title">A button that files your feeds for you.</h3>
-                <p class="feat-desc">Click the wand and FeedZero groups your feeds into topic folders (tech, news, science, design, sports, and more) based on what each feed actually publishes. Tweak the result, or undo it. No AI, no round trip to a server.</p>
+                <p class="feat-desc">One click and FeedZero sorts your subscriptions into topic folders. Tweak it, undo it. On-device, no AI.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-pills">
@@ -1547,7 +1565,7 @@
                     Smart Filters<span class="badge badge-paid">Paid</span>
                 </span>
                 <h3 class="feat-title">Smart Playlists, for the news.</h3>
-                <p class="feat-desc">Build a rule once and FeedZero keeps a live feed of every matching article. <em>"AI news, this week, unread."</em> <em>"Anything from these three feeds I starred."</em> <em>"Everything tagged 'launch'."</em> Stack conditions, nest them with AND/OR/NOT, sync them across devices. Like iTunes Smart Playlists, for your reading.</p>
+                <p class="feat-desc"><em>"AI news, this week, unread."</em> Stack conditions with AND/OR/NOT and FeedZero keeps a live feed of every match. Syncs across devices.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-filter-row">
@@ -1570,7 +1588,7 @@
                     Discover<span class="badge badge-free">Free</span>
                 </span>
                 <h3 class="feat-title">1,300+ hand-picked feeds to start from.</h3>
-                <p class="feat-desc">Not sure what to follow? Browse a curated catalog: tech, world news, science, culture, finance, sports, design. Organized by topic and country. One click to subscribe.</p>
+                <p class="feat-desc">Browse a curated catalog by topic and country. One click to subscribe.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-favs">
@@ -1591,8 +1609,8 @@
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="14" y2="18"/></svg>
                     Full text<span class="badge badge-free">Free</span>
                 </span>
-                <h3 class="feat-title">Read the article, not just the teaser.</h3>
-                <p class="feat-desc">Some feeds publish only the first paragraph to drive clicks back to their site. FeedZero pulls the full article so you stay in the reader. No clickbait detour.</p>
+                <h3 class="feat-title">Read the article, not the teaser.</h3>
+                <p class="feat-desc">When a feed only ships the first paragraph, FeedZero fetches the rest. Stay in the reader.</p>
             </div>
             <div class="feat-tile">
                 <div class="tile-para">
@@ -1623,15 +1641,15 @@
                     Offline<span class="badge badge-free">Free</span>
                 </span>
                 <h3>Reads on the train.</h3>
-                <p>Already-loaded articles stay readable even without a connection. Subway, plane, the back of the cafe with bad Wi-Fi.</p>
+                <p>Loaded articles stay readable without a connection.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
                     <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
                     Mobile<span class="badge badge-free">Free</span>
                 </span>
-                <h3>Phone-first, not phone-afterthought.</h3>
-                <p>A swipeable bottom drawer for everything, snap-scroll between the article list and the reader, safe-area support for the notch and Dynamic Island.</p>
+                <h3>Phone-first, not afterthought.</h3>
+                <p>Swipeable drawer, snap-scroll list, safe-area for the notch.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
@@ -1639,7 +1657,7 @@
                     No account<span class="badge badge-free">Free</span>
                 </span>
                 <h3>No sign-up, ever.</h3>
-                <p>No email, no password, no "sign in with Google." Open the app and start reading. Sync is account-free too: a four-word passphrase, not a login.</p>
+                <p>No email, no password, no "sign in with Google." Sync uses a passphrase, not a login.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
@@ -1647,7 +1665,7 @@
                     Privacy<span class="badge badge-free">Free</span>
                 </span>
                 <h3>Nobody's tracking your reading.</h3>
-                <p>No ads, no analytics SDKs, no Google Tag Manager, no Facebook Pixel. We don't log what you read or who you are. The privacy policy says it because the code does it.</p>
+                <p>No ads, no analytics SDKs, no Tag Manager, no Pixel. We don't log what you read.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
@@ -1655,7 +1673,7 @@
                     Self-host<span class="badge badge-free">Free</span>
                 </span>
                 <h3>Run your own, in three commands.</h3>
-                <p>Clone the repo, copy <code>.env.example</code>, run <code>./scripts/feedzero up</code>. Docker, Caddy, automatic TLS. amd64 and arm64 images on GHCR, including Raspberry Pi.</p>
+                <p>Docker, Caddy, automatic TLS. amd64 and arm64 on GHCR, Pi included.</p>
             </div>
             <div class="mini">
                 <span class="eyebrow">
@@ -1663,7 +1681,7 @@
                     AGPL<span class="badge badge-free">Free</span>
                 </span>
                 <h3>Read the code.</h3>
-                <p>Every claim on this page is checkable in the source. The code is on <a href="https://github.com/forcingfx/feedzero" rel="noopener">GitHub</a> under AGPL-3.0-or-later. Read it, fork it, run your own, send a patch.</p>
+                <p>Every claim is auditable. Code on <a href="https://github.com/forcingfx/feedzero" rel="noopener">GitHub</a> under AGPL-3.0.</p>
             </div>
         </div>
     </div>
@@ -1675,10 +1693,9 @@
     </section>
 
     <section id="compare">
-        <h2>How FeedZero compares</h2>
-        <p style="color:#475569; font-size:0.92rem; margin-bottom:1rem;">
-            Every reader on this list does the same core job: subscribe to feeds, show new posts. The differences are platform, price, privacy, and how far the power tools go. Footnoted sources at the bottom.
-        </p>
+        <p class="section-eye">Versus the others</p>
+        <h2>How FeedZero compares.</h2>
+        <p class="section-intro">Same core job. The differences are platform, price, privacy, and how far the power tools go.</p>
 
         <div class="compare-panel">
         <table class="compare-table">
@@ -1851,10 +1868,9 @@
     </section>
 
     <section id="pricing">
-        <h2>Pricing</h2>
-        <p>
-            Free in your browser, with encrypted sync across devices included. Unlimited feeds, auto-organize, smart filters, and offline prefetch are on the Personal plan: free for 30 days, then $5 a month. Or self-host the whole thing for free.
-        </p>
+        <p class="section-eye">What it costs</p>
+        <h2>Free in your browser. $5 for the power tools.</h2>
+        <p class="section-intro">Encrypted sync is included on every tier. Personal lifts the 50-feed cap and adds auto-organize, smart filters, and offline prefetch. Self-host unlocks everything, free.</p>
 
         <div class="plans-mini">
             <article class="plan-mini">
@@ -1903,83 +1919,83 @@
     </section>
 
     <section id="faq">
-        <h2>Common questions</h2>
+        <p class="section-eye">FAQ</p>
+        <h2>Things people ask.</h2>
 
         <div class="faq">
             <details>
                 <summary>If it's open source, why does anything cost money?</summary>
                 <div class="faq-body">
-                    <p>The reader runs in your browser, which costs us nothing, so it's free. Cross-device sync is free too, because reading across devices shouldn't sit behind a paywall. The Personal plan covers the heavier features: auto-organize, smart filters, offline prefetch of starred articles, and the lifted 50-feed cap.</p>
-                    <p>The $5 covers it. No VCs, no ads, no upsells, no data sales. If you'd rather not pay, self-host. It's the same code, AGPL-licensed, free.</p>
+                    <p>The reader and encrypted sync are free — they cost us nothing. The Personal plan covers the heavy ones: auto-organize, smart filters, offline prefetch, and the lifted 50-feed cap. No VCs, no ads, no data sales. If you'd rather not pay, self-host. Same code, AGPL, free.</p>
                 </div>
             </details>
             <details>
                 <summary>What if I cancel my subscription?</summary>
                 <div class="faq-body">
-                    <p>The reader keeps working. Everything you read locally stays local. Sync keeps working too; it's free for everyone. You lose auto-organize, smart filters, offline prefetch of starred articles, and the 50-feed cap comes back. You can re-subscribe any time, or export to OPML and walk away.</p>
+                    <p>The reader keeps working. Sync keeps working — it's free for everyone. You lose auto-organize, smart filters, offline prefetch, and the 50-feed cap comes back. Re-subscribe any time, or export to OPML and walk away.</p>
                 </div>
             </details>
             <details>
-                <summary>Is sync really private? You're storing my data on your server.</summary>
+                <summary>Is sync really private? You're storing my data.</summary>
                 <div class="faq-body">
-                    <p>Yes. Encryption happens in your browser using a four-word passphrase that only you know. The server never sees that passphrase. It stores a blob of ciphertext that it has no way to decrypt: not for support, not for a subpoena, not for us.</p>
-                    <p>Lose the passphrase and your cloud data is gone. There is no reset. That's the trade-off for the server never holding the key.</p>
+                    <p>Yes. Encryption happens in your browser with a four-word passphrase only you know. The server holds ciphertext it has no way to decrypt — not for support, not for a subpoena, not for us. Lose the passphrase and your cloud data is gone. There's no reset; that's the trade-off.</p>
                 </div>
             </details>
             <details>
-                <summary>I bought a license. Can I use it on my other devices?</summary>
+                <summary>One license, multiple devices?</summary>
                 <div class="faq-body">
-                    <p>Yes. One Personal subscription covers every device you use. Open the app on a new laptop or phone, enter your sync passphrase to restore your subscriptions and read state, then paste your license token to unlock the Personal features. No per-device fees, no seat limits.</p>
+                    <p>Yes. One Personal subscription covers every device. Enter your sync passphrase to restore, paste your license to unlock. No per-device fees, no seat limits.</p>
                 </div>
             </details>
             <details>
                 <summary>What's the catch with "Free"?</summary>
                 <div class="faq-body">
-                    <p>No catch. The free tier is the full reader: same UI, same speed, same keyboard shortcuts, same OPML export, same encrypted sync across devices. You're capped at 50 feed subscriptions; beyond that, subscribe or self-host. No card, no email, no "free for the first month then we charge you."</p>
+                    <p>No catch. Full reader, same speed, same OPML export, same encrypted sync. Capped at 50 feed subscriptions; beyond that, subscribe or self-host.</p>
                 </div>
             </details>
             <details>
                 <summary>Why should I care about RSS in 2026?</summary>
                 <div class="faq-body">
-                    <p>Because every link you click is shaped by someone else's algorithm. RSS is the opposite: you pick what you follow, you see everything they publish, in the order it happened. No promoted posts. No "you might also like." No quietly-deprecated emails. It is a small, stubborn corner of the internet that still works the way you'd expect.</p>
+                    <p>Every link you click is shaped by someone else's algorithm. RSS is the opposite: you pick what you follow, you see everything they publish, in the order it happened. A small, stubborn corner of the internet that still works.</p>
                 </div>
             </details>
             <details>
-                <summary>What happens if FeedZero shuts down tomorrow?</summary>
+                <summary>What if FeedZero shuts down tomorrow?</summary>
                 <div class="faq-body">
-                    <p>Export your subscriptions to OPML (one click, in Settings) and import them into any other reader. Or spin up the open-source build on your own server: the code is AGPL, the Docker image is on GHCR, the self-hosting guide is in the repo. The format is yours to take with you.</p>
+                    <p>Export to OPML in one click and import into any other reader. Or run the open-source build yourself: AGPL code, Docker image on GHCR, self-hosting guide in the repo. The format is yours.</p>
                 </div>
             </details>
         </div>
     </section>
 
     <section id="privacy">
-        <h2>Privacy</h2>
-        <p>Your subscriptions and reading history live in your browser, encrypted at rest. When you turn on sync, the server stores an encrypted vault. The keys never leave the browser, so the server holds ciphertext and nothing else.</p>
-        <p>There are no third-party trackers, no ads, no analytics SDKs, no crash reporters. We count anonymous usage to know what's working. We don't log what you read or who you are. The server does see the addresses of the feeds you subscribe to, because it fetches them on your behalf. If that bothers you, self-host. The code is open source and reproducible.</p>
-        <p>For the curious: local storage uses AES-GCM-256 with PBKDF2 key derivation at 600,000 iterations. Sync derives keys in the browser from a four-word passphrase generated from the EFF wordlist. Full threat model and known limitations are in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md" rel="noopener">SECURITY.md</a>.</p>
+        <p class="section-eye">Privacy</p>
+        <h2>We can't read your data. By design.</h2>
+        <p>Your subscriptions and reading history live in your browser, encrypted. Turn on sync and the server stores a vault it has no way to decrypt — the keys never leave your device.</p>
+        <p>No third-party trackers, no analytics SDKs, no ads. We don't log what you read. The server sees the feed addresses (it fetches them on your behalf); if that bothers you, self-host.</p>
+        <p>For the curious: AES-GCM-256 with PBKDF2 at 600k iterations; sync keys derived from a four-word EFF-wordlist passphrase. Threat model and limits in <a href="https://github.com/forcingfx/feedzero/blob/main/SECURITY.md" rel="noopener">SECURITY.md</a>.</p>
     </section>
 
     <section id="source">
-        <h2>Open source</h2>
+        <p class="section-eye">Open source</p>
+        <h2>Read the code. Run your own.</h2>
+        <p class="section-intro">Source on <a href="https://github.com/forcingfx/feedzero" rel="noopener">GitHub</a> under <a href="https://github.com/forcingfx/feedzero/blob/main/LICENSE" rel="noopener">AGPL-3.0-or-later</a>. Audit it, fork it, send a patch.</p>
         <p>
-            Every claim on this page is auditable. The source is on <a href="https://github.com/forcingfx/feedzero" rel="noopener">GitHub</a> under <a href="https://github.com/forcingfx/feedzero/blob/main/LICENSE" rel="noopener">AGPL-3.0-or-later</a>. Read it. Audit it. Fork it. Run your own copy. Send a patch.
-        </p>
-        <p>
-            Self-hosting takes three commands once Docker is installed:
+            Self-hosting, three commands:
         </p>
         <pre style="background:#0f172a; color:#e2e8f0; padding:0.9rem 1.1rem; border-radius:8px; font-size:0.82rem; line-height:1.6; overflow-x:auto; font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace; margin: 0 0 1rem;"><span style="color:#94a3b8">$</span> git clone https://github.com/forcingfx/feedzero.git
 <span style="color:#94a3b8">$</span> cd feedzero <span style="color:#94a3b8">&amp;&amp;</span> cp .env.example .env
 <span style="color:#94a3b8">$</span> ./scripts/feedzero up</pre>
         <p>
-            Caddy handles automatic TLS, multi-arch images (amd64 + arm64) ship from GHCR on every release, and day-2 ops (<code>update</code>, <code>backup</code>, <code>restore</code>, <code>logs</code>, <code>doctor</code>) are one command each. Full walkthrough in the <a href="https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md" rel="noopener">self-hosting guide</a>.
+            Automatic TLS, multi-arch images, one-command day-2 ops. Full walkthrough in the <a href="https://github.com/forcingfx/feedzero/blob/main/docs/self-hosting.md" rel="noopener">self-hosting guide</a>.
         </p>
     </section>
 
     <section id="releases">
-        <h2>Release notes</h2>
+        <p class="section-eye">Changelog</p>
+        <h2>What's new.</h2>
         <p class="releases-intro">
-            What changed in each release, newest first. Also available as an <a href="/releases.xml">Atom feed</a>.
+            Newest first. Also an <a href="/releases.xml">Atom feed</a>.
         </p>
 
         <div class="release-accordion">

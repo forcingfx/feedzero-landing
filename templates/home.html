@@ -82,8 +82,28 @@
             h2 { font-size: 1.45rem; }
         }
         section {
-            margin-top: 2.75rem;
+            margin-top: 5rem;
             scroll-margin-top: 64px;
+        }
+        .section-eye {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            margin: 0 0 0.6rem;
+        }
+        section > p:first-of-type.section-intro {
+            color: #475569;
+            font-size: 1.02rem;
+            line-height: 1.55;
+            max-width: 36rem;
+            margin: 0 0 1.5rem;
+        }
+        @media (max-width: 520px) {
+            section { margin-top: 3.5rem; }
+            section > p:first-of-type.section-intro { font-size: 0.95rem; }
         }
         section > p:last-child,
         section > ul:last-child { margin-bottom: 0; }
@@ -1330,6 +1350,7 @@
     </aside>
 
     <section id="about">
+        <p class="section-eye">{{aboutEyebrow}}</p>
         <h2>{{aboutHeading}}</h2>
 
         <div class="intro-card">
@@ -1340,10 +1361,9 @@
     </section>
 
     <section id="features">
-    <h2>{{featuresHeading}}</h2>
-    <p style="color:#475569; font-size:0.92rem; margin-bottom:1rem;">
-        {{featuresIntro}}
-    </p>
+        <p class="section-eye">{{featuresEyebrow}}</p>
+        <h2>{{featuresHeading}}</h2>
+        <p class="section-intro">{{featuresIntro}}</p>
 
     <div class="panel">
     <ul class="features">
@@ -1365,10 +1385,9 @@
     </section>
 
     <section id="compare">
+        <p class="section-eye">{{compareEyebrow}}</p>
         <h2>{{compareHeading}}</h2>
-        <p style="color:#475569; font-size:0.92rem; margin-bottom:1rem;">
-            {{compareIntro}}
-        </p>
+        <p class="section-intro">{{compareIntro}}</p>
 
         <div class="compare-panel">
 {{compareTable}}
@@ -1380,10 +1399,9 @@
     </section>
 
     <section id="pricing">
+        <p class="section-eye">{{pricingEyebrow}}</p>
         <h2>{{pricingHeading}}</h2>
-        <p>
-            {{pricingIntro}}
-        </p>
+        <p class="section-intro">{{pricingIntro}}</p>
 
         <div class="plans-mini">
 {{pricingPlans}}
@@ -1395,6 +1413,7 @@
     </section>
 
     <section id="faq">
+        <p class="section-eye">{{faqEyebrow}}</p>
         <h2>{{faqHeading}}</h2>
 
         <div class="faq">
@@ -1403,15 +1422,15 @@
     </section>
 
     <section id="privacy">
+        <p class="section-eye">{{privacyEyebrow}}</p>
         <h2>{{privacyHeading}}</h2>
 {{privacyBody}}
     </section>
 
     <section id="source">
+        <p class="section-eye">{{sourceEyebrow}}</p>
         <h2>{{sourceHeading}}</h2>
-        <p>
-            {{sourceIntro}}
-        </p>
+        <p class="section-intro">{{sourceIntro}}</p>
         <p>
             {{sourceCommandsIntro}}
         </p>
@@ -1422,6 +1441,7 @@
     </section>
 
     <section id="releases">
+        <p class="section-eye">{{releasesEyebrow}}</p>
         <h2>{{releasesHeading}}</h2>
         <p class="releases-intro">
             {{releasesIntro}}

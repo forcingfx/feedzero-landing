@@ -338,12 +338,14 @@ async function buildHome() {
     shutdownHeading: renderInline(c.shutdown.heading),
     shutdownItems,
 
+    aboutEyebrow: renderInline(c.about.eyebrow),
     aboutHeading: renderInline(c.about.heading),
     aboutCard:
       renderParagraphs(c.about.card, "            ") +
       `\n            <p class="compare">${renderInline(c.about.compare)}</p>`,
     aboutBody: renderParagraphs(c.about.body, "        "),
 
+    featuresEyebrow: renderInline(c.features.eyebrow),
     featuresHeading: renderInline(c.features.heading),
     featuresIntro: renderInline(c.features.intro),
     featuresItems: renderFeatureItems(c.features.items, partials),
@@ -353,28 +355,34 @@ async function buildHome() {
     ctaStripHref: c.features.ctaStrip.ctaHref,
     ctaStripLabel: renderInline(c.features.ctaStrip.ctaLabel),
 
+    compareEyebrow: renderInline(c.compare.eyebrow),
     compareHeading: renderInline(c.compare.heading),
     compareIntro: renderInline(c.compare.intro),
     compareTable: renderCompare(c.compare),
     compareFootnote: renderInline(c.compare.footnote),
 
+    pricingEyebrow: renderInline(c.pricing.eyebrow),
     pricingHeading: renderInline(c.pricing.heading),
     pricingIntro: renderInline(c.pricing.intro),
     pricingPlans: renderPricingMinis(c.pricing.plans),
     pricingSeeAll: renderInline(c.pricing.seeAll),
 
+    faqEyebrow: renderInline(c.faq.eyebrow),
     faqHeading: renderInline(c.faq.heading),
     faqItems: renderFaq(c.faq.items),
 
+    privacyEyebrow: renderInline(c.privacy.eyebrow),
     privacyHeading: renderInline(c.privacy.heading),
     privacyBody: renderParagraphs(c.privacy.body, "        "),
 
+    sourceEyebrow: renderInline(c.source.eyebrow),
     sourceHeading: renderInline(c.source.heading),
     sourceIntro: renderInline(c.source.intro),
     sourceCommandsIntro: renderInline(c.source.commandsIntro),
     sourceCommands: renderSourceCommands(c.source.commands),
     sourceOutro: renderInline(c.source.outro),
 
+    releasesEyebrow: renderInline(c.releases.eyebrow),
     releasesHeading: renderInline(c.releases.heading),
     releasesIntro: renderInline(c.releases.intro),
     releaseNotes: buildAccordion(releases),
