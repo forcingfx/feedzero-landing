@@ -32,6 +32,24 @@
  */
 export const releases = [
   {
+    version: "0.12.0",
+    date: "2026-05-31T12:00:00Z",
+    title: "Paywall false-positive fix and automatic TLS for LAN self-hosts",
+    subtitle:
+      "Free, fully-readable articles no longer show a false paywall box, and self-hosted deployments on a LAN or bare IP now serve HTTPS without manual certificate setup.",
+    added: [
+      "Added the running application version to Settings, so the installed build is visible at a glance.",
+      "Added Windows PowerShell parity to the self-host script. <code>feedzero.ps1</code> now classifies the host and selects self-signed internal TLS for IP, localhost, and .local deployments, matching the existing shell script.",
+    ],
+    changed: [
+      "Simplified the README and self-hosting guide to a one-command Docker quickstart from the public image, with the longer day-2 and troubleshooting material kept behind it.",
+    ],
+    fixed: [
+      "Fixed free, fully-readable articles being flagged as paywalled. Full-text extraction now treats a substantial extraction as the definitive readable signal and runs paywall heuristics only as a fallback on the extracted teaser, so subscribe prompts in page navigation and footers no longer trigger a false paywall box.",
+      "Fixed self-hosted deployments on a LAN or bare IP serving plain HTTP on the HTTPS port, which produced <code>SSL_ERROR_RX_RECORD_TOO_LONG</code>. The server CLI now classifies the host and serves self-signed internal TLS automatically for IP, localhost, and .local hostnames.",
+    ],
+  },
+  {
     version: "0.11.0",
     date: "2026-05-22T12:00:00Z",
     title: "Signal, free cloud sync, per-feed rules, and auto-refresh",
