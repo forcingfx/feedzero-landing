@@ -57,11 +57,38 @@ async function startDevServer(port) {
   return vite;
 }
 
+/**
+ * Deterministic TEST-ONLY key material, structurally identical to what
+ * `deriveAndStoreKeys` persists. Since the derived-keys boot FSM, the
+ * onboarding flag ALONE describes a returning user whose keys were lost,
+ * so the app correctly re-onboards and every screenshot captures the
+ * Welcome modal instead of the app. Seeding keys makes the seeded user
+ * healthy. Throwaway keys, ephemeral browser context, fixture data only.
+ */
+const SCREENSHOT_DERIVED_KEYS = {
+  dbKeyJwk: {
+    key_ops: ["encrypt", "decrypt"],
+    ext: true,
+    alg: "A256GCM",
+    kty: "oct",
+    k: "uufadNILu9haiuTZpAV7KkAyLaSplHksqAq3ZWo6zzQ",
+  },
+  hmacKeyJwk: {
+    key_ops: ["sign", "verify"],
+    ext: true,
+    alg: "HS256",
+    kty: "oct",
+    k: "DrC9QNFuBcHuGblZ8MbRyEQ9ajnQqxOf2ikaSSg4D-5YSxxPRXnnDSWPl-kxdB8jMh1Uzlq2wgtliTOOWf23iA",
+  },
+  dbSalt: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+};
+
 async function screenshotExplore(page, baseUrl) {
-  await page.addInitScript(() => {
+  await page.addInitScript((keys) => {
     localStorage.setItem("feedzero:onboarding-complete", "true");
     localStorage.setItem("feedzero:storage-mode", "local");
-  });
+    localStorage.setItem("feedzero:derived-keys", JSON.stringify(keys));
+  }, SCREENSHOT_DERIVED_KEYS);
 
   await page.goto(`${baseUrl}/explore`);
   await page.getByRole("heading", { name: "Explore" }).waitFor({ timeout: 15000 });
@@ -70,10 +97,11 @@ async function screenshotExplore(page, baseUrl) {
 }
 
 async function screenshotFeeds(page, baseUrl) {
-  await page.addInitScript(() => {
+  await page.addInitScript((keys) => {
     localStorage.setItem("feedzero:onboarding-complete", "true");
     localStorage.setItem("feedzero:storage-mode", "sync");
-  });
+    localStorage.setItem("feedzero:derived-keys", JSON.stringify(keys));
+  }, SCREENSHOT_DERIVED_KEYS);
 
   // Start at Explore to add feeds
   await page.goto(`${baseUrl}/explore`);

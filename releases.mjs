@@ -32,6 +32,37 @@
  */
 export const releases = [
   {
+    version: "0.13.0",
+    date: "2026-08-02T12:00:00Z",
+    title: "Mobile reading rebuilt around gestures",
+    subtitle:
+      "The reader opens as a layer over the article list, rows swipe to mark read, lists pull to refresh, and mark-all-read can be undone. Reader text size is now adjustable, and expired license tokens explain themselves.",
+    affects: ["mobile", "keyboard"],
+    added: [
+      "Added pull-to-refresh to the article list on mobile. Dragging down from the top refreshes the current view, scoped the same way the refresh control is: a single feed refreshes only that feed, a folder only its members, and an aggregated view every feed.",
+      "Added swipe-to-mark-read on mobile. Swiping an article row to the right toggles it between read and unread, with a coloured underlay showing which action will commit.",
+      "Added an undo action to mark-all-read. Marking a view read now shows a toast that restores exactly the articles it touched, from both the floating pill and the command palette.",
+      "Added a keyboard shortcuts overlay on <code>?</code>. The command palette advertised the shortcut previously without implementing it. The overlay and the list in Settings now render from one source, so they cannot drift apart.",
+      "Added a share button to the reader. It opens the system share sheet where the browser provides one and copies the link otherwise.",
+      "Added a reader text size preference with small, medium, and large options in Settings, stored in the encrypted vault and synced across devices.",
+      "Added Explore and Settings shortcuts to the mobile dock strip, and an upward swipe on the strip now opens the feed drawer.",
+      "Added loading skeletons for the article list and for Explore, Signal, Stats, and Settings, which previously rendered blank while loading.",
+    ],
+    changed: [
+      "Rebuilt mobile navigation around the reader as a layer over the article list. Tapping an article opens it, and swiping right or using the back control closes it. The article list stays in place underneath, so returning from an article keeps your scroll position. Swiping the list itself no longer drags the reader in, which frees horizontal swipes for row actions.",
+      "Consolidated the mobile header into a single view-options menu holding sort order and the settings entry for the current feed, folder, or filter. Refresh moved to the pull-to-refresh gesture and the drawer, and the refresh status line moved into the drawer beside it, leaving a colour dot in the header.",
+      "Made unread counts visible on mobile, where the badges were previously hidden, and added an aggregate unread count to folder rows.",
+      "Centred the reader column on wide screens, which previously left text against the left edge with empty space beside it.",
+      "Increased interactive controls to a 44 pixel touch target across the mobile interface without changing how they look.",
+      "Stopped the mobile dock reordering its feed shortcuts on every tap. Recently viewed feeds still decide which shortcuts appear, but their positions now follow the sidebar order and stay put.",
+    ],
+    fixed: [
+      "Fixed an expired license token reporting raw timestamps on activation. The error now names the expiry date and links to email recovery, and a token rejected for a clock mismatch or a truncated copy says so.",
+      "Fixed toasts covering the mobile navigation dock.",
+      "Fixed toasts ignoring the selected theme and always rendering dark.",
+    ],
+  },
+  {
     version: "0.12.0",
     date: "2026-05-31T12:00:00Z",
     title: "Paywall false-positive fix and automatic TLS for LAN self-hosts",
