@@ -5,7 +5,8 @@
  *   content/home.md          -> index.html
  *   content/pricing.md       -> pricing/index.html
  *   content/legal/<x>.md     -> legal/<x>/index.html
- *   releases.mjs             -> releases.xml  (+ the homepage accordion)
+ *   releases.mjs             -> the homepage accordion (the Atom feed itself
+ *                               is served by the app repo; see buildAll)
  *
  * Content lives in markdown/frontmatter files under content/. Layout, CSS, and
  * the bespoke feature-tile illustrations live under templates/. This script is
@@ -15,7 +16,7 @@
  * Run after editing content, templates, or releases.mjs:
  *   node build.mjs
  *
- * Commit the regenerated HTML (and releases.xml) so Vercel serves them.
+ * Commit the regenerated HTML so Vercel serves it.
  */
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
@@ -23,7 +24,7 @@ import { dirname, join } from "node:path";
 import { fileURLToPath, pathToFileURL } from "node:url";
 import { parseFrontmatter, renderInline, renderMarkdown } from "./lib/markdown.mjs";
 import { releases } from "./releases.mjs";
-import { buildFeed, buildAccordion } from "./lib/releases.mjs";
+import { buildAccordion } from "./lib/releases.mjs";
 
 const ROOT = dirname(fileURLToPath(import.meta.url));
 const VERSION = releases[0].version;
@@ -638,7 +639,14 @@ ${entries}
 // ---------- Main ----------
 
 export async function buildAll() {
-  await write("releases.xml", buildFeed(releases));
+  // releases.xml is NOT written here any more. The app repo owns the feed and
+  // serves it from my.feedzero.app; vercel.json rewrites /releases.xml to it
+  // so subscribers keep the same URL. A static file here would win over the
+  // rewrite (Vercel checks the filesystem first) and shadow the real feed.
+  //
+  // releases.mjs stays as the render source for the homepage accordion. It
+  // mirrors the app repo's release-notes.mjs; drift shows up only as a stale
+  // accordion on the next landing deploy, never in the feed subscribers read.
   await buildHome();
   await buildPricing();
   await buildLegal();
