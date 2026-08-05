@@ -38,5 +38,11 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/releases.xml",
+      "destination": "https://my.feedzero.app/releases.xml"
+    }
   ]
 }
